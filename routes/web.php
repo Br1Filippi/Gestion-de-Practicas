@@ -12,3 +12,9 @@ Route::get('/usuarios/login',[UsuariosController::class,'login'])->name('usuario
 //Rutas Publicas sin AUTH
 
 //Rutas Privadas
+
+//Empresa
+
+//Empresa
+
+//Rutas Privadas

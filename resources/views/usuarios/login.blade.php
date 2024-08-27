@@ -14,7 +14,7 @@
                 <div class="card w-100">
                     <div class="card-body">
                         <h5 class="card-title mb-4"><strong>Iniciar Sesión</strong></h5>
-                        <form method="POST" action="">
+                        <form method="POST" action="{{ route('usuarios.autenticar') }}">
                             @csrf
                             {{-- Input Email --}}
                             <div class="mb-3">

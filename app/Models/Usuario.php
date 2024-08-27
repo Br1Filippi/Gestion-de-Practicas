@@ -18,9 +18,6 @@ class Usuario extends Authenticatable
     public $incrementing = false;
     public $timestamps = false;
 
-    protected $fillable = [
-        'nombre' , 'correo_usuario' , 'contra'
-    ];
 
     //Relaciones
     public function roles()

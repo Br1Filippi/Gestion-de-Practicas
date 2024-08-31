@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relation\HasMany;
+use Illuminate\Database\Eloquent\Relation\HasOne;
 
 class Empresa extends Model
 {
@@ -14,9 +15,9 @@ class Empresa extends Model
 
     public $timestamps = false;
 
-    public function usuarios():HasMany
+    public function usuarios():HasOne
     {
-        return $this->hasMany(Usuario::class);
+        return $this->hasOne(Usuario::class);
     }
 
     public function supervisores():HasMany

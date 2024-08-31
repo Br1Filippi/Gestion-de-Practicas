@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\OfertasController;
 
 
 //Rutas Publicas sin AUTH
@@ -16,5 +17,9 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
 //Empresa
 
 //Empresa
+
+//Oftertas
+Route::get('/ofertas',[OfertasController::class,'index'])->name('ofertas.index');
+//Oftertas
 
 //Rutas Privadas

@@ -7,7 +7,8 @@ use App\Http\Controllers\OfertasController;
 
 
 //Rutas Publicas sin AUTH
-Route::get('/',[HomeController::class,'index'])->name('templates.master');
+Route::get('/',[HomeController::class,'index'])->name('home.index');
+Route::get('/inicio',[HomeController::class,'inicio'])->name('home.fond');
 Route::get('/usuarios/login',[UsuariosController::class,'login'])->name('usuarios.login');
 Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->name('usuarios.autenticar');
 //Rutas Publicas sin AUTH

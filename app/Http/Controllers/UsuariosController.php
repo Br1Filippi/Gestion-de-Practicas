@@ -15,12 +15,19 @@ class UsuariosController extends Controller
 
     public function autenticar(Request $request)
     {
-        $credentiales = ['correo_usuario'=>$request->email,'contra'=>$request->password];
+        $credentials = ['correo_usuario'=>$request->email,'password'=>$request->password];
 
-        if(Auth::attempt($credentiales))
+        if(Auth::attempt($credentials))
         {
             $request->session()->regenerate();
-            return redirect()->route('templates.master');
+
+            $usuario = Auth::user();
+            $rol = $usuario->roles()->first()->nombre; 
+
+            if ($rol == 'Empresa'){
+                return redirect()->route('ofertas.index');
+            }
+                
         }
         return back()->withErrors('Correo o Contraseña Incorrectas!')->onlyInput('email');
     }

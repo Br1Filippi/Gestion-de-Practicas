@@ -18,42 +18,42 @@ class UsuariosSeeder extends Seeder
 
             [
                 'correo_usuario' => 'DagobertoCabrera@usm.cl',
-                'contra' => Hash::make('123'),
+                'password' => Hash::make('123'),
                 'nombre' => 'Dagoberto',
                 'apellido' => 'Cabrera',
 
             ],
             [
                 'correo_usuario' => 'CarlosAlten@usm.cl',
-                'contra' => Hash::make('123'),
+                'password' => Hash::make('123'),
                 'nombre' => 'Carlos',
                 'apellido' => 'Alten',
                 
             ],
             [
                 'correo_usuario' => 'Maxicraft13@usm.cl',
-                'contra' => Hash::make('123'),
+                'password' => Hash::make('123'),
                 'nombre' => 'Maximiliano',
                 'apellido' => 'Salazar',
                 
             ],
             [
                 'correo_usuario' => 'PaoloRuiz@usm.cl',
-                'contra' => Hash::make('123'),
+                'password' => Hash::make('123'),
                 'nombre' => 'Paolo',
                 'apellido' => 'Ruiz',
                 
             ],
             [
                 'correo_usuario' => 'RicardoCahe@usm.cl',
-                'contra' => Hash::make('123'),
+                'password' => Hash::make('123'),
                 'nombre' => 'Ricardo',
                 'apellido' => 'Cahe',
                 
             ],
             [
                 'correo_usuario' => 'bfilippi@usm.cl',
-                'contra' => Hash::make('123'),
+                'password' => Hash::make('123'),
                 'nombre' => 'Bruno',
                 'apellido' => 'Filippi',
                 

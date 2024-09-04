@@ -11,18 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('supervisores',function(Blueprint $table){
+        Schema::create('tipos',function(Blueprint $table){
             
             $table->id();
-            $table->string('rut_supervisor');
-            $table->string('nombre_supervisor');
-            $table->string('titulo_supervisor');
-            $table->string('fono_supervisor');
-            $table->string('cargo_supervisor');
-            $table->string('firma_supervisor');
-
-            //$table->timestamps();
-            
+            $table->string('nombre');
         });
     }
 

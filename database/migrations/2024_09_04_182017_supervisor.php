@@ -11,24 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ofertas',function(Blueprint $table){
+        Schema::create('supervisores',function(Blueprint $table){
             
             $table->id();
-            $table->date('fecha_publicacion');
-            $table->unsignedBigInteger('cupos');
-            $table->text('descripcion');
-            $table->string('area');
-            $table->string('comuna');
-            $table->string('ciudad');
-            $table->string('tipo');
+            $table->string('rut_supervisor');
+            $table->string('nombre_supervisor');
+            $table->string('titulo_supervisor');
+            $table->string('fono_supervisor');
+            $table->string('cargo_supervisor');
+            $table->string('firma_supervisor');
 
-            //relaciones
             $table->unsignedBigInteger('id_empresa');
             $table->foreign('id_empresa')->references('id')->on('empresas');
 
-            $table->unsignedBigInteger('id_carrera');
-            $table->foreign('id_carrera')->references('id')->on('carreras');
-            
             //$table->timestamps();
             
         });

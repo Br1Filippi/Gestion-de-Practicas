@@ -25,9 +25,6 @@ return new class extends Migration
             $table->string('id_usuario');
             $table->foreign('id_usuario')->references('correo_usuario')->on('usuarios');
 
-            $table->unsignedBigInteger('id_supervisor');
-            $table->foreign('id_supervisor')->references('id')->on('supervisores');
-            
             //$table->timestamps();
             
         });

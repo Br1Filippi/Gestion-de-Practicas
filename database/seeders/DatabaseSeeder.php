@@ -6,6 +6,7 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -18,6 +19,11 @@ class DatabaseSeeder extends Seeder
             RolesSeeder::class,
             UsuariosSeeder::class,
             Rol_UsuarioSeeder::class,
+            EmpresasSeeder::class,
+            SupervisoresSeeder::class,
+            TiposSeeder::class,
+            RegionesSeeder::class,
+            ComunasSeeder::class,
         ]);
     }
 }

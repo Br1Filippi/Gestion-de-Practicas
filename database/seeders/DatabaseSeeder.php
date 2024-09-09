@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             TiposSeeder::class,
             RegionesSeeder::class,
             ComunasSeeder::class,
+            CarrerasSeeder::class,
+            OfertasSeeder::class,
         ]);
     }
 }

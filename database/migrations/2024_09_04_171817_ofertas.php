@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('ofertas',function(Blueprint $table){
             
             $table->id();
+            $table->string('titulo');
             $table->date('fecha_publicacion');
             $table->unsignedBigInteger('cupos');
             $table->text('descripcion');
-            $table->string('area');
 
             //relaciones
             $table->unsignedBigInteger('id_comuna');

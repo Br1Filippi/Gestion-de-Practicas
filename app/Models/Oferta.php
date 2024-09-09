@@ -17,6 +17,6 @@ class Oferta extends Model
     // Definir la relación con la carrera
     public function carrera()
     {
-        return $this->belongsTo(Carrera::class);
+        return $this->belongsTo(Carrera::class, 'id_carrera');
     }
 }

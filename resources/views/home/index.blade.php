@@ -10,7 +10,7 @@
     <div class="container vh-100 d-flex align-items-center justify-content-center">
         <div class="container-fluid">
             <div class="row">
-
+          
                 {{-- Logotipo --}}
                 <div class="col-8">
     

@@ -19,4 +19,8 @@ class Oferta extends Model
     {
         return $this->belongsTo(Carrera::class, 'id_carrera');
     }
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'id_region');
+    }
 }

@@ -8,6 +8,7 @@ use App\Models\Tipo;
 use App\Models\Carrera;
 use App\Models\Region;
 use App\Models\Comuna;
+use App\Models\Empresa;
 
 class OfertasController extends Controller
 {
@@ -18,6 +19,7 @@ class OfertasController extends Controller
         $carreras = Carrera::all(); 
         $regiones = Region::all();
         $comunas = Comuna::all();
-        return view('ofertas.index',compact(['ofertas','tipos','carreras','regiones','comunas']));
+        $empresas = Empresa::all();
+        return view('ofertas.index',compact(['ofertas','tipos','carreras','regiones','comunas','empresas']));
     }
 }

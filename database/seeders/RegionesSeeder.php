@@ -14,8 +14,8 @@ class RegionesSeeder extends Seeder
     public function run(): void
     {
         DB::table('regiones')->insert([
-            ['nombre' => 'Región de Valparaíso'],
-            ['nombre' => 'Región Metropolitana de Santiago'],
+            ['nombre' => 'Valparaíso'],
+            ['nombre' => 'Santiago, Metropolitana'],
         ]);
     }
 }

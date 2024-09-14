@@ -15,13 +15,24 @@ class Empresa extends Model
 
     public $timestamps = false;
 
+
+    //Relaciones
+    
+    // Relación usuario
     public function usuarios():HasOne
     {
         return $this->hasOne(Usuario::class);
     }
 
+    // Relación supervisores
     public function supervisores():HasMany
     {
         return $this->hasMany(Supervisor::class);
+    }
+
+    // Relación ofertas
+    public function ofertas(): HasMany
+    {
+        return $this->hasMany(Oferta::class);
     }
 }

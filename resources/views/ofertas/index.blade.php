@@ -8,19 +8,19 @@
         <div class="row mb-3">
             {{-- Barra de Busqueda --}}
             <div class="row mb-3">
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <input type="text" name="termino" class="form-control" placeholder="Buscar por tus preferencias">
                 </div>
     
                 <!-- Botón de búsqueda -->
-                <div class="col-md-4 d-flex justify-content-end">
+                <div class="col-md-5 d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary">Buscar</button>
                 </div>
             </div>
 
             {{-- Filtros --}}
             <!-- Filtro de Tipo -->
-            <div class="col">
+            <div class="col-2">
                 <select name="tipo" class="form-control">
                     <option value="">Seleccione un tipo</option>
                     @foreach ($tipos as $tipo)
@@ -29,7 +29,7 @@
                 </select>
             </div>
             {{-- Filtro de carrera --}}
-            <div class="col">
+            <div class="col-2">
                 <select name="carrera" class="form-control">
                     <option value="">Seleccione una Carrera</option>
                     @foreach ($carreras as $carrera)
@@ -38,7 +38,7 @@
                 </select>
             </div>
             {{-- Filtro de Region --}}
-            <div class="col">
+            <div class="col-2">
                 <select name="regiones" class="form-control">
                     <option value="">Seleccione una Region</option>
                     @foreach ($regiones as $region)
@@ -47,7 +47,7 @@
                 </select>
             </div>
             {{-- Filtro de Comuna --}}
-            <div class="col">
+            <div class="col-2">
                 <select name="comunas" class="form-control">
                     <option value="">Seleccione una Comuna</option>
                     @foreach ($comunas as $comuna)
@@ -61,28 +61,30 @@
     <div class="d-flex justify-content-center mt-3">
         <div class="row w-100">
             <!-- Columna Izquierda (Ofertas con Scroll) -->
-            <div class="col-md-6 d-flex flex-column align-items-center">
+            <div class="col-md-5 d-flex flex-column align-items-center">
                 <!-- Contenedor con scroll -->
-                <div class="w-75 overflow-auto" style="max-height: 80vh;">
+                <div class="w-70 overflow-auto" style="max-height: 80vh;">
                     @foreach($ofertas as $oferta)
-                        <div class="card mb-1 oferta-card" data-id="{{ $oferta->id }}" onclick="showDetails({{ $oferta->id }})">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $oferta->titulo }}</h5>
+                        <div class="card mb-3 oferta-card " data-id="{{ $oferta->id }}" onclick="showDetails({{ $oferta->id }})">
+                            <div class="card-body ">
+                                <h5 class="card-title"><strong>{{ $oferta->titulo }}</strong></h5>
+                                <a href="{{ $oferta->empresa->url_web }}">{{ $oferta->empresa->url_web }}</a>
+                                <p class="card-text">{{ $oferta->region->nombre }} / {{ $oferta->comuna->nombre }}</p>
+                                <p class="card-text">{{ $oferta->carrera->nombre }}</p>
+                                <p class="card-text"><strong>{{ $oferta->tipo->nombre }} / {{ $oferta->cupos }} Cupos Disponibles</strong></p>
                                 <p class="card-text"><strong>Fecha de Publicación:</strong> {{ $oferta->fecha_publicacion }}</p>
-                                <p class="card-text"><strong>Cupos Disponibles:</strong> {{ $oferta->cupos }}</p>
-                                <p class="card-text"><strong>Region:</strong> {{ $oferta->region->nombre }}</p>
-                                <p class="card-text"><strong>Carrera:</strong> {{ $oferta->carrera->nombre }}</p>
                             </div>
                         </div>
                     @endforeach
                     @foreach($ofertas as $oferta)
-                        <div class="card mb-1 oferta-card" data-id="{{ $oferta->id }}" onclick="showDetails({{ $oferta->id }})">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $oferta->titulo }}</h5>
+                        <div class="card mb-3 oferta-card " data-id="{{ $oferta->id }}" onclick="showDetails({{ $oferta->id }})">
+                            <div class="card-body ">
+                                <h5 class="card-title"><strong>{{ $oferta->titulo }}</strong></h5>
+                                <a href="{{ $oferta->empresa->url_web }}">{{ $oferta->empresa->url_web }}</a>
+                                <p class="card-text">{{ $oferta->region->nombre }} / {{ $oferta->comuna->nombre }}</p>
+                                <p class="card-text">{{ $oferta->carrera->nombre }}</p>
+                                <p class="card-text"><strong>{{ $oferta->tipo->nombre }} / {{ $oferta->cupos }} Cupos Disponibles</strong></p>
                                 <p class="card-text"><strong>Fecha de Publicación:</strong> {{ $oferta->fecha_publicacion }}</p>
-                                <p class="card-text"><strong>Cupos Disponibles:</strong> {{ $oferta->cupos }}</p>
-                                <p class="card-text"><strong>Region:</strong> {{ $oferta->region->nombre }}</p>
-                                <p class="card-text"><strong>Carrera:</strong> {{ $oferta->carrera->nombre }}</p>
                             </div>
                         </div>
                     @endforeach
@@ -90,8 +92,8 @@
             </div>
 
             <!-- Columna Derecha -->
-            <div class="col-md-6 d-flex justify-content-center h-100">
-                <div id="details-card" class="card w-100">
+            <div class="col-md-6 d-flex h-100">
+                <div id="details-card" class="card w-75">
                     <div class="card-body">
                         <h5 class="card-title">Selecciona una oferta para ver detalles</h5>
                         <p id="details-description">Haz clic en una oferta en la columna izquierda para ver más información aquí.</p>

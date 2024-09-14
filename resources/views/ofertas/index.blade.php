@@ -94,8 +94,10 @@
             <!-- Columna Derecha -->
             <div class="col-md-6 d-flex h-100">
                 <div id="details-card" class="card w-75">
-                    <div class="card-body">
+                    <div class="card-header">
                         <h5 class="card-title">Selecciona una oferta para ver detalles</h5>
+                    </div>
+                    <div class="card-body">
                         <p id="details-description">Haz clic en una oferta en la columna izquierda para ver más información aquí.</p>
                     </div>
                 </div>
@@ -114,7 +116,7 @@
         if (oferta) {
             // Actualizar el contenido de la tarjeta de detalles
             const detailsCard = document.getElementById('details-card');
-            detailsCard.querySelector('.card-title').textContent = oferta.titulo;
+            detailsCard.querySelector('.card-title').textContent = oferta.titulo ;
             detailsCard.querySelector('#details-description').innerHTML = `
                 <strong>Fecha de Publicación:</strong> ${oferta.fecha_publicacion}<br>
                 <strong>Cupos Disponibles:</strong> ${oferta.cupos}<br>

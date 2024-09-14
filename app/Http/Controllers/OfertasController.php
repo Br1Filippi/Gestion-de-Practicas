@@ -22,4 +22,8 @@ class OfertasController extends Controller
         $empresas = Empresa::all();
         return view('ofertas.index',compact(['ofertas','tipos','carreras','regiones','comunas','empresas']));
     }
+
+
+
+
 }

@@ -40,7 +40,7 @@
 
                           <p class="card-text">Cuentas empresas</p>
                           <div class="mb-3 mx-auto d-grid">
-                            <button type="submit" class="btn" style="background-color: #005E90">Crear Cuenta</button>
+                            <button type="submit" class="btn text-white" style="background-color: #005E90">Crear Cuenta</button>
                             </div>
 
                         </div>

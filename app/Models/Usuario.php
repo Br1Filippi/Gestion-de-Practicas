@@ -24,4 +24,10 @@ class Usuario extends Authenticatable
     {
         return $this->belongsToMany(Rol::class,'rol_usuario', 'id_usuario' ,'id_rol');
     }
+
+    //Authenticaciones
+    public function esEmpresa(): bool
+    {
+        return $this->roles->contains('nombre', 'Empresa');
+    }
 }

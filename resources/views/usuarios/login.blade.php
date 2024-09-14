@@ -32,7 +32,7 @@
 
 
                             <div class="mb-3 d-grid gap-2 d-md-block text-end">
-                                <button type="submit" class="btn" style="background-color: #005E90">Ingresar</button>
+                                <button type="submit" class="btn text-white" style="background-color: #005E90"><strong>Ingresar</strong></button>
                             </div>
                             
 

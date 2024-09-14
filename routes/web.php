@@ -15,12 +15,20 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
 
 //Rutas Privadas
 
-//Empresa
+    //Usuarios
+    Route::middleware(['auth'])->group(function(){
+        Route::get('/usuarios/logout',[UsuariosController::class,'logout'])->name('usuarios.logout');
+    });
+    //Usuarios
 
-//Empresa
+    //Empresa
 
-//Oftertas
-Route::get('/ofertas',[OfertasController::class,'index'])->name('ofertas.index');
-//Oftertas
+    //Empresa
+
+    //Oftertas
+    Route::middleware(['auth'])->group(function(){
+        Route::get('/ofertas',[OfertasController::class,'index'])->name('ofertas.index');
+    });
+    //Oftertas
 
 //Rutas Privadas

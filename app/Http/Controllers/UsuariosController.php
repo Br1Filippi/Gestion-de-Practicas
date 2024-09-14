@@ -13,6 +13,12 @@ class UsuariosController extends Controller
         return view('usuarios.login');
     }
 
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('usuarios.login');
+    }
+
     public function autenticar(Request $request)
     {
         $credentials = ['correo_usuario'=>$request->email,'password'=>$request->password];

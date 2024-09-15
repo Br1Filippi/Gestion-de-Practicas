@@ -29,8 +29,12 @@ class UsuariosController extends Controller
 
             $usuario = Auth::user();
             $rol = $usuario->roles()->first()->nombre; 
+    
 
             if ($rol == 'Empresa'){
+                return redirect()->route('ofertas.index');
+            }
+            if ($rol == 'Estudiante'){
                 return redirect()->route('ofertas.index');
             }
                 

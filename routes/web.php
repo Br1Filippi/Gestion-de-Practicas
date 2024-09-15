@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\OfertasController;
+use App\Http\Controllers\RegionController;
 
 
 //Rutas Publicas sin AUTH
@@ -28,6 +29,7 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
     //Oftertas
     Route::middleware(['auth'])->group(function(){
         Route::get('/ofertas',[OfertasController::class,'index'])->name('ofertas.index');
+        Route::get('/comunas/{regionId}', [OfertasController::class, 'getComunas']);
     });
     //Oftertas
 

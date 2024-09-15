@@ -19,6 +19,7 @@ class CarrerasSeeder extends Seeder
             ['nombre' => 'Ingeniería Electrónica'],
             ['nombre' => 'Ingeniería Mecánica'],
             ['nombre' => 'Ingeniería Comercial'],
+            ['nombre' => 'Ingeniería en Redes'],
         ]);
     }
 }

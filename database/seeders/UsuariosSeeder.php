@@ -58,6 +58,12 @@ class UsuariosSeeder extends Seeder
                 'apellido' => 'Filippi',
                 
             ],
+            [
+                'correo_usuario' => 'MercadoLibre@gmail.cl',
+                'password' => Hash::make('123'),
+                'nombre' => 'Mercado Libre',
+                'apellido' => '',
+            ],
         ]);
     }
 }

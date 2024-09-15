@@ -23,6 +23,15 @@ class EmpresasSeeder extends Seeder
                 'url_web' => 'https://www.empresa.com',
                 'id_usuario' => 'PaoloRuiz@usm.cl', 
             ],
+            [
+                'rut_empresa' => '98765432-1',
+                'direccion' => 'Camino del Sol 800',
+                'firma_empresa' => 'Firma/MercadoLibre',
+                'razon_social' => 'TRANSPORTE, ALMACENAMIENTO Y COMUNICACIONES',
+                'email_contacto' => 'Support@mercadolibre.com',
+                'url_web' => 'https://www.mercadolibre.cl/',
+                'id_usuario' => 'MercadoLibre@gmail.cl', 
+            ],
         ]);
     }
 }

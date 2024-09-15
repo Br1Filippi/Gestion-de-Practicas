@@ -21,8 +21,9 @@
                 @endif
 
                 {{-- Busqueda --}}
-                <div class="col-md-1 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary"><strong>Buscar</strong></button>
+                <div class="col-md-2 d-flex ">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="material-icons" style="font-size: 1em">search</i><strong>Buscar</strong></button>
                 </div>
 
                 
@@ -52,7 +53,7 @@
 
             {{-- Filtro de Region --}}
             <div class="col-2">
-                <select name="regiones" class="form-control">
+                <select name="region" id="region-select" class="form-control">
                     <option value="">Seleccione Region</option>
                     @foreach ($regiones as $region)
                         <option value="{{ $region->id}}">{{$region->nombre}} </option>
@@ -62,11 +63,9 @@
 
             {{-- Filtro de Comuna --}}
             <div class="col-2">
-                <select name="comunas" class="form-control">
+                <select name="comuna" id="comuna-select" class="form-control">
+                    {{-- Comunas Cargadas por el Ajax  --}}
                     <option value="">Seleccione Comuna</option>
-                    @foreach ($comunas as $comuna)
-                        <option value="{{ $comuna->id}}">{{$comuna->nombre}} </option>
-                    @endforeach
                 </select>
             </div>
 
@@ -75,12 +74,21 @@
 
     <div class="d-flex justify-content-center mt-3">
         <div class="row w-100">
+            @if ($ofertas->isEmpty())
+                <div class="alert alert-warning " >
+                    No se encontraron ofertas que coincidan con los filtros seleccionados.
+                </div>
+            @else
             <!-- Columna Izquierda -->
             <div class="col-md-5 d-flex flex-column align-items-center">
                 <div class="w-70 overflow-auto" style="max-height: 80vh;">
+
                     @foreach($ofertas as $oferta)
-                        <div class="card mb-3 oferta-card shadow-sm" data-id="{{ $oferta->id }}" onclick="showDetails({{ $oferta->id }})" onmouseover="this.classList.add('shadow-sm')"onmouseout="this.classList.remove('shadow-sm')" >
+                        <div class="card mb-3 oferta-card shadow-sm" data-id="{{ $oferta->id }}" onclick="showDetails({{ $oferta->id }})" 
+                            onmouseover="this.classList.add('shadow-sm')"onmouseout="this.classList.remove('shadow-sm')" >
+
                             <div class="card-body ">
+
                                 <h5 class="card-title"><strong>{{ $oferta->titulo }}</strong></h5>
                                 <a href="{{ $oferta->empresa->url_web }}">{{ $oferta->empresa->url_web }}</a>
                                 <p class="card-text">
@@ -89,10 +97,10 @@
                                 <p class="card-text">{{ $oferta->carrera->nombre }}</p>
                                 <p class="card-text"><strong>{{ $oferta->tipo->nombre }} / {{ $oferta->cupos }} Cupos Disponibles</strong></p>
                                 <p class="card-text"><strong>Fecha de Publicación:</strong> {{ $oferta->fecha_publicacion }}</p>
+
                             </div>
                         </div>
                     @endforeach
-                    
                 </div>
             </div>
 
@@ -103,7 +111,7 @@
                         <h5 class="card-title">{{ $ofertas->first()->titulo }}</h5>
                         <a href="{{ $oferta->first()->empresa->url_web }}">{{ $oferta->first()->empresa->url_web }}</a>
                         <p class="card-text">
-                            <i class="material-icons" style="font-size: 1em">location_on</i>
+                            <i class="material-icons d-flex aling-items-center" style="font-size: 1em">location_on</i>
                             {{ $oferta->first()->region->nombre }} / {{ $oferta->first()->comuna->nombre }}
                         </p>
                         <p class="card-text">{{ $oferta->first()->carrera->nombre }}</p>
@@ -112,8 +120,11 @@
                         {{-- Bottones --}}
 
                         {{-- Postular --}}
-                        
-                        <button type="button" class="btn btn-primary "><strong>Postular</strong></button>
+                        @if(Gate::allows('estudiante-gestion'))
+                        <a href="" class="btn text-white btn-primary ">
+                            <i class="material-icons text-white" style="font-size: 1em">send</i> <strong>Postular</strong>
+                        </a>
+                        @endif
 
                         @if(Gate::allows('empresa-gestion'))
                         {{-- Modificar --}}
@@ -134,11 +145,37 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>
 
 <script>
+
+    //Scrip de mostrar la comuna dependiendo de la region
+    document.getElementById('region-select').addEventListener('change', function() {
+        const regionId = this.value;
+        const comunaSelect = document.getElementById('comuna-select');
+        
+        if (regionId) {
+            fetch(`/comunas/${regionId}`)
+                .then(response => response.json())
+                .then(data => {
+                    comunaSelect.innerHTML = '<option value="">Seleccione Comuna</option>';
+                    data.comunas.forEach(comuna => {
+                        const option = document.createElement('option');
+                        option.value = comuna.id;
+                        option.textContent = comuna.nombre;
+                        comunaSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching comunas:', error));
+        } else {
+            comunaSelect.innerHTML = '<option value="">Seleccione Comuna</option>';
+        }
+    });
+
+    //Scrip de seleccion de ofertas
     const ofertas = @json($ofertas); 
 
     function showDetails(id) {
@@ -175,9 +212,9 @@
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    showDetails(ofertas[0].id);
-});
-</script>
+    document.addEventListener("DOMContentLoaded", function() {
+        showDetails(ofertas[0].id);
+    });
+    </script>
 
 @endsection

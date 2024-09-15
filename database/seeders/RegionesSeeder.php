@@ -14,8 +14,21 @@ class RegionesSeeder extends Seeder
     public function run(): void
     {
         DB::table('regiones')->insert([
+            ['nombre' => 'Arica y Parinacota'],
+            ['nombre' => 'Tarapacá'],
+            ['nombre' => 'Antofagasta'],
+            ['nombre' => 'Atacama'],
+            ['nombre' => 'Coquimbo'],
             ['nombre' => 'Valparaíso'],
-            ['nombre' => 'Santiago, Metropolitana'],
+            ['nombre' => 'Metropolitana '],
+            ['nombre' => 'OHiggins'],
+            ['nombre' => 'Maule'],
+            ['nombre' => 'Biobío'],
+            ['nombre' => 'Araucanía'],
+            ['nombre' => 'Los Ríos'],
+            ['nombre' => 'Los Lagos'],
+            ['nombre' => 'Aysén'],
+            ['nombre' => 'Magallanes']
         ]);
     }
 }

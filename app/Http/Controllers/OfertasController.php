@@ -13,13 +13,13 @@ use App\Models\Empresa;
 use Illuminate\Support\Facades\Auth;
 
 
-
 class OfertasController extends Controller
 {
     public function index(Request $request)
     { 
         
         $query = Oferta::query();
+
 
         if (Gate::allows('empresa-gestion')) {
             $emailUsuario = auth()->user()->correo_usuario; 
@@ -76,5 +76,18 @@ class OfertasController extends Controller
         $comunas = Comuna::where('id_region', $regionId)->get();
         return response()->json(['comunas' => $comunas]);
     }
+
+    public function destroy(Oferta $oferta)
+    {
+        
+        $oferta->delete();
+        return redirect()->route('ofertas.index');
+    }
+
+    public function create()
+    {
+        return view('ofertas.create');
+    }
+
 
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('fecha_publicacion');
             $table->unsignedBigInteger('cupos');
             $table->text('descripcion');
+            $table->softDeletes();
 
             //relaciones
             $table->unsignedBigInteger('id_comuna');
@@ -45,6 +46,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::create('ofertas', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

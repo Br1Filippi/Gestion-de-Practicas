@@ -29,7 +29,9 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
     //Oftertas
     Route::middleware(['auth'])->group(function(){
         Route::get('/ofertas',[OfertasController::class,'index'])->name('ofertas.index');
+        Route::get('/ofertas/crear',[OfertasController::class,'create'])->name('ofertas.create');
         Route::get('/comunas/{regionId}', [OfertasController::class, 'getComunas']);
+        Route::delete('/ofertas/{oferta}',[OfertasController::class,'destroy'])->name('ofertas.destroy');
     });
     //Oftertas
 

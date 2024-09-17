@@ -86,7 +86,14 @@ class OfertasController extends Controller
 
     public function create()
     {
-        return view('ofertas.create');
+        $emailUsuario = auth()->user()->correo_usuario; 
+        $empresa = Empresa::where('id_usuario', $emailUsuario)->first();
+
+        $regiones = Region::all();
+        $carreras = Carrera::all();
+        $tipos = Tipo::all();
+
+        return view('ofertas.create', compact('empresa','regiones','carreras','tipos'));
     }
 
 

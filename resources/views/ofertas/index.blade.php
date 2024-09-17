@@ -159,11 +159,16 @@
                                                 </h5>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-secondary d-flex justify-content-center aling-items-center mx-2" data-bs-dismiss="modal">
+                                                    <i class="material-icons text-white" >close</i>
+                                                    Cancelar
+                                                </button>
                                                 <form id="delete-form" action="{{ route('ofertas.destroy', $oferta->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                    <button type="submit" class="btn btn-danger d-flex justify-content-center aling-items-center mx-2">
+                                                        <i class="material-icons text-white" >delete</i><strong>Eliminar</strong>
+                                                    </button>
                                                 </form>
                                             </div>
                                         </div>
@@ -183,6 +188,8 @@
     </div>
 
     <script>
+        src="https://cdn.jsdelivr.net/npm/trumbowyg@2.27.3/dist/trumbowyg.min.js">
+        
         // Script de mostrar la comuna dependiendo de la región
         document.getElementById('region-select').addEventListener('change', function() {
             const regionId = this.value;
@@ -220,7 +227,7 @@
                 selectedCard.classList.add('border-primary');
 
                 const detailsCard = document.getElementById('details-card');
-                detailsCard.querySelector('.card-title').textContent = oferta.titulo;
+                detailsCard.querySelector('.card-title').innerHTML = `<strong>${oferta.titulo}</strong>`;
                 detailsCard.querySelector('a').textContent = oferta.empresa.url_web;
                 detailsCard.querySelector('a').href = oferta.empresa.url_web;
                 detailsCard.querySelector('.card-header p.card-text').innerHTML = `

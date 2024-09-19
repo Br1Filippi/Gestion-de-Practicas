@@ -30,6 +30,7 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
     Route::middleware(['auth'])->group(function(){
         Route::get('/ofertas',[OfertasController::class,'index'])->name('ofertas.index');
         Route::get('/ofertas/crear',[OfertasController::class,'create'])->name('ofertas.create');
+        Route::post('/ofertas/crear',[OfertasController::class, 'store'])->name('ofertas.store');
         Route::get('/comunas/{regionId}', [OfertasController::class, 'getComunas']);
         Route::delete('/ofertas/{oferta}',[OfertasController::class,'destroy'])->name('ofertas.destroy');
     });

@@ -95,6 +95,41 @@ class OfertasController extends Controller
 
         return view('ofertas.create', compact('empresa','regiones','carreras','tipos'));
     }
+    
+    public function store(Request $request)
+    {
+        $oferta = new Oferta();
+
+        $validated = $request->validate([
+            'titulo' => 'required|string|max:30',
+            'cupos' => 'required|integer|min:1',
+            'descripcion' => 'required|string',
+            'region' => 'required|exists:regiones,id',
+            'comuna' => 'required|exists:comunas,id',
+            'carrera' => 'required|exists:carreras,id',
+            'tipo' => 'required|exists:tipos,id',
+        ]);
+
+        $oferta -> titulo = $request->titulo;
+        $oferta -> cupos = $request->cupos;
+        $oferta -> fecha_publicacion = now();
+        $oferta -> descripcion = $request -> descripcion;
+
+        $oferta -> id_region = $request->region;
+        $oferta -> id_comuna = $request->comuna;
+        $oferta -> id_carrera = $request->carrera;
+        $oferta -> id_tipo = $request->tipo;
+
+        $emailUsuario = auth()->user()->correo_usuario; 
+        $empresa = Empresa::where('id_usuario', $emailUsuario)->first();
+
+        $oferta ->id_empresa = $empresa -> id;
+
+
+        $oferta->save();
+
+        return redirect()->route('ofertas.index')->with('success', 'Oferta creada exitosamente');
+    }
 
 
 }

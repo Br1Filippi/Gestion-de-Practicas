@@ -14,8 +14,7 @@
 
                     {{-- Crear Oferta --}}
                     @if (Gate::allows('empresa-gestion'))
-                        <a href="{{route('ofertas.create')}}"
-                            class="col-md-2 btn bg-success text-white fw-bold d-flex justify-content-center align-items-center">
+                        <a href="{{ route('ofertas.create') }}" class="col-md-2 btn bg-success text-white fw-bold d-flex justify-content-center align-items-center">
                             <i class="material-icons text-white">add</i> <strong>Crear Oferta</strong>
                         </a>
                     @endif
@@ -28,7 +27,6 @@
                 </div>
 
                 {{-- Filtros --}}
-
                 {{-- Filtro Tipo --}}
                 <div class="col-2">
                     <select name="tipo" class="form-control fs-6">
@@ -51,7 +49,7 @@
                 </div>
                 {{-- /*Filtro Carrera --}}
 
-                {{-- Filtro Region --}}
+                {{-- Filtro Región --}}
                 <div class="col-2">
                     <select name="region" id="region-select" class="form-control">
                         <option value="">Seleccione Región</option>
@@ -60,7 +58,7 @@
                         @endforeach
                     </select>
                 </div>
-                {{-- /*Filtro Region --}}
+                {{-- /*Filtro Región --}}
 
                 {{-- Filtro Comuna --}}
                 <div class="col-2">
@@ -109,17 +107,15 @@
                         <div id="details-card" class="card w-75">
                             <div class="card-header bg-white shadow-sm">
                                 <h5 class="card-title"><strong>{{ $ofertas->first()->titulo }}</strong></h5>
-                                <a href="{{ $oferta->first()->empresa->url_web }}">{{ $oferta->first()->empresa->url_web }}</a>
+                                <a href="{{ $ofertas->first()->empresa->url_web }}">{{ $ofertas->first()->empresa->url_web }}</a>
                                 <p class="card-text">
                                     <i class="material-icons" style="font-size: 1em">location_on</i>
-                                    {{ $oferta->first()->region->nombre }} / {{ $oferta->first()->comuna->nombre }}
+                                    {{ $ofertas->first()->region->nombre }} / {{ $ofertas->first()->comuna->nombre }}
                                 </p>
-                                <p class="card-text">{{ $oferta->first()->carrera->nombre }}</p>
-                                <p class="card-text"><strong>{{ $oferta->first()->tipo->nombre }} / {{ $oferta->first()->cupos }} Cupos Disponibles</strong></p>
+                                <p class="card-text">{{ $ofertas->first()->carrera->nombre }}</p>
+                                <p class="card-text"><strong>{{ $ofertas->first()->tipo->nombre }} / {{ $ofertas->first()->cupos }} Cupos Disponibles</strong></p>
 
                                 {{-- Botones --}}
-
-                                {{-- Postular --}}
                                 @if (Gate::allows('estudiante-gestion'))
                                     <a href="" class="btn text-white btn-primary ">
                                         <i class="material-icons text-white" style="font-size: 1em">send</i>
@@ -128,14 +124,11 @@
                                 @endif
 
                                 @if (Gate::allows('empresa-gestion'))
-
                                     {{-- Modificar --}}
                                     <a href="" class="btn text-white btn-warning ">
                                         <i class="material-icons text-white" style="font-size: 1em">edit</i>
                                         <strong>Modificar</strong>
                                     </a>
-                                    {{-- Modificar --}}
-
 
                                     {{-- Eliminar --}}
                                     <a href="" class="btn text-white btn-danger" data-bs-toggle="modal"
@@ -150,7 +143,7 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4><strong>!Esta acción no se puede deshacer!</strong></h4>
+                                                <h4><strong>¡Esta acción no se puede deshacer!</strong></h4>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
@@ -160,14 +153,14 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary d-flex justify-content-center aling-items-center mx-2" data-bs-dismiss="modal">
-                                                    <i class="material-icons text-white" >close</i>
+                                                    <i class="material-icons text-white">close</i>
                                                     Cancelar
                                                 </button>
-                                                <form id="delete-form" action="{{ route('ofertas.destroy', $oferta->id) }}" method="POST">
+                                                <form id="delete-form" action="" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger d-flex justify-content-center aling-items-center mx-2">
-                                                        <i class="material-icons text-white" >delete</i><strong>Eliminar</strong>
+                                                        <i class="material-icons text-white">delete</i><strong>Eliminar</strong>
                                                     </button>
                                                 </form>
                                             </div>
@@ -177,8 +170,8 @@
                                 {{-- Modal Eliminar --}}
                             </div>
                             <div class="card-body overflow-auto" style="max-height: 55vh;">
-                                <h5><strong>Descripcion</strong></h5>
-                                <p id="details-description"></p>
+                                <h5><strong>Descripción</strong></h5>
+                                <div id="details-description"></div>
                             </div>
                         </div>
                     </div>
@@ -187,9 +180,20 @@
         </div>
     </div>
 
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
     <script>
-        src="https://cdn.jsdelivr.net/npm/trumbowyg@2.27.3/dist/trumbowyg.min.js">
-        
+        // Inicializar CKEditor
+        ClassicEditor
+            .create(document.querySelector('#descripcion'), {
+                toolbar: ['bold', 'italic', 'link', 'bulletedList', 'numberedList']
+            })
+            .then(editor => {
+                window.editor = editor; // Acceso opcional al editor
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
         // Script de mostrar la comuna dependiendo de la región
         document.getElementById('region-select').addEventListener('change', function() {
             const regionId = this.value;
@@ -237,7 +241,7 @@
                 detailsCard.querySelector('.card-header p.card-text:nth-child(5)').innerHTML = `
                     <strong>${oferta.tipo.nombre} / ${oferta.cupos} Cupos Disponibles</strong>
                 `;
-                document.getElementById('details-description').textContent = oferta.descripcion;
+                document.getElementById('details-description').innerHTML = oferta.descripcion; // Mostrar contenido enriquecido
 
                 // Actualizar el modal de eliminación
                 document.getElementById('modal-titulo').textContent = oferta.titulo;
@@ -246,7 +250,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-            showDetails(ofertas[0].id);
+            if (ofertas.length > 0) {
+                showDetails(ofertas[0].id);
+            }
         });
     </script>
 @endsection

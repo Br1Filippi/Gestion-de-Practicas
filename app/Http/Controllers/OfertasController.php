@@ -11,6 +11,7 @@ use App\Models\Region;
 use App\Models\Comuna;
 use App\Models\Empresa;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 
 class OfertasController extends Controller
@@ -59,6 +60,31 @@ class OfertasController extends Controller
             $query->where('id_comuna', $request->input('comuna'));
         }
 
+        // Filtro de la fecha 
+        if ($request->filled('rango_fecha'))
+        {
+            switch ($request->rango_fecha) {
+                case '1_semanas':
+                    $query->where('fecha_publicacion', '>=', Carbon::now()->subWeek());
+                    break;
+                case '2_semanas':
+                    $query->where('fecha_publicacion', '>=', Carbon::now()->subWeeks(2));
+                    break;
+                case '1_mes':
+                    $query->where('fecha_publicacion', '>=', Carbon::now()->subMonth());
+                    break;
+                case '2_meses':
+                    $query->where('fecha_publicacion', '>=', Carbon::now()->subMonths(2));
+                    break;
+                case '3_meses':
+                    $query->where('fecha_publicacion', '>=', Carbon::now()->subMonths(3));
+                    break;
+                case 'mas_3_meses': 
+                    $query->where('fecha_publicacion', '<', Carbon::now()->subMonths(3));
+                    break;
+            }
+        }
+
         $ofertas = $query->get();
 
         return view('ofertas.index', 
@@ -101,7 +127,7 @@ class OfertasController extends Controller
         $oferta = new Oferta();
 
         $validated = $request->validate([
-            'titulo' => 'required|string|max:30',
+            'titulo' => 'required|string|max:50',
             'cupos' => 'required|integer|min:1',
             'descripcion' => 'required|string',
             'region' => 'required|exists:regiones,id',
@@ -128,8 +154,46 @@ class OfertasController extends Controller
 
         $oferta->save();
 
-        return redirect()->route('ofertas.index')->with('success', 'Oferta creada exitosamente');
+        return redirect()->route('ofertas.index');
     }
 
+    public function edit(Oferta $oferta)
+    {
+        $emailUsuario = auth()->user()->correo_usuario; 
+        $empresa = Empresa::where('id_usuario', $emailUsuario)->first();
+
+        $regiones = Region::all();
+        $carreras = Carrera::all();
+        $tipos = Tipo::all();
+
+        return view('ofertas.edit', compact('oferta','empresa','regiones','carreras','tipos'));
+    }
+
+    public function update(Request $request, Oferta $oferta)
+    {
+        $validated = $request->validate([
+            'titulo' => 'required|string|max:50',
+            'cupos' => 'required|integer|min:1',
+            'descripcion' => 'required|string',
+            'region' => 'required|exists:regiones,id',
+            'comuna' => 'required|exists:comunas,id',
+            'carrera' => 'required|exists:carreras,id',
+            'tipo' => 'required|exists:tipos,id',
+        ]);
+
+        $oferta -> titulo = $request->titulo;
+        $oferta -> cupos = $request->cupos;
+        $oferta -> fecha_publicacion = now();
+        $oferta -> descripcion = $request -> descripcion;
+
+        $oferta -> id_region = $request->region;
+        $oferta -> id_comuna = $request->comuna;
+        $oferta -> id_carrera = $request->carrera;
+        $oferta -> id_tipo = $request->tipo;
+        
+        $oferta->save();
+
+        return redirect()->route('ofertas.index');
+    }
 
 }

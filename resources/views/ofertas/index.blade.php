@@ -4,7 +4,8 @@
     <div class="container mt-4">
         <form action="{{ route('ofertas.index') }}" method="GET" class="mb-4">
             @csrf
-            <div class="row mb-3 px-5 d-flex ">
+            
+            <div class="row mb-3 px-5 d-flex me-4 ">
 
                 {{-- Barra de Busqueda --}}
                 <div class="row mb-3 ">
@@ -30,10 +31,11 @@
                 {{-- Filtro Tipo --}}
                 <div class="col-2">
                     <select name="tipo" class="form-control fs-6">
-                        <option value="">Seleccione Tipo</option>
+                        <option value="">Seleccione Tipo </option>
                         @foreach ($tipos as $tipo)
                             <option value="{{ $tipo->id }}">{{ $tipo->nombre }} </option>
                         @endforeach
+
                     </select>
                 </div>
                 {{-- /*Filtro Tipo --}}
@@ -67,18 +69,35 @@
                     </select>
                 </div>
                 {{-- /*Filtro Comuna --}}
-            </div>
-        </form>
 
+                {{-- Filtro por fechas --}}
+                <div class="col-2">
+                    <select name="rango_fecha" class="form-control">
+                        <option value="">Seleccione Fecha</option>
+                        <option value="1_semanas">Hace 1 Semana</option>
+                        <option value="2_semanas">Hace 2 Semanas</option>
+                        <option value="1_mes">Hace 1 Mes</option>
+                        <option value="2_meses">Hace 2 Meses</option>
+                        <option value="3_meses">Hace 3 Meses</option>
+                        <option value="mas_3_meses">Hace más de 3 Meses</option>
+                    </select>
+                </div>
+                {{-- /*Filtro por fechas --}}
+
+            </div>
+        </form> 
+        
+
+        {{-- Body --}}
         <div class="d-flex justify-content-center mt-3">
-            <div class="row w-100">
+            <div class="row w-100 ps-3">
                 @if ($ofertas->isEmpty())
                     <div class="alert alert-warning">
                         No se encontraron ofertas que coincidan con los filtros seleccionados.
                     </div>
                 @else
                     <!-- Columna Izquierda -->
-                    <div class="col-md-5 d-flex flex-column align-items-center">
+                    <div class="col-5 d-flex flex-column align-items-center">
                         <div class="w-70 overflow-auto" style="max-height: 80vh;">
                             @foreach ($ofertas as $oferta)
                                 <div class="card mb-3 oferta-card shadow-sm" data-id="{{ $oferta->id }}" 
@@ -95,7 +114,7 @@
                                         </p>
                                         <p class="card-text">{{ $oferta->carrera->nombre }}</p>
                                         <p class="card-text"><strong>{{ $oferta->tipo->nombre }} / {{ $oferta->cupos }} Cupos Disponibles</strong></p>
-                                        <p class="card-text"><strong>Fecha de Publicación:</strong> {{ $oferta->fecha_publicacion }}</p>
+                                        <p class="card-text">Publicado {{ \Carbon\Carbon::parse($oferta->fecha_publicacion)->diffForHumans() }}</p>
                                     </div>
                                 </div>
                             @endforeach
@@ -116,7 +135,9 @@
                                 <p class="card-text"><strong>{{ $ofertas->first()->tipo->nombre }} / {{ $ofertas->first()->cupos }} Cupos Disponibles</strong></p>
 
                                 {{-- Botones --}}
+                                
                                 @if (Gate::allows('estudiante-gestion'))
+                                    {{-- Postular --}}
                                     <a href="" class="btn text-white btn-primary ">
                                         <i class="material-icons text-white" style="font-size: 1em">send</i>
                                         <strong>Postular</strong>
@@ -124,8 +145,15 @@
                                 @endif
 
                                 @if (Gate::allows('empresa-gestion'))
+
+                                    {{-- Postulantes --}}
+                                    <a href="" class="btn text-white btn-primary ">
+                                        <i class="material-icons text-white" style="font-size: 1em">pending_actions</i>
+                                        <strong>Postulantes</strong>
+                                    </a>
+
                                     {{-- Modificar --}}
-                                    <a href="" class="btn text-white btn-warning ">
+                                    <a href="{{ route('ofertas.edit', $oferta->id) }}" class="btn text-white btn-warning">
                                         <i class="material-icons text-white" style="font-size: 1em">edit</i>
                                         <strong>Modificar</strong>
                                     </a>
@@ -167,7 +195,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- Modal Eliminar --}}
+                                {{-- /*Modal Eliminar --}}
                             </div>
                             <div class="card-body overflow-auto" style="max-height: 55vh;">
                                 <h5><strong>Descripción</strong></h5>
@@ -210,8 +238,7 @@
                             option.textContent = comuna.nombre;
                             comunaSelect.appendChild(option);
                         });
-                    })
-                    .catch(error => console.error('Error fetching comunas:', error));
+                    });
             } else {
                 comunaSelect.innerHTML = '<option value="">Seleccione Comuna</option>';
             }
@@ -246,6 +273,9 @@
                 // Actualizar el modal de eliminación
                 document.getElementById('modal-titulo').textContent = oferta.titulo;
                 document.getElementById('delete-form').action = `/ofertas/${oferta.id}`;
+
+                //Actualizar modificar
+                document.querySelector('.btn-warning').href = `/ofertas/edit/${oferta.id}`;
             }
         }
 

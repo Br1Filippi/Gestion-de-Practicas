@@ -26,14 +26,16 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
 
     //Empresa
 
-    //Oftertas
+    //Ofertas
     Route::middleware(['auth'])->group(function(){
         Route::get('/ofertas',[OfertasController::class,'index'])->name('ofertas.index');
         Route::get('/ofertas/crear',[OfertasController::class,'create'])->name('ofertas.create');
         Route::post('/ofertas/crear',[OfertasController::class, 'store'])->name('ofertas.store');
+        Route::get('/ofertas/edit/{oferta}',[OfertasController::class,'edit'])->name('ofertas.edit');
+        Route::put('/ofertas/edit/{oferta}',[OfertasController::class,'update'])->name('ofertas.update');
         Route::get('/comunas/{regionId}', [OfertasController::class, 'getComunas']);
         Route::delete('/ofertas/{oferta}',[OfertasController::class,'destroy'])->name('ofertas.destroy');
     });
-    //Oftertas
+    //Ofertas
 
 //Rutas Privadas

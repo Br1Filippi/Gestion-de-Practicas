@@ -7,12 +7,12 @@
             <div class="card text-center" style="width: 50%;">
                 <div class="card-header bg-white shadow-sm mt-2 pb-3">
 
-                    <form method="POST" action="{{route('ofertas.store')}}">
+                    <form method="POST" action="{{route('ofertas.update',$oferta->id)}}">
                         @csrf
-
+                        @method('PUT')
                         {{-- Titulo de la oferta --}}
                         <h5 class="d-flex"><strong>Titulo:</strong></h5>
-                        <input type="text" name="titulo" class="form-control" placeholder="Contador Auditor en Santiago" value="{{ old('titulo') }}">
+                        <input type="text" name="titulo" class="form-control" placeholder="Contador Auditor en Santiago" value="{{ $oferta->titulo }}">
 
                         {{-- Url de la empresa --}}
                         <a href="{{$empresa->url_web}}" class="d-flex my-3">{{$empresa->url_web}}</a>
@@ -22,15 +22,15 @@
                         <div class="row mb-3">
                             <div class="col-4">
                                 <select name="region" id="region-select" class="form-control" >
-                                    <option value="{{old('region')}}">Seleccione Región</option>
+                                    <option value="{{$oferta->region->id}}">{{$oferta->region->nombre}}</option>
                                     @foreach ($regiones as $region)
                                         <option value="{{ $region->id }}">{{ $region->nombre }} </option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-4">
-                                <select name="comuna" id="comuna-select" class="form-control">
-                                    <option value="{{old('comuna')}}">Seleccione Comuna</option>
+                                <select name="comuna" id="comuna-select" class="form-control" >
+                                    <option value="{{$oferta->comuna->id}}">{{$oferta->comuna->nombre}}</option>
                                 </select>
                             </div>
                         </div>
@@ -38,8 +38,8 @@
                         {{-- Carrera relacionada con la Oferta --}}
                         <h5 class="d-flex mb-2"><strong>Carrera</strong></h5>
                         <div class="col-4 mb-3">
-                            <select name="carrera" class="form-control">
-                                <option value="{{old('carrera')}}">Seleccione Carrera</option>
+                            <select name="carrera" class="form-control" >
+                                <option value="{{$oferta->carrera->id}}">{{$oferta->carrera->nombre}}</option>
                                 @foreach ($carreras as $carrera)
                                     <option value="{{ $carrera->id }}">{{ $carrera->nombre }} </option>
                                 @endforeach
@@ -51,7 +51,7 @@
                             <div class="col-4 mb-3">
                                 <h5 class="d-flex mb-2"><strong>Tipo de Oferta</strong></h5>
                                 <select name="tipo" class="form-control fs-6" >
-                                    <option value="{{old('tipo->id')}}">Seleccione Tipo</option>
+                                    <option value="{{$oferta->tipo->id}}">{{$oferta->tipo->nombre}}</option>
                                     @foreach ($tipos as $tipo)
                                         <option value="{{ $tipo->id }}">{{ $tipo->nombre }} </option>
                                     @endforeach
@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-4">
                                 <h5 class="d-flex"><strong>Cantidad de Cupos</strong></h5>
-                                <input type="number" name="cupos" class="form-control" placeholder="4" value="{{ old('cupos') }}">
+                                <input type="number" name="cupos" class="form-control" placeholder="4" value="{{$oferta->cupos}}">
                             </div>
                         </div>
                         {{-- /*Tipo de Oferta y Cupos --}}
@@ -70,7 +70,7 @@
                             <h5 class="d-flex">
                                 <strong>Descripcion</strong>
                             </h5>
-                            <textarea class="form-control" style="height: calc(60vh)" id="descripcion" name="descripcion" value="{{ old('descripcion') }}"></textarea>
+                            <textarea class="form-control" style="height: calc(60vh)" id="descripcion" name="descripcion">{{ old('descripcion', $oferta->descripcion) }}</textarea>
                         </div>
                         {{-- /*Descripcion de Oferta --}}
                     
@@ -83,9 +83,9 @@
                             <strong>Cancelar</strong>
                         </a>
                         <div class="col-md-2">
-                            <button type="submit" class="btn btn-success d-flex justify-content-center align-items-center">
-                                <i class="material-icons">add</i>
-                                <strong>Crear</strong>
+                            <button type="submit" class="btn btn-warning text-white d-flex justify-content-center align-items-center">
+                                <i class="material-icons">edit</i>
+                                <strong>Editar</strong>
                             </button>
                         </div>
                     </div>
@@ -127,7 +127,6 @@
 
         //Modal de errores
         document.addEventListener('DOMContentLoaded', function () {
-            // Mostrar el modal de errores si hay errores
             @if ($errors->any())
                 var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
                 errorModal.show();

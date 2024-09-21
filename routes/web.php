@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\OfertasController;
 use App\Http\Controllers\RegionController;
+use App\Http\Controllers\PracticasController;
 
 
 //Rutas Publicas sin AUTH
@@ -19,12 +20,20 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
     //Usuarios
     Route::middleware(['auth'])->group(function(){
         Route::get('/usuarios/logout',[UsuariosController::class,'logout'])->name('usuarios.logout');
+        Route::get('/usuarios/perfil',[UsuariosController::class,'perfil'])->name('usuarios.perfil');
     });
     //Usuarios
 
     //Empresa
 
     //Empresa
+
+    //Practicas
+    Route::middleware(['auth'])->group(function(){
+        Route::get('/practicas/practicantes',[PracticasController::class,'practicantes'])->name('practicas.practicantes');
+    });
+    //Practicas
+
 
     //Ofertas
     Route::middleware(['auth'])->group(function(){
@@ -35,6 +44,7 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
         Route::put('/ofertas/edit/{oferta}',[OfertasController::class,'update'])->name('ofertas.update');
         Route::get('/comunas/{regionId}', [OfertasController::class, 'getComunas']);
         Route::delete('/ofertas/{oferta}',[OfertasController::class,'destroy'])->name('ofertas.destroy');
+        Route::get('ofertas/postulantes/',[OfertasController::class,'postulantes'])->name('ofertas.postulantes');
     });
     //Ofertas
 

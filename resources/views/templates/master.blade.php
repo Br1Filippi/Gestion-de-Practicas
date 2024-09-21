@@ -26,7 +26,7 @@
             <ul class="navbar-nav flex-column w-100 mb-4">
 
                 {{-- Opciones de empresas --}}
-                @if (Gate::allows('empresa-gestion'))
+                @if (Gate::allows('empresa-gestion') or Gate::allows('estudiante-gestion'))
                     <li class="nav-item mb-3 rounded"
                         onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
                         <a class="nav-link text-white d-flex align-items-center" href="{{ route('ofertas.index') }}">
@@ -34,13 +34,26 @@
                             Ofertas
                         </a>
                     </li>
+                @endif
+
+                @if (Gate::allows('empresa-gestion'))
+
                     <li class="nav-item mb-3 rounded"
                         onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
-                        <a class="nav-link text-white d-flex align-items-center" href="#">
+                        <a class="nav-link text-white d-flex align-items-center" href="">
+                            <span class="material-icons me-2">supervisor_account</span>
+                            Supervisores
+                        </a>
+                    </li>
+
+                    <li class="nav-item mb-3 rounded"
+                        onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
+                        <a class="nav-link text-white d-flex align-items-center" href="{{route('practicas.practicantes')}}">
                             <span class="material-icons me-2">groups</span>
                             Practicantes
                         </a>
-                    </li>
+                    </li>   
+
                 @endif
                 {{-- /*Opciones de empresas --}}
 
@@ -52,7 +65,7 @@
                 <li class="nav-item py-0 bg-transparent border-0">
                     <div class="d-flex align-items-center justify-content-between rounded"
                         onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
-                        <a class="nav-link text-white d-flex fs-4 py-4" href="#">
+                        <a href="{{route('usuarios.perfil')}}" class="nav-link text-white d-flex fs-4 py-4" href="#">
                             <span class="material-icons me-2 fs-3">person</span>
                             Perfil
                         </a>

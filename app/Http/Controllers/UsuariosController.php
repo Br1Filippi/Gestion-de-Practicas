@@ -41,4 +41,9 @@ class UsuariosController extends Controller
         }
         return back()->withErrors('Correo o Contraseña Incorrectas!')->onlyInput('email');
     }
+
+    public function perfil()
+    {
+        return view('usuarios.perfil');
+    }
 }

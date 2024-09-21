@@ -28,6 +28,7 @@
                 </div>
 
                 {{-- Filtros --}}
+                
                 {{-- Filtro Tipo --}}
                 <div class="col-2">
                     <select name="tipo" class="form-control fs-6">
@@ -147,7 +148,7 @@
                                 @if (Gate::allows('empresa-gestion'))
 
                                     {{-- Postulantes --}}
-                                    <a href="" class="btn text-white btn-primary ">
+                                    <a href="{{route('ofertas.postulantes')}}" class="btn text-white btn-primary ">
                                         <i class="material-icons text-white" style="font-size: 1em">pending_actions</i>
                                         <strong>Postulantes</strong>
                                     </a>
@@ -155,7 +156,7 @@
                                     {{-- Modificar --}}
                                     <a href="{{ route('ofertas.edit', $oferta->id) }}" class="btn text-white btn-warning">
                                         <i class="material-icons text-white" style="font-size: 1em">edit</i>
-                                        <strong>Modificar</strong>
+                                        <strong>Editar</strong>
                                     </a>
 
                                     {{-- Eliminar --}}

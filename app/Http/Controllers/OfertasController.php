@@ -15,7 +15,7 @@ use Carbon\Carbon;
 
 
 class OfertasController extends Controller
-{
+{   
     public function index(Request $request)
     { 
         
@@ -194,6 +194,11 @@ class OfertasController extends Controller
         $oferta->save();
 
         return redirect()->route('ofertas.index');
+    }
+
+    public function postulantes()
+    {
+        return view('ofertas.postulantes');
     }
 
 }

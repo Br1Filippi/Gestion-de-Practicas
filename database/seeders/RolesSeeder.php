@@ -19,6 +19,7 @@ class RolesSeeder extends Seeder
             ['nombre'=>'Estudiante'],
             ['nombre'=>'Secretaria'],
             ['nombre'=>'Jefe de Carrera'],
+            ['nombre'=>'Supervisor'],
         ]);
     }
 }

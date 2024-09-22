@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="row text-white">
-                        <h5>Aca podras inscribir y encontrar tus practicas tanto profesionales como industriales bla bla
+                        <h5>En esta plataforma podras inscribir y buscar tus practicas tanto como profesionales o industriales
                         </h5>
                     </div>
 

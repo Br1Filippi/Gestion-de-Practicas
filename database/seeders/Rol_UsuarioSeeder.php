@@ -41,6 +41,10 @@ class Rol_UsuarioSeeder extends Seeder
                 'id_usuario' => 'MercadoLibre@gmail.cl',
                 'id_rol' => 1, // ID del rol "empresa"
             ],
+            [
+                'id_usuario' => 'rodrigoespinoza@gmail.com',
+                'id_rol' => 5, // ID del rol "supervisor"
+            ],
         ]);
     }
 }

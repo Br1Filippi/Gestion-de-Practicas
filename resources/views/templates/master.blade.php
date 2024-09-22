@@ -14,7 +14,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark flex-column vh-100 p-3"
         style="width: 250px; background-color: #005E90;">
         {{-- Logo USM  --}}
-        <a class="navbar-brand d-flex align-items-center mb-4" href="#">
+        <a class="navbar-brand d-flex align-items-center mb-4" href="https://usm.cl/">
             <img src="{{ asset('images/Logo_UTFSM.png') }}" alt="Logo UTFSM" style="max-width: 80px; height: auto;">
             <h1 class="text-white fs-3 ms-2"><strong>USM</strong></h1>
         </a>
@@ -40,12 +40,14 @@
 
                     <li class="nav-item mb-3 rounded"
                         onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
-                        <a class="nav-link text-white d-flex align-items-center" href="">
+                        <a class="nav-link text-white d-flex align-items-center" href="{{route('supervisores.index')}}">
                             <span class="material-icons me-2">supervisor_account</span>
                             Supervisores
                         </a>
                     </li>
+                @endif
 
+                @if(Gate::allows('supervisor-gestion')) 
                     <li class="nav-item mb-3 rounded"
                         onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
                         <a class="nav-link text-white d-flex align-items-center" href="{{route('practicas.practicantes')}}">

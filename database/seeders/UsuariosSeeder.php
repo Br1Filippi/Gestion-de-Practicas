@@ -64,6 +64,12 @@ class UsuariosSeeder extends Seeder
                 'nombre' => 'Mercado Libre',
                 'apellido' => '',
             ],
+            [
+                'correo_usuario' => 'rodrigoespinoza@gmail.com',
+                'password' => Hash::make('123'),
+                'nombre' => 'Rodrigo',
+                'apellido' => 'Espinoza',
+            ],
         ]);
     }
 }

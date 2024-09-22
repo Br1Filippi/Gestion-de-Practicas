@@ -37,6 +37,10 @@ class UsuariosController extends Controller
             if ($rol == 'Estudiante'){
                 return redirect()->route('ofertas.index');
             }
+            if ($rol == 'Supervisor'){
+                return redirect()->route('practicas.practicantes');
+            }
+            
                 
         }
         return back()->withErrors('Correo o Contraseña Incorrectas!')->onlyInput('email');

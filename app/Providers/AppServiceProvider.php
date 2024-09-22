@@ -31,5 +31,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('estudiante-gestion',function(Usuario $usuario){
             return $usuario->esEstudiante();
         });
+
+        Gate::define('supervisor-gestion',function(Usuario $usuario){
+            return $usuario->esSupervisor();
+        });
     }
 }

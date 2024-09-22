@@ -139,12 +139,49 @@
                     </div>
                     <div class="card-footer d-flex justify-content-end align-items-end">
                         {{-- Botones --}}
-                        @if (Gate::allows('empresa-gestion'))
-                            <a href="" class="btn text-white btn-warning mx-2 d-flex justify-content-center align-items-center">
-                                <i class="material-icons text-white mx-1" style="font-size: 1em">quiz</i>
-                                <strong>Evaluar</strong>
-                            </a>
-                        @endif
+                        <a href="" class="btn text-white btn-warning mx-2 d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#evaluacionModal">
+                            <i class="material-icons text-white mx-1" style="font-size: 1em">quiz</i>
+                            <strong>Evaluar</strong>
+                        </a>
+                    </div>
+
+                    {{-- Modal Evaluaciones --}}
+                    <div class="modal fade" id="evaluacionModal" tabindex="-1" aria-labelledby="evaluacionModal" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header ">
+                              <h1 class="modal-title fs-5" id="evaluacionModal">Evaluaciones de Practicante 2</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="mt-2">Informe de la empresa : sin evaluar</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="{{route('evaluaciones.informe')}}" class="btn text-white btn-warning mx-2 d-flex justify-content-center align-items-center">
+                                            <i class="material-icons text-white mx-1" >description</i>
+                                            <strong>Evaluar</strong>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="mt-2">Evaluacion de desempeño: sin evaluar</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="{{route('evaluaciones.desempeño')}}" class="btn text-white btn-warning mx-2 d-flex justify-content-center align-items-center" >
+                                            <i class="material-icons text-white mx-1" >checklist_rtl</i>
+                                            <strong>Evaluar</strong>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
                     </div>
                 </div>
             </div>

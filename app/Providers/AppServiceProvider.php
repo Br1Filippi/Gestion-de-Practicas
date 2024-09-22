@@ -35,5 +35,13 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('supervisor-gestion',function(Usuario $usuario){
             return $usuario->esSupervisor();
         });
+
+        Gate::define('jefe-gestion',function(Usuario $usuario){
+            return $usuario->esJefe();
+        });
+
+        Gate::define('secretaria-gestion',function(Usuario $usuario){
+            return $usuario->esSecretaria();
+        });
     }
 }

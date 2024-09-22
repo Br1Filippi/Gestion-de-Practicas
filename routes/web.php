@@ -8,6 +8,7 @@ use App\Http\Controllers\RegionController;
 use App\Http\Controllers\PracticasController;
 use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\EvaluacionesController;
+use App\Http\Controllers\SolicitudesController;
 
 
 //Rutas Publicas sin AUTH
@@ -30,6 +31,12 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
     
     //Empresa
 
+    //Solicitudes
+    Route::middleware(['auth'])->group(function(){
+        Route::get('/solicitudes',[SolicitudesController::class,'index'])->name('solicitudes.index');
+    });
+    //Solicitudes
+
     //Supervisores
     Route::middleware(['auth'])->group(function(){
         Route::get('/empresa/supervisores',[SupervisorController::class,'index'])->name('supervisores.index');
@@ -46,6 +53,7 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
     //Practicas
     Route::middleware(['auth'])->group(function(){
         Route::get('/practicas/practicantes',[PracticasController::class,'practicantes'])->name('practicas.practicantes');
+        Route::get('/practicas',[PracticasController::class,'index'])->name('practicas.index');
     });
     //Practicas
 

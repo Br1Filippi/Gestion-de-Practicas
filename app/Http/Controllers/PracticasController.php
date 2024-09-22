@@ -10,4 +10,9 @@ class PracticasController extends Controller
     {
         return view('practicas.practicantes');
     }
+
+    public function index()
+    {
+        return view('practicas.index');
+    }
 }

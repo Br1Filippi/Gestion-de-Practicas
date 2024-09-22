@@ -55,9 +55,25 @@
                             Practicantes
                         </a>
                     </li>   
-
                 @endif
-                {{-- /*Opciones de empresas --}}
+
+                @if(Gate::allows('estudiante-gestion')) 
+                    <li class="nav-item mb-3 rounded"
+                        onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
+                        <a class="nav-link text-white d-flex align-items-center" href="{{route('solicitudes.index')}}">
+                            <span class="material-icons me-2">file_open</span>
+                            Solicitudes
+                        </a>
+                    </li>   
+
+                    <li class="nav-item mb-3 rounded"
+                        onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
+                        <a class="nav-link text-white d-flex align-items-center" href="{{route('practicas.index')}}">
+                            <span class="material-icons me-2">diversity_3</span>
+                            Practicas
+                        </a>
+                    </li>   
+                @endif
 
 
             </ul>

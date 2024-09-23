@@ -23,7 +23,7 @@ class SupervisoresSeeder extends Seeder
                 'cargo_supervisor' => 'Team Lead IT',
                 'firma_supervisor' => 'firma_rodrigo_espinoza.png',
                 'id_empresa' => 2,
-                'id_usuario' => 'rodrigoespinoza@gmail.com',
+                'id_usuario' => 'Supervisor2@gmail.com',
             ],
         ]);
     }

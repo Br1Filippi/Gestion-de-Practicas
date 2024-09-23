@@ -17,55 +17,55 @@ class UsuariosSeeder extends Seeder
         DB::Table('usuarios')->insert([
 
             [
-                'correo_usuario' => 'DagobertoCabrera@usm.cl',
+                'correo_usuario' => 'Alumno1@usm.cl',
                 'password' => Hash::make('123'),
                 'nombre' => 'Dagoberto',
                 'apellido' => 'Cabrera',
 
             ],
             [
-                'correo_usuario' => 'CarlosAlten@usm.cl',
-                'password' => Hash::make('123'),
-                'nombre' => 'Carlos',
-                'apellido' => 'Alten',
-                
-            ],
-            [
-                'correo_usuario' => 'Maxicraft13@usm.cl',
+                'correo_usuario' => 'Alumno2@usm.cl',
                 'password' => Hash::make('123'),
                 'nombre' => 'Maximiliano',
                 'apellido' => 'Salazar',
                 
             ],
             [
-                'correo_usuario' => 'PaoloRuiz@usm.cl',
+                'correo_usuario' => 'JefeDeCarrera1@usm.cl',
                 'password' => Hash::make('123'),
-                'nombre' => 'Paolo',
-                'apellido' => 'Ruiz',
+                'nombre' => 'Carlos',
+                'apellido' => 'Alten',
                 
             ],
             [
-                'correo_usuario' => 'RicardoCahe@usm.cl',
+                'correo_usuario' => 'Secretaria1@usm.cl',
                 'password' => Hash::make('123'),
-                'nombre' => 'Ricardo',
-                'apellido' => 'Cahe',
+                'nombre' => 'Secretaria',
+                'apellido' => '1',
                 
             ],
             [
-                'correo_usuario' => 'bfilippi@usm.cl',
+                'correo_usuario' => 'Empresa1@gmail.cl',
+                'password' => Hash::make('123'),
+                'nombre' => 'Globant',
+                'apellido' => '',
+                
+            ],
+            [
+                'correo_usuario' => 'Supervisor1@gmail.cl',
                 'password' => Hash::make('123'),
                 'nombre' => 'Bruno',
                 'apellido' => 'Filippi',
                 
             ],
             [
-                'correo_usuario' => 'MercadoLibre@gmail.cl',
+                'correo_usuario' => 'Empresa2@gmail.cl',
                 'password' => Hash::make('123'),
                 'nombre' => 'Mercado Libre',
                 'apellido' => '',
             ],
             [
-                'correo_usuario' => 'rodrigoespinoza@gmail.com',
+                'correo_usuario' => 'Supervisor2@gmail.com',
                 'password' => Hash::make('123'),
                 'nombre' => 'Rodrigo',
                 'apellido' => 'Espinoza',

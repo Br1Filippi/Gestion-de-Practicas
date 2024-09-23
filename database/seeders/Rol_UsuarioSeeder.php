@@ -14,35 +14,35 @@ class Rol_UsuarioSeeder extends Seeder
     {
         DB::table('rol_usuario')->insert([
             [
-                'id_usuario' => 'DagobertoCabrera@usm.cl',
+                'id_usuario' => 'Alumno1@usm.cl',
                 'id_rol' => 2, // ID del rol "estudiante"
             ],
             [
-                'id_usuario' => 'CarlosAlten@usm.cl',
+                'id_usuario' => 'JefeDeCarrera1@usm.cl',
                 'id_rol' => 4, // ID del rol "Jefe de Carrera"
             ],
             [
-                'id_usuario' => 'Maxicraft13@usm.cl',
+                'id_usuario' => 'Alumno2@usm.cl',
                 'id_rol' => 2, // ID del rol "estudiante"
             ],
             [
-                'id_usuario' => 'PaoloRuiz@usm.cl',
+                'id_usuario' => 'Empresa1@gmail.cl',
                 'id_rol' => 1, // ID del rol "empresa"
             ],
             [
-                'id_usuario' => 'RicardoCahe@usm.cl',
+                'id_usuario' => 'Secretaria1@usm.cl',
                 'id_rol' => 3, // ID del rol "secretaria"
             ],
             [
-                'id_usuario' => 'bfilippi@usm.cl',
-                'id_rol' => 2, // ID del rol "estudiante"
+                'id_usuario' => 'Supervisor1@gmail.cl',
+                'id_rol' => 5, // ID del rol "estudiante"
             ],
             [
-                'id_usuario' => 'MercadoLibre@gmail.cl',
+                'id_usuario' => 'Empresa2@gmail.cl',
                 'id_rol' => 1, // ID del rol "empresa"
             ],
             [
-                'id_usuario' => 'rodrigoespinoza@gmail.com',
+                'id_usuario' => 'Supervisor2@gmail.com',
                 'id_rol' => 5, // ID del rol "supervisor"
             ],
         ]);

@@ -40,6 +40,12 @@ class UsuariosController extends Controller
             if ($rol == 'Supervisor'){
                 return redirect()->route('practicas.practicantes');
             }
+            if ($rol == 'Secretaria'){
+                return redirect()->route('practicas.practicantes');
+            }
+            if ($rol == 'Jefe de Carrera'){
+                return redirect()->route('practicas.practicantes');
+            }
             
                 
         }

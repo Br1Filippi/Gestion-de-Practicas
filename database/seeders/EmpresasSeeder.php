@@ -20,8 +20,8 @@ class EmpresasSeeder extends Seeder
                 'firma_empresa' => 'Firma S.A.G.R',
                 'razon_social' => 'Smile S.A.G.R',
                 'email_contacto' => 'Smile@empresa.com',
-                'url_web' => 'https://www.empresa.com',
-                'id_usuario' => 'PaoloRuiz@usm.cl', 
+                'url_web' => 'https://www.globant.com/es/',
+                'id_usuario' => 'Empresa1@gmail.cl', 
             ],
             [
                 'rut_empresa' => '98765432-1',
@@ -30,7 +30,7 @@ class EmpresasSeeder extends Seeder
                 'razon_social' => 'TRANSPORTE, ALMACENAMIENTO Y COMUNICACIONES',
                 'email_contacto' => 'Support@mercadolibre.com',
                 'url_web' => 'https://www.mercadolibre.cl/',
-                'id_usuario' => 'MercadoLibre@gmail.cl', 
+                'id_usuario' => 'Empresa2@gmail.cl', 
             ],
         ]);
     }

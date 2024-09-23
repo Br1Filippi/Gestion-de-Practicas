@@ -211,6 +211,7 @@
 
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
     <script>
+
         // Inicializar CKEditor
         ClassicEditor
             .create(document.querySelector('#descripcion'), {

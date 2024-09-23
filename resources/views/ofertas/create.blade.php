@@ -10,72 +10,112 @@
                     <form method="POST" action="{{route('ofertas.store')}}">
                         @csrf
 
-                        {{-- Titulo de la oferta --}}
-                        <h5 class="d-flex"><strong>Titulo:</strong></h5>
-                        <input type="text" name="titulo" class="form-control" placeholder="Contador Auditor en Santiago" value="{{ old('titulo') }}">
+                        {{-- Título de la oferta --}}
+                        <h5 class="d-flex"><strong>Título:</strong></h5>
+                        <input 
+                            type="text" 
+                            name="titulo" 
+                            class="form-control @error('titulo') is-invalid @enderror" 
+                            placeholder="Contador Auditor en Santiago" 
+                            value="{{ old('titulo') }}"
+                        >
+                        @error('titulo')
+                            <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                        @enderror
 
                         {{-- Url de la empresa --}}
                         <a href="{{$empresa->url_web}}" class="d-flex my-3">{{$empresa->url_web}}</a>
 
-                        {{-- Ubicacion de la Oferta --}}
-                        <h5 class="d-flex"><strong>Ubicacion</strong></h5>
+                        {{-- Ubicación de la Oferta --}}
+                        <h5 class="d-flex"><strong>Ubicación</strong></h5>
                         <div class="row mb-3">
                             <div class="col-4">
-                                <select name="region" id="region-select" class="form-control" >
-                                    <option value="{{old('region')}}">Seleccione Región</option>
+                                <select name="region" id="region-select" class="form-control @error('region') is-invalid @enderror">
+                                    <option value="">Seleccione Región</option>
                                     @foreach ($regiones as $region)
-                                        <option value="{{ $region->id }}">{{ $region->nombre }} </option>
+                                        <option value="{{ $region->id }}" {{ old('region') == $region->id ? 'selected' : '' }}>
+                                            {{ $region->nombre }}
+                                        </option>
                                     @endforeach
                                 </select>
+                                @error('region')
+                                    <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-4">
-                                <select name="comuna" id="comuna-select" class="form-control">
-                                    <option value="{{old('comuna')}}">Seleccione Comuna</option>
+                                <select name="comuna" id="comuna-select" class="form-control @error('comuna') is-invalid @enderror">
+                                    <option value="">Seleccione Comuna</option>
                                 </select>
+                                @error('comuna')
+                                    <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
                         {{-- Carrera relacionada con la Oferta --}}
                         <h5 class="d-flex mb-2"><strong>Carrera</strong></h5>
                         <div class="col-4 mb-3">
-                            <select name="carrera" class="form-control">
-                                <option value="{{old('carrera')}}">Seleccione Carrera</option>
+                            <select name="carrera" class="form-control @error('carrera') is-invalid @enderror">
+                                <option value="">Seleccione Carrera</option>
                                 @foreach ($carreras as $carrera)
-                                    <option value="{{ $carrera->id }}">{{ $carrera->nombre }} </option>
+                                    <option value="{{ $carrera->id }}" {{ old('carrera') == $carrera->id ? 'selected' : '' }}>
+                                        {{ $carrera->nombre }}
+                                    </option>
                                 @endforeach
                             </select>
+                            @error('carrera')
+                                <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         {{-- Tipo de Oferta y Cupos --}}
                         <div class="row mb-3">
                             <div class="col-4 mb-3">
                                 <h5 class="d-flex mb-2"><strong>Tipo de Oferta</strong></h5>
-                                <select name="tipo" class="form-control fs-6" >
-                                    <option value="{{old('tipo->id')}}">Seleccione Tipo</option>
+                                <select name="tipo" class="form-control fs-6 @error('tipo') is-invalid @enderror">
+                                    <option value="">Seleccione Tipo</option>
                                     @foreach ($tipos as $tipo)
-                                        <option value="{{ $tipo->id }}">{{ $tipo->nombre }} </option>
+                                        <option value="{{ $tipo->id }}" {{ old('tipo') == $tipo->id ? 'selected' : '' }}>
+                                            {{ $tipo->nombre }}
+                                        </option>
                                     @endforeach
                                 </select>
+                                @error('tipo')
+                                    <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-4">
                                 <h5 class="d-flex"><strong>Cantidad de Cupos</strong></h5>
-                                <input type="number" name="cupos" class="form-control" placeholder="4" value="{{ old('cupos') }}">
+                                <input 
+                                    type="number" 
+                                    name="cupos" 
+                                    class="form-control @error('cupos') is-invalid @enderror" 
+                                    placeholder="4" 
+                                    value="{{ old('cupos') }}"
+                                >
+                                @error('cupos')
+                                    <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
-                        {{-- /*Tipo de Oferta y Cupos --}}
+                    </div>
+                    {{-- Descripción de Oferta --}}
+                    <div class="card-body" style="height:{{ $errors->any() ? 'calc(50vh - 150px)' : 'calc(58vh - 150px)' }}; overflow:auto;">
+                        <h5 class="d-flex">
+                            <strong>Descripción</strong>
+                        </h5>
+                        @error('descripcion')
+                            <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                        @enderror
+                        <textarea 
+                            class="form-control @error('descripcion') is-invalid @enderror" 
+                            style="height: calc(60vh)" 
+                            id="descripcion" 
+                            name="descripcion">{{ old('descripcion') }}</textarea>
                     </div>
 
-                        {{-- Descripcion de Oferta --}}
-                        <div class="card-body" style="height: calc(58vh - 150px); overflow:auto;">
-                            <h5 class="d-flex">
-                                <strong>Descripcion</strong>
-                            </h5>
-                            <textarea class="form-control" style="height: calc(60vh)" id="descripcion" name="descripcion" value="{{ old('descripcion') }}"></textarea>
-                        </div>
-                        {{-- /*Descripcion de Oferta --}}
-                    
                     {{-- Footer --}}
-                    <div class="card-footer text-muted d-flex justify-content-end align-items-center">
+                    <div class="card-footer text-muted d-flex justify-content-end align-items-center px-0 mx-0">
 
                         {{-- Botones --}}
                         <a href="{{route('ofertas.index')}}" class="btn text-white btn-danger d-flex justify-content-center align-items-center mx-2">
@@ -89,66 +129,28 @@
                             </button>
                         </div>
                     </div>
-                    {{-- /*Footer --}}
-
-                    {{-- Errores --}}
-                    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title  d-flex justify content-center aling-items-center" id="errorModalLabel"><strong>!Error!</strong></h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    @if ($errors->any())
-                                        <ul class="list-unstyled">
-                                            @foreach ($errors->all() as $error)
-                                                <li class="text-danger">{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- /*Errores --}}
 
                     </form>
 
                 </div>
+            </div>
         </div>
     </div>
 
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
     <script>
 
-        //Modal de errores
-        document.addEventListener('DOMContentLoaded', function () {
-            // Mostrar el modal de errores si hay errores
-            @if ($errors->any())
-                var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
-                errorModal.show();
-            @endif
+        // Inicializar CKEditor 
+        ClassicEditor.create(document.querySelector('#descripcion'), {
+            toolbar: ['bold', 'italic', 'link', 'bulletedList', 'numberedList']
+        }).catch(error => {
+            console.error(error);
         });
 
-        // Inicializar CKEditor 
-        ClassicEditor
-        
-            .create(document.querySelector('#descripcion'), {
-                toolbar: ['bold', 'italic', 'link', 'bulletedList', 'numberedList']
-                
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        
-        //Sync del plugin para que se guarde en la base de datos
+        // Sync del plugin para que se guarde en la base de datos
         document.querySelector('form').addEventListener('submit', function() {
-        const editorData = document.querySelector('#descripcion').nextSibling.querySelector('.ck-content').innerHTML;
-        document.querySelector('#descripcion').value = editorData;
+            const editorData = document.querySelector('#descripcion').nextSibling.querySelector('.ck-content').innerHTML;
+            document.querySelector('#descripcion').value = editorData;
         });
 
         // Script de mostrar la comuna dependiendo de la región

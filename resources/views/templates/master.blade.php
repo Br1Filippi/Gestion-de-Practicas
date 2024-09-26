@@ -31,11 +31,12 @@
                         onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
                         <a class="nav-link text-white d-flex align-items-center" href="{{ route('ofertas.index') }}">
                             <span class="material-icons me-2 ">format_list_bulleted</span>
-                            Ofertas
+                            Ofertas Laborales
                         </a>
                     </li>
                 @endif
-
+                
+                {{-- Empresa --}}
                 @if (Gate::allows('empresa-gestion'))
 
                     <li class="nav-item mb-3 rounded"
@@ -46,7 +47,9 @@
                         </a>
                     </li>
                 @endif
-
+                {{-- Empresa --}}
+                
+                {{-- Supervisor --}}
                 @if(Gate::allows('supervisor-gestion')) 
                     <li class="nav-item mb-3 rounded"
                         onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
@@ -56,13 +59,15 @@
                         </a>
                     </li>   
                 @endif
+                {{-- Supervisor --}}
 
+                {{-- Estudiante --}}
                 @if(Gate::allows('estudiante-gestion')) 
                     <li class="nav-item mb-3 rounded"
                         onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
                         <a class="nav-link text-white d-flex align-items-center" href="{{route('solicitudes.index')}}">
                             <span class="material-icons me-2">file_open</span>
-                            Solicitudes
+                            Mis Solicitudes
                         </a>
                     </li>   
 
@@ -70,10 +75,31 @@
                         onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
                         <a class="nav-link text-white d-flex align-items-center" href="{{route('practicas.index')}}">
                             <span class="material-icons me-2">diversity_3</span>
-                            Practicas
+                            Mis Practicas
                         </a>
                     </li>   
                 @endif
+                {{-- Estudiante --}}
+
+                {{-- Jefe de Carrera --}}
+                @if(Gate::allows('jefe-gestion'))
+                    <li class="nav-item mb-3 rounded"
+                    onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
+                    <a class="nav-link text-white d-flex align-items-center" href="{{route('solicitudes.index')}}">
+                        <span class="material-icons me-2">file_open</span>
+                        Solicitudes de Practica
+                    </a>
+                    </li>   
+
+                    <li class="nav-item mb-3 rounded"
+                        onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
+                        <a class="nav-link text-white d-flex align-items-center" href="{{route('practicas.index')}}">
+                            <span class="material-icons me-2">diversity_3</span>
+                            Practicas 
+                        </a>
+                    </li>   
+                @endif
+                {{-- /*Jefe de Carrera --}}
 
 
             </ul>
@@ -101,7 +127,7 @@
     </nav>
 
     {{-- Contenido Principal --}}
-    <div class="flex-grow-1 p-4" style="background-color:#F6FBFF">
+    <div class="flex-grow-1 p-4" style="background-color:#F6FBFF;">
         @yield('contenido-principal')
     </div>
 

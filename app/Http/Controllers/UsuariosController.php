@@ -41,10 +41,10 @@ class UsuariosController extends Controller
                 return redirect()->route('practicas.practicantes');
             }
             if ($rol == 'Secretaria'){
-                return redirect()->route('practicas.practicantes');
+                return redirect()->route('solicitudes.index');
             }
             if ($rol == 'Jefe de Carrera'){
-                return redirect()->route('practicas.practicantes');
+                return redirect()->route('solicitudes.index');
             }
             
                 

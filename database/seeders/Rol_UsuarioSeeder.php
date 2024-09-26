@@ -45,6 +45,10 @@ class Rol_UsuarioSeeder extends Seeder
                 'id_usuario' => 'Supervisor2@gmail.com',
                 'id_rol' => 5, // ID del rol "supervisor"
             ],
+            [
+                'id_usuario' => 'Administrador1@gmail.com',
+                'id_rol' => 6, // ID del rol "supervisor"
+            ],
         ]);
     }
 }

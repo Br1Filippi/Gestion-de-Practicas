@@ -15,41 +15,49 @@
         <div class="row w-100">
             <div class="offset-1 col-10 offset-md-3 col-md-6 d-flex justify-content-center">
                 <div class="card w-100">
-                    <div class="card-body">
-                        <h5 class="card-title mb-4"><strong>Iniciar Sesión</strong></h5>
-                        <form method="POST" action="{{ route('usuarios.autenticar') }}">
-                            @csrf
-                            {{-- Input Email --}}
-                            <div class="mb-3">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email"
-                                    value="{{ old('email') }}">
+                    <div class="row g-0">
+                        {{-- Columna del formulario --}}
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4"><strong>Iniciar Sesión</strong></h5>
+                                <form method="POST" action="{{ route('usuarios.autenticar') }}">
+                                    @csrf
+                                    {{-- Input Email --}}
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email"
+                                            value="{{ old('email') }}">
+                                    </div>
+                                    {{-- /*Input Email --}}
+
+                                    {{-- Input Password --}}
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label">Contraseña</label>
+                                        <input type="password" class="form-control" id="password" name="password">
+                                    </div>
+                                    {{-- /*Input Password --}}
+
+                                    <div class="mb-3 d-grid gap-2 d-md-block text-end">
+                                        <button type="submit" class="btn text-white" style="background-color: #005E90"><strong>Ingresar</strong></button>
+                                    </div>
+                                </form>
+
+                                {{-- Errores --}}
+                                @if ($errors->any())
+                                    <div class="alert alert-danger py-1">
+                                        {{ $errors->all()[0] }}
+                                    </div>
+                                @endif
+                                {{-- /Errores --}}
                             </div>
-                            {{-- /*Input Email --}}
+                        </div>
+                        {{-- /* Columna del formulario --}}
 
-                            {{-- Input Password --}}
-                            <div class="mb-3">
-                                <label for="password">Contraseña</label>
-                                <input type="password" class="form-control" id="password" name="password">
-                            </div>
-                            {{-- /*Input Password --}}
-
-
-                            <div class="mb-3 d-grid gap-2 d-md-block text-end">
-                                <button type="submit" class="btn text-white"
-                                    style="background-color: #005E90"><strong>Ingresar</strong></button>
-                            </div>
-
-
-                        </form>
-
-                        {{-- Errores --}}
-                        @if ($errors->any())
-                            <div class="alert alert-danger py-1">
-                                {{ $errors->all()[0] }}
-                            </div>
-                        @endif
-                        {{-- /Errores --}}
+                        {{-- Columna de la imagen --}}
+                        <div class="col-md-4 d-flex align-items-center justify-content-center bg-light">
+                            <img src="{{asset('images/usm_login.jpg')}}" alt="Imagen login" class="img-fluid rounded-end" style="height: 100%; width: auto;">
+                        </div>
+                        {{-- /* Columna de la imagen --}}
                     </div>
                 </div>
             </div>

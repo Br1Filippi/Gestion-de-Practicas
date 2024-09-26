@@ -70,6 +70,12 @@ class UsuariosSeeder extends Seeder
                 'nombre' => 'Rodrigo',
                 'apellido' => 'Espinoza',
             ],
+            [
+                'correo_usuario' => 'Administrador1@gmail.com',
+                'password' => Hash::make('123'),
+                'nombre' => 'Admin',
+                'apellido' => '',
+            ],
         ]);
     }
 }

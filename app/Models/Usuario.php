@@ -40,4 +40,8 @@ class Usuario extends Authenticatable
     {
         return $this->roles->contains('nombre', 'Supervisor');
     }
+    public function esJefe(): bool
+    {
+        return $this->roles->contains('nombre', 'Jefe de Carrera');
+    }
 }

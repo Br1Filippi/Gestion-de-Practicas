@@ -5,7 +5,6 @@
     {{-- Header --}}
     <div class="row mb-3 px-5 d-flex me-4 ">
         <form action="">
-
             <div class="row mb-3">
                 {{-- Barra de Busqueda --}}
                 <div class="row mb-3 ">

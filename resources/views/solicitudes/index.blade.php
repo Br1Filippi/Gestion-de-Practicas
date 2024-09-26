@@ -18,7 +18,7 @@
                 @endif
 
                 {{-- Barra de búsqueda y filtros (jefes) --}}
-                @if(Gate::allows('jefe-gestion'))
+                @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
                 <div class="col me-3">
                     <input type="text" name="termino" class="form-control" placeholder="Buscar por tus preferencias">
                 </div>
@@ -33,29 +33,29 @@
         </div>
 
         {{-- Filtros adicionales (solo jefes) --}}
-        @if(Gate::allows('jefe-gestion'))
+        @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
         <div class="row mb-4">
             <div class="col-md-3">
                 <select name="comuna" class="form-select">
-                    <option value="">Seleccione Comuna</option>
+                    <option value="">Filtro 1</option>
                     {{-- Opciones dinámicas --}}
                 </select>
             </div>
             <div class="col-md-3">
                 <select name="region" class="form-select">
-                    <option value="">Seleccione Región</option>
+                    <option value="">Filtro 2 </option>
                     {{-- Opciones dinámicas --}}
                 </select>
             </div>
             <div class="col-md-3">
                 <select name="tipo" class="form-select">
-                    <option value="">Seleccione Tipo</option>
+                    <option value="">Filtro 3</option>
                     {{-- Opciones dinámicas --}}
                 </select>
             </div>
             <div class="col-md-3">
                 <select name="estado" class="form-select">
-                    <option value="">Seleccione Estado</option>
+                    <option value="">Filtro 4</option>
                     {{-- Opciones dinámicas --}}
                 </select>
             </div>
@@ -99,7 +99,7 @@
                                     <strong>Detalles</strong>
                                 </a>
                             @endif
-                            @if(Gate::allows('jefe-gestion'))
+                            @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
                                 <a href="" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
                                     <i class="material-icons text-white">document_scanner</i>
                                     <strong>Revisar</strong>
@@ -144,7 +144,7 @@
                                     <strong>Detalles</strong>
                                 </a>
                             @endif
-                            @if(Gate::allows('jefe-gestion'))
+                            @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
                                 <a href="" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
                                     <i class="material-icons text-white">document_scanner</i>
                                     <strong>Revisar</strong>
@@ -189,7 +189,7 @@
                                     <strong>Detalles</strong>
                                 </a>
                             @endif
-                            @if(Gate::allows('jefe-gestion'))
+                            @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
                                 <a href="" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
                                     <i class="material-icons text-white">document_scanner</i>
                                     <strong>Revisar</strong>
@@ -199,10 +199,6 @@
                     </div>
                 </div>
             </div>
-
-            
-
-           
 
         </div>
     </div>

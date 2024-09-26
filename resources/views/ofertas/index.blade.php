@@ -9,7 +9,7 @@
 
                 {{-- Barra de Busqueda --}}
                 <div class="row mb-3 ">
-                    <div class="col-md-7">
+                    <div class="{{ Gate::allows('empresa-gestion') ? 'col-7' : 'col-9' }}">
                         <input type="text" name="termino" class="form-control" placeholder="Buscar por tus preferencias">
                     </div>
 
@@ -31,7 +31,7 @@
                 
                 {{-- Filtro Tipo --}}
                 <div class="col-2">
-                    <select name="tipo" class="form-control fs-6">
+                    <select name="tipo" class="form-select">
                         <option value="">Seleccione Tipo </option>
                         @foreach ($tipos as $tipo)
                             <option value="{{ $tipo->id }}">{{ $tipo->nombre }} </option>
@@ -43,7 +43,7 @@
 
                 {{-- Filtro Carrera --}}
                 <div class="col-2">
-                    <select name="carrera" class="form-control">
+                    <select name="carrera" class="form-select">
                         <option value="">Seleccione Carrera</option>
                         @foreach ($carreras as $carrera)
                             <option value="{{ $carrera->id }}">{{ $carrera->nombre }} </option>
@@ -54,7 +54,7 @@
 
                 {{-- Filtro Región --}}
                 <div class="col-2">
-                    <select name="region" id="region-select" class="form-control">
+                    <select name="region" id="region-select" class="form-select">
                         <option value="">Seleccione Región</option>
                         @foreach ($regiones as $region)
                             <option value="{{ $region->id }}">{{ $region->nombre }} </option>
@@ -65,7 +65,7 @@
 
                 {{-- Filtro Comuna --}}
                 <div class="col-2">
-                    <select name="comuna" id="comuna-select" class="form-control">
+                    <select name="comuna" id="comuna-select" class="form-select">
                         <option value="">Seleccione Comuna</option>
                     </select>
                 </div>
@@ -73,7 +73,7 @@
 
                 {{-- Filtro por fechas --}}
                 <div class="col-2">
-                    <select name="rango_fecha" class="form-control">
+                    <select name="rango_fecha" class="form-select">
                         <option value="">Seleccione Fecha</option>
                         <option value="1_semanas">Hace 1 Semana</option>
                         <option value="2_semanas">Hace 2 Semanas</option>

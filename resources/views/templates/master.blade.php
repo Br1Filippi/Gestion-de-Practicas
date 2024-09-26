@@ -82,7 +82,7 @@
                 {{-- Estudiante --}}
 
                 {{-- Jefe de Carrera --}}
-                @if(Gate::allows('jefe-gestion'))
+                @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
                     <li class="nav-item mb-3 rounded"
                     onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
                     <a class="nav-link text-white d-flex align-items-center" href="{{route('solicitudes.index')}}">

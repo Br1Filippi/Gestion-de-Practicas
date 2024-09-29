@@ -58,7 +58,7 @@ class OfertasSeeder extends Seeder
                 'descripcion' => '<p>En Mercado Libre, empresa social certificada como empresa B, buscamos una práctica para incorporar a nuestro equipo de Desarrollo y Estrategia para apoyar en el desarrollo de sistemas tecnológicos basados en Javascript, Google Workspace y Monday (Nest.js, AppScript, AppSheet y SQL) desde el diseño a la implementación de estas soluciones.</p><p>El/la practicante será responsable de apoyar en la construcción del Sistema de Indicadores, la integraciones y actualizaciones en el sistema de gestión interno y financiero (Monday y Gael, respectivamente) y además de entregar soporte tecnológico a los colaboradores de Balloon.</p><p><strong>Formación:</strong></p><p>Estudios de Ingeniería Civil Informático, Ingeniería Informático, Ingeniería de Software o carrera afín.</p><p><strong>Conocimientos requeridos:</strong></p><p>Manejo de las siguientes herramientas tecnológicas, para apoyar desde el diseño a la implementación de soluciones basadas en éstas:</p><ul><li>Javascript</li><li>Google Workspace</li><li>Monday (Nest.js, AppScript, AppSheet y SQL)</li></ul><p>Tipo de puesto: Tiempo completo, Beca / prácticas<br>Duración del contrato: 3&nbsp;meses</p><p>Sueldo: $100.000 al mes</p>',
             ],
             [
-                'titulo' => 'Programa practicas Ingieneria Sin Fronteras',
+                'titulo' => 'Programa practicas Ingenieria Sin Fronteras',
                 'fecha_publicacion' => '2024-06-24',
                 'cupos' => 6,
                 'id_comuna' => 48, 

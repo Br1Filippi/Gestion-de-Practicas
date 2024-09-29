@@ -5,12 +5,10 @@
         <div class="d-flex justify-content-center align-items-center vh-95">
 
             <div class="card text-center" style="width: 50%;">
-                <div class="card-header bg-white shadow-sm mt-2 pb-3">
-
-                    <form method="POST" action="{{ route('ofertas.update', $oferta->id) }}">
-                        @csrf
-                        @method('PUT')
-                        
+                <form method="POST" action="{{ route('ofertas.update', $oferta->id) }}">
+                    @csrf
+                    @method('PUT')
+                    <div class="card-header bg-white shadow-sm mt-2 pb-3">
                         {{-- Titulo de la oferta --}}
                         <h5 class="d-flex"><strong>Titulo:</strong></h5>
                         <input type="text" name="titulo" class="form-control @error('titulo') is-invalid @enderror" placeholder="Contador Auditor en Santiago" value="{{ old('titulo', $oferta->titulo) }}">
@@ -81,33 +79,30 @@
                                 @enderror
                             </div>
                         </div>
+                    </div>
+                    {{-- Descripcion de Oferta --}}
+                    <div class="card-body" style="height: {{ $errors->any() ? 'calc(50vh - 150px)' : 'calc(58vh - 150px)' }}; overflow:auto;">
+                        <h5 class="d-flex"><strong>Descripcion</strong></h5>
+                        @error('descripcion')
+                            <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                        @enderror
+                        <textarea class="form-control @error('descripcion') is-invalid @enderror" style="height: calc(60vh)" id="descripcion" name="descripcion">{{ old('descripcion', $oferta->descripcion) }}</textarea>
+                    </div>
 
-                        {{-- Descripcion de Oferta --}}
-                        <div class="card-body" style="height: {{ $errors->any() ? 'calc(50vh - 150px)' : 'calc(58vh - 150px)' }}; overflow:auto;">
-                            <h5 class="d-flex"><strong>Descripcion</strong></h5>
-                            @error('descripcion')
-                                <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
-                            @enderror
-                            <textarea class="form-control @error('descripcion') is-invalid @enderror" style="height: calc(60vh)" id="descripcion" name="descripcion">{{ old('descripcion', $oferta->descripcion) }}</textarea>
+                    {{-- Footer --}}
+                    <div class="card-footer text-muted d-flex justify-content-end align-items-center">
+                        <a href="{{ route('ofertas.index') }}" class="btn text-white btn-danger d-flex justify-content-center align-items-center mx-2">
+                            <i class="material-icons text-white">close</i>
+                            <strong>Cancelar</strong>
+                        </a>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-warning text-white d-flex justify-content-center align-items-center">
+                                <i class="material-icons">edit</i>
+                                <strong>Editar</strong>
+                            </button>
                         </div>
-
-                        {{-- Footer --}}
-                        <div class="card-footer text-muted d-flex justify-content-end align-items-center">
-                            <a href="{{ route('ofertas.index') }}" class="btn text-white btn-danger d-flex justify-content-center align-items-center mx-2">
-                                <i class="material-icons text-white">close</i>
-                                <strong>Cancelar</strong>
-                            </a>
-                            <div class="col-md-2">
-                                <button type="submit" class="btn btn-warning text-white d-flex justify-content-center align-items-center">
-                                    <i class="material-icons">edit</i>
-                                    <strong>Editar</strong>
-                                </button>
-                            </div>
-                        </div>
-
-                    </form>
-
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

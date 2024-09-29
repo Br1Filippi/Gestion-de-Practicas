@@ -31,8 +31,8 @@
                 
                 {{-- Filtro Tipo --}}
                 <div class="col-2">
-                    <select name="tipo" class="form-select">
-                        <option value="">Seleccione Tipo </option>
+                    <select name="tipo fs-7" class="form-select" >
+                        <option value="" class="fs-7">Seleccione Tipo </option>
                         @foreach ($tipos as $tipo)
                             <option value="{{ $tipo->id }}">{{ $tipo->nombre }} </option>
                         @endforeach
@@ -42,7 +42,7 @@
                 {{-- /*Filtro Tipo --}}
 
                 {{-- Filtro Carrera --}}
-                <div class="col-2">
+                <div class="col-2 fs-7">
                     <select name="carrera" class="form-select">
                         <option value="">Seleccione Carrera</option>
                         @foreach ($carreras as $carrera)
@@ -93,13 +93,13 @@
         <div class="d-flex justify-content-center mt-3">
             <div class="row w-100 ps-3">
                 @if ($ofertas->isEmpty())
-                    <div class="alert alert-warning">
+                    <div class="alert alert-warning col-9  ms-4">
                         No se encontraron ofertas que coincidan con los filtros seleccionados.
                     </div>
                 @else
                     <!-- Columna Izquierda -->
                     <div class="col-5 d-flex flex-column align-items-center">
-                        <div class="w-70 overflow-auto" style="max-height: 80vh;">
+                        <div class="w-100 overflow-auto ms-5" style="max-height: 80vh;">
                             @foreach ($ofertas as $oferta)
                                 <div class="card mb-3 oferta-card shadow-sm" data-id="{{ $oferta->id }}" 
                                     onclick="showDetails({{ $oferta->id }})"

@@ -34,17 +34,25 @@ class UsuariosController extends Controller
             if ($rol == 'Empresa'){
                 return redirect()->route('ofertas.index');
             }
+            
             if ($rol == 'Estudiante'){
                 return redirect()->route('ofertas.index');
             }
+
             if ($rol == 'Supervisor'){
                 return redirect()->route('practicas.practicantes');
             }
+
             if ($rol == 'Secretaria'){
                 return redirect()->route('solicitudes.index');
             }
+
             if ($rol == 'Jefe de Carrera'){
                 return redirect()->route('solicitudes.index');
+            }
+
+            if ($rol == 'Administrador'){
+                return redirect()->route('administrador.index');
             }
             
                 

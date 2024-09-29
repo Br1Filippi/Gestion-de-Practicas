@@ -9,6 +9,7 @@ use App\Http\Controllers\PracticasController;
 use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\EvaluacionesController;
 use App\Http\Controllers\SolicitudesController;
+use App\Http\Controllers\AdministradorController;
 
 
 //Rutas Publicas sin AUTH
@@ -57,7 +58,11 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
     });
     //Practicas
 
-
+    //Admin
+    Route::middleware(['auth'])->group(function(){
+        Route::get('/administrador', [AdministradorController::class, 'index'])->name('administrador.index');
+    });
+    //Admin
 
     //Ofertas
     Route::middleware(['auth'])->group(function(){

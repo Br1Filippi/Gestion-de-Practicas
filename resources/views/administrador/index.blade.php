@@ -48,20 +48,6 @@
             </div>
         </div>
     
-        {{-- Otras Funciones del Administrador --}}
-        <div class="row mt-4">
-            <div class="col-lg-4 col-md-6">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <i class="material-icons text-info" style="font-size: 48px;">settings</i>
-                        <h5 class="card-title">Configuraciones del Sistema</h5>
-                        <p class="card-text">Ajusta las configuraciones generales del sistema.</p>
-                        <a href="#" class="btn btn-info">Ir a Configuración</a>
-                    </div>
-                </div>
-            </div>
-    
-        </div>
     
     </div>
 </div>

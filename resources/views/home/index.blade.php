@@ -37,7 +37,7 @@
                             <div class="card-body">
                                 <h5 class="card-title text-center mb-3"><strong>Acceder a la Plataforma</strong></h5>
     
-                                <p class="card-text text-center">Inicio de Sesión</p>
+                                <p class="card-text text-center">Ingreso Portal Laboral</p>
                                 <div class="mb-3 d-grid">
                                     <a href="{{ route('usuarios.login') }}" class="btn btn-primary "
                                         style="background-color: #005E90; border-color: #005E90; ">Iniciar Sesión</a>

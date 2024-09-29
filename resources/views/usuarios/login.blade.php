@@ -26,7 +26,7 @@
                                         {{-- Input Email --}}
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email" name="email"
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="example@gmail.com"
                                                 value="{{ old('email') }}">
                                         </div>
                                         {{-- /*Input Email --}}
@@ -34,7 +34,7 @@
                                         {{-- Input Password --}}
                                         <div class="mb-3">
                                             <label for="password" class="form-label">Contraseña</label>
-                                            <input type="password" class="form-control" id="password" name="password">
+                                            <input type="password" class="form-control" id="password" name="password" placeholder="************">
                                         </div>
                                         {{-- /*Input Password --}}
 

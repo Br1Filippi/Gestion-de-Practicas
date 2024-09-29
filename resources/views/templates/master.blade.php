@@ -101,6 +101,18 @@
                 @endif
                 {{-- /*Jefe de Carrera --}}
 
+                {{-- Administrador --}}
+                @if(Gate::allows('admin-gestion'))
+                    <li class="nav-item mb-3 rounded"
+                        onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
+                        <a class="nav-link text-white d-flex align-items-center" href="{{route('administrador.index')}}">
+                            <span class="material-icons me-2">tune</span>
+                            Panel de Control 
+                        </a>
+                    </li>
+                @endif
+                {{-- /*Administrador --}}
+
 
             </ul>
 

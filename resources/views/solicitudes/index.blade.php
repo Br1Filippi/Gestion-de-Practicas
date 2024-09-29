@@ -11,7 +11,7 @@
                 
                 {{-- Solicitud manual (estudiantes) --}}
                 @if(Gate::allows('estudiante-gestion'))
-                    <a href="" class="btn btn-secondary">
+                    <a href="{{asset('images/InscripcionManual.pdf')}}" download="{{ 'InscripcionManual.pdf' }}" class="btn btn-secondary">
                         <i class="material-icons">add_circle</i>
                         Solicitud manual
                     </a>

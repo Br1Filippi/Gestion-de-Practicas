@@ -25,6 +25,7 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
     Route::middleware(['auth'])->group(function(){
         Route::get('/usuarios/logout',[UsuariosController::class,'logout'])->name('usuarios.logout');
         Route::get('/usuarios/perfil',[UsuariosController::class,'perfil'])->name('usuarios.perfil');
+        Route::get('/usuarios/index',[UsuariosController::class,'index'])->name('usuarios.index');
     });
     //Usuarios
 
@@ -61,6 +62,7 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
     //Admin
     Route::middleware(['auth'])->group(function(){
         Route::get('/administrador', [AdministradorController::class, 'index'])->name('administrador.index');
+        Route::get('/administrador/estadisticas', [AdministradorController::class, 'estadisticas'])->name('administrador.estadisticas');
     });
     //Admin
 

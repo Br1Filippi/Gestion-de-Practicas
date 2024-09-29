@@ -10,4 +10,9 @@ class AdministradorController extends Controller
     {
         return view('administrador.index');
     }
+
+    public function estadisticas()
+    {
+        return view('administrador.estadisticas');
+    }
 }

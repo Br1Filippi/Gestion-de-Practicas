@@ -32,7 +32,7 @@
                 {{-- Filtro Tipo --}}
                 <div class="col-2">
                     <select name="tipo fs-7" class="form-select" >
-                        <option value="" class="fs-7">Seleccione Tipo </option>
+                        <option value="" class="fs-7">Tipo </option>
                         @foreach ($tipos as $tipo)
                             <option value="{{ $tipo->id }}">{{ $tipo->nombre }} </option>
                         @endforeach
@@ -44,7 +44,7 @@
                 {{-- Filtro Carrera --}}
                 <div class="col-2 fs-7">
                     <select name="carrera" class="form-select">
-                        <option value="">Seleccione Carrera</option>
+                        <option value="">Carrera</option>
                         @foreach ($carreras as $carrera)
                             <option value="{{ $carrera->id }}">{{ $carrera->nombre }} </option>
                         @endforeach
@@ -55,7 +55,7 @@
                 {{-- Filtro Región --}}
                 <div class="col-2">
                     <select name="region" id="region-select" class="form-select">
-                        <option value="">Seleccione Región</option>
+                        <option value="">Región</option>
                         @foreach ($regiones as $region)
                             <option value="{{ $region->id }}">{{ $region->nombre }} </option>
                         @endforeach
@@ -66,7 +66,7 @@
                 {{-- Filtro Comuna --}}
                 <div class="col-2">
                     <select name="comuna" id="comuna-select" class="form-select">
-                        <option value="">Seleccione Comuna</option>
+                        <option value="">Comuna</option>
                     </select>
                 </div>
                 {{-- /*Filtro Comuna --}}
@@ -74,7 +74,7 @@
                 {{-- Filtro por fechas --}}
                 <div class="col-2">
                     <select name="rango_fecha" class="form-select">
-                        <option value="">Seleccione Fecha</option>
+                        <option value="">Fecha</option>
                         <option value="1_semanas">Hace 1 Semana</option>
                         <option value="2_semanas">Hace 2 Semanas</option>
                         <option value="1_mes">Hace 1 Mes</option>

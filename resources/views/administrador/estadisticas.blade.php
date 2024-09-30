@@ -2,6 +2,12 @@
 
 @section('contenido-principal')
 <div class="col-10">
+    <div class="col-1 d-flex justify-content-center align-items-center mb-2 ms-3">
+        <a href="{{route('administrador.index')}}" class="btn text-white btn-warning d-flex justify-content-center align-items-center">
+            <i class="material-icons text-white mx-1">arrow_back</i>
+            <strong>Volver</strong>
+        </a>
+    </div>
     <div class="container">
         <h1 class="mb-4">Estadísticas de Prácticas</h1>
         

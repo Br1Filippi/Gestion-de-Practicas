@@ -31,7 +31,7 @@
                 
                 {{-- Filtro Tipo --}}
                 <div class="col-2">
-                    <select name="tipo fs-7" class="form-select" >
+                    <select name="tipo" class="form-select" >
                         <option value="" class="fs-7">Tipo </option>
                         @foreach ($tipos as $tipo)
                             <option value="{{ $tipo->id }}">{{ $tipo->nombre }} </option>
@@ -233,7 +233,7 @@
                 fetch(`/comunas/${regionId}`)
                     .then(response => response.json())
                     .then(data => {
-                        comunaSelect.innerHTML = '<option value="">Seleccione Comuna</option>';
+                        comunaSelect.innerHTML = '<option value="">Comuna</option>';
                         data.comunas.forEach(comuna => {
                             const option = document.createElement('option');
                             option.value = comuna.id;

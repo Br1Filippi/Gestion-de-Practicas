@@ -10,6 +10,10 @@ use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\EvaluacionesController;
 use App\Http\Controllers\SolicitudesController;
 use App\Http\Controllers\AdministradorController;
+use App\Http\Controllers\EmpresasController;
+use App\Http\Controllers\EstudiantesController;
+use App\Http\Controllers\SecretariasController;
+use App\Http\Controllers\JefesController;
 
 
 //Rutas Publicas sin AUTH
@@ -29,9 +33,29 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
     });
     //Usuarios
 
+    //Estudiante
+    Route::middleware(['auth'])->group(function(){
+        Route::get('/estudiante',[EstudiantesController::class,'index'])->name('estudiantes.index');
+    });
+    //Estudiante
+
     //Empresa
-    
+    Route::middleware(['auth'])->group(function(){
+        Route::get('/empresas',[EmpresasController::class,'index'])->name('empresas.index');
+    });
     //Empresa
+
+    //Secretaria
+    Route::middleware(['auth'])->group(function(){
+        Route::get('/secretarias',[SecretariasController::class,'index'])->name('secretarias.index');
+    });
+    //Secretaria
+
+    //Jefe de Carrera  
+    Route::middleware(['auth'])->group(function(){
+        Route::get('/jefe',[JefesController::class,'index'])->name('jefes.index');
+    });
+    //Jefe de Carrera
 
     //Solicitudes
     Route::middleware(['auth'])->group(function(){

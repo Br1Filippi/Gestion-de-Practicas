@@ -2,29 +2,23 @@
 
 @section('contenido-principal')
 <div class="container mt-4">
+    
     {{-- Header --}}
     <div class="row mb-3 px-5 d-flex me-4 ">
+        <div class="col-1 d-flex justify-content-center align-items-center mb-2 ms-3">
+            <a href="{{route('administrador.index')}}" class="btn text-white btn-warning d-flex justify-content-center align-items-center">
+                <i class="material-icons text-white mx-1">arrow_back</i>
+                <strong>Volver</strong>
+            </a>
+        </div>
         <form action="">
-
-            <div class="row mb-3 me-5">
-                <div class="col-1 d-flex justify-content-center align-items-center mb-2 ms-3">
-                    <a href="{{route('administrador.index')}}" class="btn text-white btn-warning d-flex justify-content-center align-items-center">
-                        <i class="material-icons text-white mx-1">arrow_back</i>
-                        <strong>Volver</strong>
-                    </a>
-                </div>
+            <div class="row mb-2 me-5">
                 {{-- Barra de Busqueda --}}
                 <div class="row mb-3 ">
                     <div class="col d-flex ">
-                        <input type="text" name="termino" class="form-control" placeholder="Buscar Usuario">
+                        <input type="text" name="termino" class="form-control" placeholder="Buscar Estudiante">
                     </div>
 
-                    <div class="col-2">
-                        <select name="region" class="form-select">
-                            <option value="">Roles </option>
-                            
-                        </select>
-                    </div>
 
                     <div class="col-2">
                         <a href="" class="btn bg-success text-white fw-bold d-flex justify-content-center align-items-center">
@@ -58,9 +52,24 @@
                                     <img src="https://via.placeholder.com/800" class="card-img" alt="Imagen de Perfil">
                                 </div>
                                 <div class="col">
-                                    <h4 class="mb-1"><strong>Nombre y Apellido</strong></h4>
-                                    <p class="card-text mb-0"> Correo del Usuario</p>
-                                    <p class="card-text mb-0"> Rol</p>
+                                    <h4 class="mb-1"><strong>Rut Estudiante</strong></h4>
+                                    <p class="mb-1">Direccion</p>
+                                    <div class="row">
+                                        <div class="col">
+                                            <p class="card-text mb-1"> Edad</p>
+                                        </div>
+                                        <div class="col">
+                                            <p class="card-text mb-1"> Carrera </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <p class="card-text mb-1"> Correo</p>
+                                        </div>
+                                        <div class="col">
+                                            <p class="card-text mb-1"> Fono</p>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-1">
                                     <div class="row-4 mt-3">

@@ -10,4 +10,9 @@ class SolicitudesController extends Controller
     {
         return view('solicitudes.index');
     }
+
+    public function detalles()
+    {
+        return view('solicitudes.detalles');
+    }
 }

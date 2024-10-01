@@ -114,6 +114,7 @@ class OfertasController extends Controller
     {
         $emailUsuario = auth()->user()->correo_usuario; 
         $empresa = Empresa::where('id_usuario', $emailUsuario)->first();
+        
 
         $regiones = Region::all();
         $carreras = Carrera::all();
@@ -128,7 +129,7 @@ class OfertasController extends Controller
 
         $validated = $request->validate([
             'titulo' => 'required|string|max:50',
-            'cupos' => 'required|integer|min:1',
+            'cupos' => 'required|integer|min:1|max:20',
             'descripcion' => 'required|string',
             'region' => 'required|exists:regiones,id',
             'comuna' => 'required|exists:comunas,id',
@@ -140,6 +141,7 @@ class OfertasController extends Controller
             'cupos.required' => 'El número de cupos es obligatorio.',
             'cupos.integer' => 'El número de cupos debe ser un número entero.',
             'cupos.min' => 'El número de cupos debe ser al menos 1.',
+            'cupos.max' => 'El número de cupos no puede ser mas de 20.',
             'descripcion.required' => 'La descripción es obligatoria.',
             'region.required' => 'La región es obligatoria.',
             'region.exists' => 'La región seleccionada no es válida.',
@@ -188,7 +190,7 @@ class OfertasController extends Controller
     {
         $validated = $request->validate([
             'titulo' => 'required|string|max:50',
-            'cupos' => 'required|integer|min:1',
+            'cupos' => 'required|integer|min:1|max:20',
             'descripcion' => 'required|string',
             'region' => 'required|exists:regiones,id',
             'comuna' => 'required|exists:comunas,id',
@@ -201,6 +203,7 @@ class OfertasController extends Controller
             'cupos.required' => 'El número de cupos es obligatorio.',
             'cupos.integer' => 'El número de cupos debe ser un número entero.',
             'cupos.min' => 'El número de cupos debe ser al menos 1.',
+            'cupos.max' => 'El número de cupos no puede ser mas de 20.',
             'descripcion.required' => 'La descripción es obligatoria.',
             'region.required' => 'La región es obligatoria.',
             'region.exists' => 'La región seleccionada no es válida.',

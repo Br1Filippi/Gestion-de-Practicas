@@ -80,7 +80,7 @@
                 </div>
             </div>
 
-            {{-- Gestión de Supervisores --}}
+            {{-- Gestión de Supervisores
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card shadow-sm">
                     <div class="card-body text-center">
@@ -89,7 +89,18 @@
                         <a href="{{route('supervisores.index')}}" class="btn btn-dark">Gestionar Supervisores</a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
+
+            {{-- Gestión de Ofertas
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="material-icons text-dark" style="font-size: 48px;">settings_accessibility</i>
+                        <h5 class="card-title">Gestión de Ofertas</h5>
+                        <a href="{{route('ofertas.index')}}" class="btn btn-dark">Gestionar Ofertas</a>
+                    </div>
+                </div>
+            </div> --}}
 
         </div>
     

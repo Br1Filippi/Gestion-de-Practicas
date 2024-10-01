@@ -9,12 +9,12 @@
 
                 {{-- Barra de Busqueda --}}
                 <div class="row mb-3 ">
-                    <div class="{{ Gate::allows('empresa-gestion') ? 'col-7' : 'col-9' }}">
+                    <div class="{{ Gate::allows('empresa-gestion') || Gate::allows('admin-gestion')  ? 'col-7' : 'col-9' }}">
                         <input type="text" name="termino" class="form-control" placeholder="Buscar por tus preferencias">
                     </div>
 
                     {{-- Crear Oferta --}}
-                    @if (Gate::allows('empresa-gestion'))
+                    @if (Gate::allows('empresa-gestion') or Gate::allows('admin-gestion'))
                         <a href="{{ route('ofertas.create') }}" class="col-md-2 btn bg-success text-white fw-bold d-flex justify-content-center align-items-center">
                             <i class="material-icons text-white">add</i> <strong>Crear Oferta</strong>
                         </a>
@@ -145,14 +145,14 @@
                                     </a>
                                 @endif
 
-                                @if (Gate::allows('empresa-gestion'))
+                                @if (Gate::allows('empresa-gestion') or Gate::allows('admin-gestion'))
 
                                     {{-- Postulantes --}}
                                     <a href="{{route('ofertas.postulantes')}}" class="btn text-white btn-primary ">
                                         <i class="material-icons text-white" style="font-size: 1em">pending_actions</i>
                                         <strong>Postulantes</strong>
                                     </a>
-
+                                
                                     {{-- Modificar --}}
                                     <a href="{{ route('ofertas.edit', $oferta->id) }}" class="btn text-white btn-warning">
                                         <i class="material-icons text-white" style="font-size: 1em">edit</i>

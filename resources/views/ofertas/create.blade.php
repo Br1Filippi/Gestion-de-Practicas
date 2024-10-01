@@ -24,7 +24,9 @@
                         @enderror
 
                         {{-- Url de la empresa --}}
-                        <a href="{{$empresa->url_web}}" class="d-flex my-3">{{$empresa->url_web}}</a>
+                        @if(Gate::allows('empresa-gestion'))
+                            <a href="{{$empresa->url_web}}" class="d-flex my-3">{{$empresa->url_web}}</a>
+                        @endif
 
                         {{-- Ubicación de la Oferta --}}
                         <h5 class="d-flex"><strong>Ubicación</strong></h5>

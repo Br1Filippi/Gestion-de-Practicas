@@ -94,13 +94,13 @@
                         {{-- Botón de Detalles --}}
                         <div class="d-flex justify-content-end mt-3">
                             @if(Gate::allows('estudiante-gestion'))
-                                <a href="" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
+                                <a href="{{route('solicitudes.detalles')}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
                                     <i class="material-icons text-white">info</i>
                                     <strong>Detalles</strong>
                                 </a>
                             @endif
                             @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
-                                <a href="" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
+                                <a href="{{route('solicitudes.detalles')}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
                                     <i class="material-icons text-white">document_scanner</i>
                                     <strong>Revisar</strong>
                                 </a>
@@ -139,13 +139,13 @@
                         {{-- Botón de Detalles --}}
                         <div class="d-flex justify-content-end mt-3">
                             @if(Gate::allows('estudiante-gestion'))
-                                <a href="" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
+                                <a href="{{route('solicitudes.detalles')}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
                                     <i class="material-icons text-white">info</i>
                                     <strong>Detalles</strong>
                                 </a>
                             @endif
                             @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
-                                <a href="" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
+                                <a href="{{route('solicitudes.detalles')}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
                                     <i class="material-icons text-white">document_scanner</i>
                                     <strong>Revisar</strong>
                                 </a>
@@ -184,13 +184,13 @@
                         {{-- Botón de Detalles --}}
                         <div class="d-flex justify-content-end mt-3">
                             @if(Gate::allows('estudiante-gestion'))
-                                <a href="" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
+                                <a href="{{route('solicitudes.detalles')}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
                                     <i class="material-icons text-white">info</i>
                                     <strong>Detalles</strong>
                                 </a>
                             @endif
                             @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
-                                <a href="" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
+                                <a href="{{route('solicitudes.detalles')}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
                                     <i class="material-icons text-white">document_scanner</i>
                                     <strong>Revisar</strong>
                                 </a>

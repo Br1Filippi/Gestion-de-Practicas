@@ -60,6 +60,7 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
     //Solicitudes
     Route::middleware(['auth'])->group(function(){
         Route::get('/solicitudes',[SolicitudesController::class,'index'])->name('solicitudes.index');
+        Route::get('/solicitudes/detalles',[SolicitudesController::class,'detalles'])->name('solicitudes.detalles');
     });
     //Solicitudes
 
@@ -80,6 +81,7 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
     Route::middleware(['auth'])->group(function(){
         Route::get('/practicas/practicantes',[PracticasController::class,'practicantes'])->name('practicas.practicantes');
         Route::get('/practicas',[PracticasController::class,'index'])->name('practicas.index');
+        Route::get('/practicas/detalles',[PracticasController::class,'detalles'])->name('practicas.detalles');
     });
     //Practicas
 

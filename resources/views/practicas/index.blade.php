@@ -78,13 +78,13 @@
                                 </div>
                                 <div class="col-2 mt-5">
                                     @if(Gate::allows('estudiante-gestion'))
-                                        <a href="" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
+                                        <a href="{{route('practicas.detalles')}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
                                             <i class="material-icons text-white">info</i>
                                             <strong>Detalles</strong>
                                         </a>
                                     @endif
                                     @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
-                                        <a href="" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
+                                        <a href="{{route('practicas.detalles')}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
                                             <i class="material-icons text-white">document_scanner</i>
                                             <strong>Revisar</strong>
                                         </a>
@@ -114,13 +114,13 @@
                                 </div>
                                 <div class="col-2 mt-5">
                                     @if(Gate::allows('estudiante-gestion'))
-                                        <a href="" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
+                                        <a href="{{route('practicas.detalles')}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
                                             <i class="material-icons text-white">info</i>
                                             <strong>Detalles</strong>
                                         </a>
                                     @endif
                                     @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
-                                        <a href="" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
+                                        <a href="{{route('practicas.detalles')}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
                                             <i class="material-icons text-white">document_scanner</i>
                                             <strong>Revisar</strong>
                                         </a>
@@ -150,13 +150,13 @@
                                 </div>
                                 <div class="col-2 mt-5">
                                     @if(Gate::allows('estudiante-gestion'))
-                                        <a href="" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
+                                        <a href="{{route('practicas.detalles')}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
                                             <i class="material-icons text-white">info</i>
                                             <strong>Detalles</strong>
                                         </a>
                                     @endif
                                     @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
-                                        <a href="" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
+                                        <a href="{{route('practicas.detalles')}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
                                             <i class="material-icons text-white">document_scanner</i>
                                             <strong>Revisar</strong>
                                         </a>

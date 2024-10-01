@@ -15,4 +15,9 @@ class PracticasController extends Controller
     {
         return view('practicas.index');
     }
+
+    public function detalles()
+    {
+        return view('practicas.detalles');
+    }
 }

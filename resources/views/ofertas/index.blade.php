@@ -1,218 +1,228 @@
 @extends('templates.master')
 
 @section('contenido-principal')
-    <div class="container mt-4">
-        <form action="{{ route('ofertas.index') }}" method="GET" class="mb-4">
-            @csrf
-            
-            <div class="row mb-3 px-5 d-flex me-4 ">
+<div class="container mt-4">
+    <form action="{{ route('ofertas.index') }}" method="GET" class="mb-4">
+        @csrf
 
-                {{-- Barra de Busqueda --}}
-                <div class="row mb-3 ">
-                    <div class="{{ Gate::allows('empresa-gestion') || Gate::allows('admin-gestion')  ? 'col-7' : 'col-9' }}">
-                        <input type="text" name="termino" class="form-control" placeholder="Buscar por tus preferencias">
-                    </div>
+        <div class="row mb-3 px-5 d-flex me-4 ">
 
-                    {{-- Crear Oferta --}}
-                    @if (Gate::allows('empresa-gestion') or Gate::allows('admin-gestion'))
-                        <a href="{{ route('ofertas.create') }}" class="col-md-2 btn bg-success text-white fw-bold d-flex justify-content-center align-items-center">
-                            <i class="material-icons text-white">add</i> <strong>Crear Oferta</strong>
-                        </a>
-                    @endif
-
-                    {{-- Busqueda --}}
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center">
-                            <i class="material-icons">search</i><strong>Buscar</strong></button>
-                    </div>
+            {{-- Barra de Busqueda --}}
+            <div class="row mb-3 ">
+                <div
+                    class="{{ Gate::allows('empresa-gestion') || Gate::allows('admin-gestion')  ? 'col-7' : 'col-9' }}">
+                    <input type="text" name="termino" class="form-control" placeholder="Buscar por tus preferencias">
                 </div>
 
-                {{-- Filtros --}}
-                
-                {{-- Filtro Tipo --}}
-                <div class="col-2">
-                    <select name="tipo" class="form-select" >
-                        <option value="" class="fs-7">Tipo </option>
-                        @foreach ($tipos as $tipo)
-                            <option value="{{ $tipo->id }}">{{ $tipo->nombre }} </option>
-                        @endforeach
-
-                    </select>
-                </div>
-                {{-- /*Filtro Tipo --}}
-
-                {{-- Filtro Carrera --}}
-                <div class="col-2 fs-7">
-                    <select name="carrera" class="form-select">
-                        <option value="">Carrera</option>
-                        @foreach ($carreras as $carrera)
-                            <option value="{{ $carrera->id }}">{{ $carrera->nombre }} </option>
-                        @endforeach
-                    </select>
-                </div>
-                {{-- /*Filtro Carrera --}}
-
-                {{-- Filtro Región --}}
-                <div class="col-2">
-                    <select name="region" id="region-select" class="form-select">
-                        <option value="">Región</option>
-                        @foreach ($regiones as $region)
-                            <option value="{{ $region->id }}">{{ $region->nombre }} </option>
-                        @endforeach
-                    </select>
-                </div>
-                {{-- /*Filtro Región --}}
-
-                {{-- Filtro Comuna --}}
-                <div class="col-2">
-                    <select name="comuna" id="comuna-select" class="form-select">
-                        <option value="">Comuna</option>
-                    </select>
-                </div>
-                {{-- /*Filtro Comuna --}}
-
-                {{-- Filtro por fechas --}}
-                <div class="col-2">
-                    <select name="rango_fecha" class="form-select">
-                        <option value="">Fecha</option>
-                        <option value="1_semanas">Hace 1 Semana</option>
-                        <option value="2_semanas">Hace 2 Semanas</option>
-                        <option value="1_mes">Hace 1 Mes</option>
-                        <option value="2_meses">Hace 2 Meses</option>
-                        <option value="3_meses">Hace 3 Meses</option>
-                        <option value="mas_3_meses">Hace más de 3 Meses</option>
-                    </select>
-                </div>
-                {{-- /*Filtro por fechas --}}
-
-            </div>
-        </form> 
-        
-
-        {{-- Body --}}
-        <div class="d-flex justify-content-center mt-3">
-            <div class="row w-100 ps-3">
-                @if ($ofertas->isEmpty())
-                    <div class="alert alert-warning col-9  ms-4">
-                        No se encontraron ofertas que coincidan con los filtros seleccionados.
-                    </div>
-                @else
-                    <!-- Columna Izquierda -->
-                    <div class="col-5 d-flex flex-column align-items-center">
-                        <div class="w-100 overflow-auto ms-5" style="max-height: 80vh;">
-                            @foreach ($ofertas as $oferta)
-                                <div class="card mb-3 oferta-card shadow-sm" data-id="{{ $oferta->id }}" 
-                                    onclick="showDetails({{ $oferta->id }})"
-                                    onmouseover="this.classList.add('shadow-sm')" 
-                                    onmouseout="this.classList.remove('shadow-sm')">
-
-                                    <div class="card-body">
-                                        <h5 class="card-title"><strong>{{ $oferta->titulo }}</strong></h5>
-                                        <a href="{{ $oferta->empresa->url_web }}">{{ $oferta->empresa->url_web }}</a>
-                                        <p class="card-text">
-                                            <i class="material-icons" style="font-size: 1em">location_on</i>
-                                            {{ $oferta->region->nombre }} / {{ $oferta->comuna->nombre }}
-                                        </p>
-                                        <p class="card-text">{{ $oferta->carrera->nombre }}</p>
-                                        <p class="card-text"><strong>{{ $oferta->tipo->nombre }} / {{ $oferta->cupos }} Cupos Disponibles</strong></p>
-                                        <p class="card-text">Publicado {{ \Carbon\Carbon::parse($oferta->fecha_publicacion)->diffForHumans() }}</p>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <!-- Columna Derecha -->
-                    <div class="col-md-6 d-flex h-100">
-                        <div id="details-card" class="card w-75">
-                            <div class="card-header bg-white shadow-sm">
-                                <h5 class="card-title"><strong>{{ $ofertas->first()->titulo }}</strong></h5>
-                                <a href="{{ $ofertas->first()->empresa->url_web }}">{{ $ofertas->first()->empresa->url_web }}</a>
-                                <p class="card-text">
-                                    <i class="material-icons" style="font-size: 1em">location_on</i>
-                                    {{ $ofertas->first()->region->nombre }} / {{ $ofertas->first()->comuna->nombre }}
-                                </p>
-                                <p class="card-text">{{ $ofertas->first()->carrera->nombre }}</p>
-                                <p class="card-text"><strong>{{ $ofertas->first()->tipo->nombre }} / {{ $ofertas->first()->cupos }} Cupos Disponibles</strong></p>
-
-                                {{-- Botones --}}
-                                
-                                @if (Gate::allows('estudiante-gestion'))
-                                    {{-- Postular --}}
-                                    <a href="" class="btn text-white btn-primary ">
-                                        <i class="material-icons text-white" style="font-size: 1em">send</i>
-                                        <strong>Postular</strong>
-                                    </a>
-                                @endif
-
-                                @if (Gate::allows('empresa-gestion') or Gate::allows('admin-gestion'))
-
-                                    {{-- Postulantes --}}
-                                    <a href="{{route('ofertas.postulantes')}}" class="btn text-white btn-primary ">
-                                        <i class="material-icons text-white" style="font-size: 1em">pending_actions</i>
-                                        <strong>Postulantes</strong>
-                                    </a>
-                                
-                                    {{-- Modificar --}}
-                                    <a href="{{ route('ofertas.edit', $oferta->id) }}" class="btn text-white btn-warning">
-                                        <i class="material-icons text-white" style="font-size: 1em">edit</i>
-                                        <strong>Editar</strong>
-                                    </a>
-
-                                    {{-- Eliminar --}}
-                                    <a href="" class="btn text-white btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#modalEliminar">
-                                        <i class="material-icons text-white" style="font-size: 1em">delete</i>
-                                        <strong>Eliminar</strong>
-                                    </a>
-                                @endif
-
-                                {{-- Modal Eliminar --}}
-                                <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4><strong>¡Esta acción no se puede deshacer!</strong></h4>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <h5 class="modal-title" id="modalEliminarLabel">
-                                                    ¿Está seguro de que desea eliminar la oferta <strong id="modal-titulo"></strong>?
-                                                </h5>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary d-flex justify-content-center aling-items-center mx-2" data-bs-dismiss="modal">
-                                                    <i class="material-icons text-white">close</i>
-                                                    Cancelar
-                                                </button>
-                                                <form id="delete-form" action="" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger d-flex justify-content-center aling-items-center mx-2">
-                                                        <i class="material-icons text-white">delete</i><strong>Eliminar</strong>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{-- /*Modal Eliminar --}}
-                            </div>
-                            <div class="card-body overflow-auto" style="max-height: 55vh;">
-                                <h5><strong>Descripción</strong></h5>
-                                <div id="details-description"></div>
-                            </div>
-                        </div>
-                    </div>
+                {{-- Crear Oferta --}}
+                @if (Gate::allows('empresa-gestion') or Gate::allows('admin-gestion'))
+                <a href="{{ route('ofertas.create') }}"
+                    class="col-md-2 btn bg-success text-white fw-bold d-flex justify-content-center align-items-center">
+                    <i class="material-icons text-white">add</i> <strong>Crear Oferta</strong>
+                </a>
                 @endif
+
+                {{-- Busqueda --}}
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center">
+                        <i class="material-icons">search</i><strong>Buscar</strong></button>
+                </div>
             </div>
+
+            {{-- Filtros --}}
+
+            {{-- Filtro Tipo --}}
+            <div class="col-2">
+                <select name="tipo" class="form-select">
+                    <option value="" class="fs-7">Tipo </option>
+                    @foreach ($tipos as $tipo)
+                    <option value="{{ $tipo->id }}">{{ $tipo->nombre }} </option>
+                    @endforeach
+
+                </select>
+            </div>
+            {{-- /*Filtro Tipo --}}
+
+            {{-- Filtro Carrera --}}
+            <div class="col-2 fs-7">
+                <select name="carrera" class="form-select">
+                    <option value="">Carrera</option>
+                    @foreach ($carreras as $carrera)
+                    <option value="{{ $carrera->id }}">{{ $carrera->nombre }} </option>
+                    @endforeach
+                </select>
+            </div>
+            {{-- /*Filtro Carrera --}}
+
+            {{-- Filtro Región --}}
+            <div class="col-2">
+                <select name="region" id="region-select" class="form-select">
+                    <option value="">Región</option>
+                    @foreach ($regiones as $region)
+                    <option value="{{ $region->id }}">{{ $region->nombre }} </option>
+                    @endforeach
+                </select>
+            </div>
+            {{-- /*Filtro Región --}}
+
+            {{-- Filtro Comuna --}}
+            <div class="col-2">
+                <select name="comuna" id="comuna-select" class="form-select">
+                    <option value="">Comuna</option>
+                </select>
+            </div>
+            {{-- /*Filtro Comuna --}}
+
+            {{-- Filtro por fechas --}}
+            <div class="col-2">
+                <select name="rango_fecha" class="form-select">
+                    <option value="">Fecha</option>
+                    <option value="1_semanas">Hace 1 Semana</option>
+                    <option value="2_semanas">Hace 2 Semanas</option>
+                    <option value="1_mes">Hace 1 Mes</option>
+                    <option value="2_meses">Hace 2 Meses</option>
+                    <option value="3_meses">Hace 3 Meses</option>
+                    <option value="mas_3_meses">Hace más de 3 Meses</option>
+                </select>
+            </div>
+            {{-- /*Filtro por fechas --}}
+
+        </div>
+    </form>
+
+
+    {{-- Body --}}
+    <div class="d-flex justify-content-center mt-3">
+        <div class="row w-100 ps-3">
+            @if ($ofertas->isEmpty())
+            <div class="alert alert-warning col-9  ms-4">
+                No se encontraron ofertas que coincidan con los filtros seleccionados.
+            </div>
+            @else
+            <!-- Columna Izquierda -->
+            <div class="col-5 d-flex flex-column align-items-center">
+                <div class="w-100 overflow-auto ms-5" style="max-height: 80vh;">
+                    @foreach ($ofertas as $oferta)
+                    <div class="card mb-3 oferta-card shadow-sm" data-id="{{ $oferta->id }}"
+                        onclick="showDetails({{ $oferta->id }})" onmouseover="this.classList.add('shadow-sm')"
+                        onmouseout="this.classList.remove('shadow-sm')">
+
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>{{ $oferta->titulo }}</strong></h5>
+                            <a href="{{ $oferta->empresa->url_web }}">{{ $oferta->empresa->url_web }}</a>
+                            <p class="card-text">
+                                <i class="material-icons" style="font-size: 1em">location_on</i>
+                                {{ $oferta->region->nombre }} / {{ $oferta->comuna->nombre }}
+                            </p>
+                            <p class="card-text">{{ $oferta->carrera->nombre }}</p>
+                            <p class="card-text"><strong>{{ $oferta->tipo->nombre }} / {{ $oferta->cupos }} Cupos
+                                    Disponibles</strong></p>
+                            <p class="card-text">Publicado {{
+                                \Carbon\Carbon::parse($oferta->fecha_publicacion)->diffForHumans() }}</p>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <!-- Columna Derecha -->
+            <div class="col-md-6 d-flex h-100">
+                <div id="details-card" class="card w-75">
+                    <div class="card-header bg-white shadow-sm">
+                        <h5 class="card-title"><strong>{{ $ofertas->first()->titulo }}</strong></h5>
+                        <a href="{{ $ofertas->first()->empresa->url_web }}">{{ $ofertas->first()->empresa->url_web
+                            }}</a>
+                        <p class="card-text">
+                            <i class="material-icons" style="font-size: 1em">location_on</i>
+                            {{ $ofertas->first()->region->nombre }} / {{ $ofertas->first()->comuna->nombre }}
+                        </p>
+                        <p class="card-text">{{ $ofertas->first()->carrera->nombre }}</p>
+                        <p class="card-text"><strong>{{ $ofertas->first()->tipo->nombre }} / {{ $ofertas->first()->cupos
+                                }} Cupos Disponibles</strong></p>
+
+                        {{-- Botones --}}
+
+                        @if (Gate::allows('estudiante-gestion'))
+                        {{-- Postular --}}
+                        <a href="" class="btn text-white btn-primary ">
+                            <i class="material-icons text-white" style="font-size: 1em">send</i>
+                            <strong>Postular</strong>
+                        </a>
+                        @endif
+
+                        @if (Gate::allows('empresa-gestion') or Gate::allows('admin-gestion'))
+
+                        {{-- Postulantes --}}
+                        <a href="{{route('ofertas.postulantes')}}" class="btn text-white btn-primary ">
+                            <i class="material-icons text-white" style="font-size: 1em">pending_actions</i>
+                            <strong>Postulantes</strong>
+                        </a>
+
+                        {{-- Modificar --}}
+                        <a href="{{ route('ofertas.edit', $oferta->id) }}" class="btn text-white btn-warning">
+                            <i class="material-icons text-white" style="font-size: 1em">edit</i>
+                            <strong>Editar</strong>
+                        </a>
+
+                        {{-- Eliminar --}}
+                        <a href="" class="btn text-white btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#modalEliminar">
+                            <i class="material-icons text-white" style="font-size: 1em">delete</i>
+                            <strong>Eliminar</strong>
+                        </a>
+                        @endif
+
+                        {{-- Modal Eliminar --}}
+                        <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4><strong>¡Esta acción no se puede deshacer!</strong></h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5 class="modal-title" id="modalEliminarLabel">
+                                            ¿Está seguro de que desea eliminar la oferta <strong
+                                                id="modal-titulo"></strong>?
+                                        </h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button"
+                                            class="btn btn-secondary d-flex justify-content-center aling-items-center mx-2"
+                                            data-bs-dismiss="modal">
+                                            <i class="material-icons text-white">close</i>
+                                            Cancelar
+                                        </button>
+                                        <form id="delete-form" action="" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="btn btn-danger d-flex justify-content-center aling-items-center mx-2">
+                                                <i class="material-icons text-white">delete</i><strong>Eliminar</strong>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- /*Modal Eliminar --}}
+                    </div>
+                    <div class="card-body overflow-auto" style="max-height: 55vh;">
+                        <h5><strong>Descripción</strong></h5>
+                        <div id="details-description"></div>
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
+</div>
 
-    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
-    <script>
-
-        // Inicializar CKEditor
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+<script>
+    // Inicializar CKEditor
         ClassicEditor
             .create(document.querySelector('#descripcion'), {
                 toolbar: ['bold', 'italic', 'link', 'bulletedList', 'numberedList']
@@ -286,5 +296,5 @@
                 showDetails(ofertas[0].id);
             }
         });
-    </script>
+</script>
 @endsection

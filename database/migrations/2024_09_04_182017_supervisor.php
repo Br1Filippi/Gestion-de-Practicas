@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 return new class extends Migration
 {
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->string('id_usuario');
             $table->foreign('id_usuario')->references('correo_usuario')->on('usuarios');
 
+            $table->softDeletes();
             //$table->timestamps();
             
         });
@@ -35,6 +37,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('supervisores', function (Blueprint $table) {
+            $table->dropSoftDeletes(); 
+        });
     }
 };

@@ -129,7 +129,6 @@ class OfertasController extends Controller
     {
         $oferta = new Oferta();
 
-        $validated = $request->validated();
         $oferta -> titulo = $request->titulo;
         $oferta -> cupos = $request->cupos;
         $oferta -> fecha_publicacion = now();
@@ -165,7 +164,6 @@ class OfertasController extends Controller
 
     public function update(Request $request, OfertaRequest $oferta)
     {
-        $validated = $request->validated();
 
         $oferta -> titulo = $request->titulo;
         $oferta -> cupos = $request->cupos;

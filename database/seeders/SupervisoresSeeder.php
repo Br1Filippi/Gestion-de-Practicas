@@ -19,7 +19,7 @@ class SupervisoresSeeder extends Seeder
                 'rut_supervisor' => '33333333-3',
                 'titulo_supervisor' => 'Ingeniero Informatico',
                 'fono_supervisor' => '+56 9 2367 8912',
-                'cargo_supervisor' => 'Team Lead IT',
+                'cargo_supervisor' => 'Tech Leader',
                 'id_empresa' => 2,
                 'id_usuario' => 'Supervisor2@gmail.com',
             ],

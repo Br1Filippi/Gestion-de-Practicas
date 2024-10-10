@@ -68,7 +68,7 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
     Route::middleware(['auth'])->group(function(){
         Route::get('/empresa/supervisores',[SupervisorController::class,'index'])->name('supervisores.index');
         Route::get('/empresa/supervisores/crear',[SupervisorController::class,'create'])->name('supervisores.create');
-        Route::post('/empresa/supervisores/store',[SupervisorController::class,'store'])->name('supervisores.store');
+        Route::post('/empresa/supervisores/store', [SupervisorController::class, 'store'])->name('supervisores.store');
     });
     //Supervisores
 

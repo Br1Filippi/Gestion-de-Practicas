@@ -23,7 +23,7 @@ class Usuario extends Authenticatable
         'password',
         'nombre',
         'apellido',
-        'imagen,'
+        'imagen',
     ];
 
     //Relaciones

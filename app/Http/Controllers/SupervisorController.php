@@ -38,13 +38,14 @@ class SupervisorController extends Controller
     public function store(Request $request)
     {
         $password = Hash::make($request->password);
+        $path = $request->file('imagen')->store('public/usuarios');
 
         $usuario = Usuario::create([
             'correo_usuario' => $request->correo_usuario,
             'password' => $password, 
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
-            'imagen' => $request->file('imagen')->store('public/usuarios'),
+            'imagen' => $path,
         ]);
 
         //sacar id empresa 

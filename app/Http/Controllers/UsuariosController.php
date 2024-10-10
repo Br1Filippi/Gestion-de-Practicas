@@ -69,4 +69,17 @@ class UsuariosController extends Controller
     {
         return view('usuarios.perfil');
     }
+
+    public function store(Request $request)
+    {
+        $usuario = new Usuario();
+
+        $usuario->correo_usuario = $request->correo_usuario;
+        $usuario->password = $request->Hask::make($request->contra_usuario);
+        $usuario->nombre = $request->nombre;
+        $usuario->apellido = $request->apellido;
+        $usuario->imagen - $request->file('imagen')->store('public/usuarios');
+
+        $usuario->save();
+    }
 }

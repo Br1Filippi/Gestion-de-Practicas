@@ -12,4 +12,9 @@ class Supervisor extends Model
     protected $table = 'supervisores';
 
     public $timestamps = false;
+
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'id_usuario', 'correo_usuario');
+    }
 }

@@ -12,6 +12,7 @@ use App\Models\Comuna;
 use App\Models\Empresa;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Http\Requests\OfertaRequest;
 
 
 class OfertasController extends Controller
@@ -22,7 +23,8 @@ class OfertasController extends Controller
         $query = Oferta::query();
 
 
-        if (Gate::allows('empresa-gestion')) {
+        if (Gate::allows('empresa-gestion')) 
+        {
             $emailUsuario = auth()->user()->correo_usuario; 
             $empresaId = Empresa::where('id_usuario', $emailUsuario)->first()->id;
     
@@ -123,36 +125,11 @@ class OfertasController extends Controller
         return view('ofertas.create', compact('empresa','regiones','carreras','tipos'));
     }
     
-    public function store(Request $request)
+    public function store(OfertaRequest $request)
     {
         $oferta = new Oferta();
 
-        $validated = $request->validate([
-            'titulo' => 'required|string|max:50',
-            'cupos' => 'required|integer|min:1|max:20',
-            'descripcion' => 'required|string',
-            'region' => 'required|exists:regiones,id',
-            'comuna' => 'required|exists:comunas,id',
-            'carrera' => 'required|exists:carreras,id',
-            'tipo' => 'required|exists:tipos,id',
-        ], [
-            'titulo.required' => 'El título es obligatorio.',
-            'titulo.max' => 'El título no puede exceder los 50 caracteres.',
-            'cupos.required' => 'El número de cupos es obligatorio.',
-            'cupos.integer' => 'El número de cupos debe ser un número entero.',
-            'cupos.min' => 'El número de cupos debe ser al menos 1.',
-            'cupos.max' => 'El número de cupos no puede ser mas de 20.',
-            'descripcion.required' => 'La descripción es obligatoria.',
-            'region.required' => 'La región es obligatoria.',
-            'region.exists' => 'La región seleccionada no es válida.',
-            'comuna.required' => 'La comuna es obligatoria.',
-            'comuna.exists' => 'La comuna seleccionada no es válida.',
-            'carrera.required' => 'La carrera es obligatoria.',
-            'carrera.exists' => 'La carrera seleccionada no es válida.',
-            'tipo.required' => 'El tipo de oferta es obligatorio.',
-            'tipo.exists' => 'El tipo de oferta seleccionado no es válido.',
-        ]);
-
+        $validated = $request->validated();
         $oferta -> titulo = $request->titulo;
         $oferta -> cupos = $request->cupos;
         $oferta -> fecha_publicacion = now();
@@ -186,34 +163,9 @@ class OfertasController extends Controller
         return view('ofertas.edit', compact('oferta','empresa','regiones','carreras','tipos'));
     }
 
-    public function update(Request $request, Oferta $oferta)
+    public function update(Request $request, OfertaRequest $oferta)
     {
-        $validated = $request->validate([
-            'titulo' => 'required|string|max:50',
-            'cupos' => 'required|integer|min:1|max:20',
-            'descripcion' => 'required|string',
-            'region' => 'required|exists:regiones,id',
-            'comuna' => 'required|exists:comunas,id',
-            'carrera' => 'required|exists:carreras,id',
-            'tipo' => 'required|exists:tipos,id',
-        ], [
-            // Mensajes de validación personalizados
-            'titulo.required' => 'El título es obligatorio.',
-            'titulo.max' => 'El título no puede exceder los 50 caracteres.',
-            'cupos.required' => 'El número de cupos es obligatorio.',
-            'cupos.integer' => 'El número de cupos debe ser un número entero.',
-            'cupos.min' => 'El número de cupos debe ser al menos 1.',
-            'cupos.max' => 'El número de cupos no puede ser mas de 20.',
-            'descripcion.required' => 'La descripción es obligatoria.',
-            'region.required' => 'La región es obligatoria.',
-            'region.exists' => 'La región seleccionada no es válida.',
-            'comuna.required' => 'La comuna es obligatoria.',
-            'comuna.exists' => 'La comuna seleccionada no es válida.',
-            'carrera.required' => 'La carrera es obligatoria.',
-            'carrera.exists' => 'La carrera seleccionada no es válida.',
-            'tipo.required' => 'El tipo de oferta es obligatorio.',
-            'tipo.exists' => 'El tipo de oferta seleccionado no es válido.',
-        ]);
+        $validated = $request->validated();
 
         $oferta -> titulo = $request->titulo;
         $oferta -> cupos = $request->cupos;

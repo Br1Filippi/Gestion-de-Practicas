@@ -15,11 +15,9 @@ return new class extends Migration
             
             $table->id();
             $table->string('rut_supervisor');
-            $table->string('nombre_supervisor');
             $table->string('titulo_supervisor');
             $table->string('fono_supervisor');
             $table->string('cargo_supervisor');
-            $table->string('firma_supervisor');
 
             $table->unsignedBigInteger('id_empresa');
             $table->foreign('id_empresa')->references('id')->on('empresas');

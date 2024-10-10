@@ -18,6 +18,13 @@ class Usuario extends Authenticatable
     public $incrementing = false;
     public $timestamps = false;
 
+    protected $fillable = [
+        'correo_usuario',
+        'password',
+        'nombre',
+        'apellido',
+        'imagen,'
+    ];
 
     //Relaciones
     public function roles()

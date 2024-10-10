@@ -54,8 +54,8 @@ class UsuariosSeeder extends Seeder
             [
                 'correo_usuario' => 'Supervisor1@gmail.cl',
                 'password' => Hash::make('123'),
-                'nombre' => 'Bruno',
-                'apellido' => 'Filippi',
+                'nombre' => 'Daglas',
+                'apellido' => 'Ruiz',
                 
             ],
             [

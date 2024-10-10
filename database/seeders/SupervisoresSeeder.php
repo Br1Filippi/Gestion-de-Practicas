@@ -17,13 +17,19 @@ class SupervisoresSeeder extends Seeder
         DB::table('supervisores')->insert([
             [
                 'rut_supervisor' => '33333333-3',
-                'nombre_supervisor' => 'Rodrigo Espinoza',
                 'titulo_supervisor' => 'Ingeniero Informatico',
                 'fono_supervisor' => '+56 9 2367 8912',
                 'cargo_supervisor' => 'Team Lead IT',
-                'firma_supervisor' => 'firma_rodrigo_espinoza.png',
                 'id_empresa' => 2,
                 'id_usuario' => 'Supervisor2@gmail.com',
+            ],
+            [
+                'rut_supervisor' => '11111111-1',
+                'titulo_supervisor' => 'Tecnico Universitario en Informatica',
+                'fono_supervisor' => '+56 9 8921 4762',
+                'cargo_supervisor' => 'Front end Developer',
+                'id_empresa' => 1,
+                'id_usuario' => 'Supervisor1@gmail.cl',
             ],
         ]);
     }

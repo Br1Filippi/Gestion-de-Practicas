@@ -19,26 +19,28 @@ use App\Http\Requests\OfertaRequest;
 
 class OfertasController extends Controller
 {   
-    public function postular(Oferta $oferta)
+    public function postular(Request $request)
     {
-
+        $ofertaId = $request->oferta_id;
         $emailUsuario = auth()->user()->correo_usuario; 
         $estudianteId = Estudiante::where('id_usuario', $emailUsuario)->first()->id;
         
-        $yaExiste = Postulacion::where('id_estudiante',$estudianteId)->where('id_oferta',$oferta->id)->count();
+        $yaExiste = Postulacion::where('id_estudiante', $estudianteId)
+            ->where('id_oferta', $ofertaId)
+            ->count();
 
-        if(!$yaExiste == 0){
-            dd('ya Existe');
-            return back();
+        if (!$yaExiste == 0) {
+            return redirect()->route('ofertas.index')->with('error','Ya postulaste para esta oferta.');
         }
+
+        // Crear la postulación
         $postulacion = new Postulacion();
-        $postulacion -> id_oferta = $oferta -> id;
-        $postulacion -> id_estudiante = $estudianteId;
+        $postulacion->id_oferta = $ofertaId;
+        $postulacion->id_estudiante = $estudianteId;
         $postulacion->save();
 
-        return redirect()->route('ofertas.index');
+        return redirect()->route('ofertas.index')->with('success', 'Postulación realizada con éxito.');
     }
-
 
     public function index(Request $request)
     { 

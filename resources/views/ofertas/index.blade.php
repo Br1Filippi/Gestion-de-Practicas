@@ -129,34 +129,41 @@
             <div class="col-md-6 d-flex h-100">
                 <div id="details-card" class="card w-75">
                     <div class="card-header bg-white shadow-sm">
+                        {{-- Titulo --}}
                         <h5 class="card-title"><strong>{{ $ofertas->first()->titulo }}</strong></h5>
+
+                        {{-- Url web --}}
                         <a href="{{ $ofertas->first()->empresa->url_web }}">{{ $ofertas->first()->empresa->url_web
                             }}</a>
+
+                        {{-- Location Region y Comuna --}}
                         <p class="card-text">
                             <i class="material-icons" style="font-size: 1em">location_on</i>
                             {{ $ofertas->first()->region->nombre }} / {{ $ofertas->first()->comuna->nombre }}
                         </p>
+                        {{-- Carrera --}}
                         <p class="card-text">{{ $ofertas->first()->carrera->nombre }}</p>
+                        {{-- Tipo y Cupos --}}
                         <p class="card-text"><strong>{{ $ofertas->first()->tipo->nombre }} / {{ $ofertas->first()->cupos
                                 }} Cupos Disponibles</strong></p>
 
                         {{-- Botones --}}
-
                         @if (Gate::allows('estudiante-gestion'))
                         {{-- Postular --}}
-                        <form action="{{ route('ofertas.postular', $oferta->id) }}" method="POST">
+                        <form id='postular-form' action="{{ route('ofertas.postular') }}" method="POST"
+                            style="display:inline;">
                             @csrf
-                            <button type="submit" class="btn text-white btn-primary">
+                            <input type="hidden" name="oferta_id" id="oferta_id" value="">
+                            <button type="submit" class="btn btn-primary">
                                 <i class="material-icons text-white" style="font-size: 1em">send</i>
-                                <strong>Postular</strong>
-                            </button>
+                                <strong>Postular</strong></button>
                         </form>
                         @endif
 
                         @if (Gate::allows('empresa-gestion') or Gate::allows('admin-gestion'))
 
                         {{-- Postulantes --}}
-                        <a href="{{route('postulantes.index',$oferta->id)}}" class="btn text-white btn-primary ">
+                        <a href="{{route('postulantes.index',$oferta->id)}}" class="btn text-white btn-primary">
                             <i class="material-icons text-white" style="font-size: 1em">pending_actions</i>
                             <strong>Postulantes</strong>
                         </a>
@@ -211,11 +218,55 @@
                             </div>
                         </div>
                         {{-- /*Modal Eliminar --}}
+
                     </div>
                     <div class="card-body overflow-auto" style="max-height: 55vh;">
                         <h5><strong>Descripción</strong></h5>
                         <div id="details-description"></div>
                     </div>
+
+                    <!-- Modal de éxito -->
+                    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-success text-white">
+                                    <h5 class="modal-title" id="successModalLabel"><strong>¡Postulado!</strong></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ session('success') }}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal de error -->
+                    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-danger text-white">
+                                    <h5 class="modal-title" id="errorModalLabel"><strong>¡Error!</strong></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ session('error') }}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             @endif
@@ -264,6 +315,8 @@
 
         function showDetails(id) {
             const oferta = ofertas.find(oferta => oferta.id === id);
+            //Asignar id al value del boton postular
+            document.getElementById('oferta_id').value = oferta.id;
             if (oferta) {
                 document.querySelectorAll('.oferta-card').forEach(card => {
                     card.classList.remove('border-primary');
@@ -291,13 +344,30 @@
 
                 //Actualizar modificar
                 document.querySelector('.btn-warning').href = `/ofertas/edit/${oferta.id}`;
+
+                
             }
         }
 
+        //Mostrar Errores y Succes en las postulaciones
         document.addEventListener('DOMContentLoaded', function () {
             if (ofertas.length > 0) {
                 showDetails(ofertas[0].id);
             }
         });
+
+        document.addEventListener('DOMContentLoaded', function () {
+        // Mostrar el modal de éxito si hay un mensaje de éxito
+        @if(session('success'))
+            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+        @endif
+
+        // Mostrar el modal de error si hay un mensaje de error
+        @if(session('error'))
+            var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+            errorModal.show();
+        @endif
+    });
 </script>
 @endsection

@@ -107,7 +107,7 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
         Route::put('/ofertas/edit/{oferta}',[OfertasController::class,'update'])->name('ofertas.update');
         Route::get('/comunas/{regionId}', [OfertasController::class, 'getComunas']);
         Route::delete('/ofertas/{oferta}',[OfertasController::class,'destroy'])->name('ofertas.destroy');
-        Route::post('/ofertas/postular/{oferta}',[OfertasController::class, 'postular'])->name('ofertas.postular');
+        Route::post('/ofertas/postular', [OfertasController::class, 'postular'])->name('ofertas.postular');
     });
     //Ofertas
 

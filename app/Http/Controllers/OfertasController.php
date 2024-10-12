@@ -10,6 +10,8 @@ use App\Models\Carrera;
 use App\Models\Region;
 use App\Models\Comuna;
 use App\Models\Empresa;
+use App\Models\Postulacion;
+use App\Models\Estudiante;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Http\Requests\OfertaRequest;
@@ -17,6 +19,27 @@ use App\Http\Requests\OfertaRequest;
 
 class OfertasController extends Controller
 {   
+    public function postular(Oferta $oferta)
+    {
+
+        $emailUsuario = auth()->user()->correo_usuario; 
+        $estudianteId = Estudiante::where('id_usuario', $emailUsuario)->first()->id;
+        
+        $yaExiste = Postulacion::where('id_estudiante',$estudianteId)->where('id_oferta',$oferta->id)->count();
+
+        if(!$yaExiste == 0){
+            dd('ya Existe');
+            return back();
+        }
+        $postulacion = new Postulacion();
+        $postulacion -> id_oferta = $oferta -> id;
+        $postulacion -> id_estudiante = $estudianteId;
+        $postulacion->save();
+
+        return redirect()->route('ofertas.index');
+    }
+
+
     public function index(Request $request)
     { 
         

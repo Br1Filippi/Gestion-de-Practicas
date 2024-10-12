@@ -144,16 +144,19 @@
 
                         @if (Gate::allows('estudiante-gestion'))
                         {{-- Postular --}}
-                        <a href="" class="btn text-white btn-primary ">
-                            <i class="material-icons text-white" style="font-size: 1em">send</i>
-                            <strong>Postular</strong>
-                        </a>
+                        <form action="{{ route('ofertas.postular', $oferta->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn text-white btn-primary">
+                                <i class="material-icons text-white" style="font-size: 1em">send</i>
+                                <strong>Postular</strong>
+                            </button>
+                        </form>
                         @endif
 
                         @if (Gate::allows('empresa-gestion') or Gate::allows('admin-gestion'))
 
                         {{-- Postulantes --}}
-                        <a href="{{route('ofertas.postulantes')}}" class="btn text-white btn-primary ">
+                        <a href="{{route('postulantes.index',$oferta->id)}}" class="btn text-white btn-primary ">
                             <i class="material-icons text-white" style="font-size: 1em">pending_actions</i>
                             <strong>Postulantes</strong>
                         </a>

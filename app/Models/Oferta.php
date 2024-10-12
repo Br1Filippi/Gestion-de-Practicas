@@ -47,4 +47,10 @@ class Oferta extends Model
     {
         return $this->belongsTo(Empresa::class, 'id_empresa');
     }
+
+    //Relacion con Postulacion
+    public function postulaciones()
+    {
+        return $this->hasMany(Postulacion::class);
+    }
 }

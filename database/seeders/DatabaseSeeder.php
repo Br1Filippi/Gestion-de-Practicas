@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             ComunasSeeder::class,
             CarrerasSeeder::class,
             OfertasSeeder::class,
+            EstudiantesSeeder::class,
         ]);
     }
 }

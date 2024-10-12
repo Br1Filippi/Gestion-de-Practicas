@@ -14,6 +14,7 @@ use App\Http\Controllers\EmpresasController;
 use App\Http\Controllers\EstudiantesController;
 use App\Http\Controllers\SecretariasController;
 use App\Http\Controllers\JefesController;
+use App\Http\Controllers\PostulantesController;
 
 
 //Rutas Publicas sin AUTH
@@ -106,8 +107,14 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
         Route::put('/ofertas/edit/{oferta}',[OfertasController::class,'update'])->name('ofertas.update');
         Route::get('/comunas/{regionId}', [OfertasController::class, 'getComunas']);
         Route::delete('/ofertas/{oferta}',[OfertasController::class,'destroy'])->name('ofertas.destroy');
-        Route::get('ofertas/postulantes/',[OfertasController::class,'postulantes'])->name('ofertas.postulantes');
+        Route::post('/ofertas/postular/{oferta}',[OfertasController::class, 'postular'])->name('ofertas.postular');
     });
     //Ofertas
+
+    //Postulantes
+    Route::middleware(['auth'])->group(function(){
+        Route::get('/postulantes',[PostulantesController::class,'index'])->name('postulantes.index');
+    });
+    //Postulantes
 
 //Rutas Privadas

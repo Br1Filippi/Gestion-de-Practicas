@@ -23,7 +23,7 @@
 
 
         {{-- Body --}}
-        @if ($postulantes->isEmpty())
+        @if ($postulaciones->isEmpty())
         <div class="alert alert-warning col-10 ms-5">
             No se encontraron Postulantes.
         </div>
@@ -33,14 +33,14 @@
                 {{-- Card izquierda --}}
                 <div class="col-5 d-flex flex-column align-items-center">
                     <div class="w-100 overflow-auto" style="max-height: 84vh;">
-
+                        @foreach($postulaciones as $postulante)
                         <div class="card mb-3 oferta-card shadow-sm ">
                             <div class="card-body">
                                 <h5 class="card-title"><strong>Postulante 1</strong></h5>
                                 <p class="card-text"> Datos del estudiante </p>
                             </div>
                         </div>
-
+                        @endforeach
                     </div>
                 </div>
 

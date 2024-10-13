@@ -18,7 +18,7 @@ class SupervisorUsuarioRequest extends FormRequest
             'titulo_supervisor' => 'required|string|max:50',
             'fono_supervisor' => 'required|string|max:15',
             'cargo_supervisor' => 'required|string|max:50',
-            'correo_usuario' => 'required|email|exists:usuarios,correo_usuario',
+            'correo_usuario' => 'required|email|',
             'nombre' => 'required|string|max:50',
             'apellido' => 'required|string|max:50',
             'imagen' => 'nullable|image|max:2048', 

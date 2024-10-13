@@ -9,8 +9,8 @@ class PostulantesController extends Controller
 {
     public function index()
     {
-        $postulantes = Postulacion::all();
-        return view('postulantes.index',compact('postulantes'));
+        $postulaciones = Postulacion::all();
+        return view('postulantes.index',compact('postulaciones'));
     }
 
 }

@@ -101,7 +101,7 @@
             @else
             <!-- Columna Izquierda -->
             <div class="col-5 d-flex flex-column align-items-center">
-                <div class="w-100 overflow-auto ms-5" style="max-height: 80vh;">
+                <div class="w-100 overflow-auto ms-5" style="max-height: 79vh;">
                     @foreach ($ofertas as $oferta)
                     <div class="card mb-3 oferta-card shadow-sm" data-id="{{ $oferta->id }}"
                         onclick="showDetails({{ $oferta->id }})" onmouseover="this.classList.add('shadow-sm')"
@@ -149,15 +149,17 @@
 
                         {{-- Botones --}}
                         @if (Gate::allows('estudiante-gestion'))
-                        {{-- Postular --}}
                         <form id='postular-form' action="{{ route('ofertas.postular') }}" method="POST"
                             style="display:inline;">
                             @csrf
                             <input type="hidden" name="oferta_id" id="oferta_id" value="">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary" id="postular-button">
                                 <i class="material-icons text-white" style="font-size: 1em">send</i>
-                                <strong>Postular</strong></button>
+                                <strong>Postular</strong>
+                            </button>
                         </form>
+                        @else
+                        <input type="hidden" name="oferta_id" id="oferta_id" value="">
                         @endif
 
                         @if (Gate::allows('empresa-gestion') or Gate::allows('admin-gestion'))
@@ -220,7 +222,7 @@
                         {{-- /*Modal Eliminar --}}
 
                     </div>
-                    <div class="card-body overflow-auto" style="max-height: 55vh;">
+                    <div class="card-body overflow-auto" style="max-height: 50vh;">
                         <h5><strong>Descripción</strong></h5>
                         <div id="details-description"></div>
                     </div>
@@ -344,7 +346,6 @@
 
                 //Actualizar modificar
                 document.querySelector('.btn-warning').href = `/ofertas/edit/${oferta.id}`;
-
                 
             }
         }

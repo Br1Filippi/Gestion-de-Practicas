@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('edad_estudiante');
             $table->string('fono_estudiante');
             $table->string('direccion_estudiante');
+            $table->text('desc_estudiante');
 
             $table->unsignedBigInteger('id_carrera');
             $table->foreign('id_carrera')->references('id')->on('carreras');

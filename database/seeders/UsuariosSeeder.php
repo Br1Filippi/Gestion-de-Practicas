@@ -20,7 +20,7 @@ class UsuariosSeeder extends Seeder
                 'password' => Hash::make('123'),
                 'nombre' => 'Dagoberto',
                 'apellido' => 'Cabrera',
-                'imagen'=> null,
+                'imagen'=> 'pubic/usuarios/RTb4ySGj4vYxhqbYvPVyfACsJIPj8uUX8dwt6ZXi.jpg',
             ],
             [
                 'correo_usuario' => 'Alumno2@usm.cl',
@@ -76,6 +76,20 @@ class UsuariosSeeder extends Seeder
                 'password' => Hash::make('123'),
                 'nombre' => 'Admin',
                 'apellido' => '',
+                'imagen'=> null,
+            ],
+            [
+                'correo_usuario' => 'Alumno3@usm.cl',
+                'password' => Hash::make('123'),
+                'nombre' => 'Amanda',
+                'apellido' => 'Frost',
+                'imagen'=> null,
+            ],
+            [
+                'correo_usuario' => 'Alumno4@usm.cl',
+                'password' => Hash::make('123'),
+                'nombre' => 'Paolo',
+                'apellido' => 'Ruiz',
                 'imagen'=> null,
             ],
         ]);

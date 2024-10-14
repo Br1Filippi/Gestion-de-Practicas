@@ -8,6 +8,7 @@ use App\Models\Empresa;
 use App\Models\Oferta;
 use App\Models\Estudiante;
 use App\Models\Usuario;
+use App\Models\Carrera;
 
 class PostulantesController extends Controller
 {
@@ -17,7 +18,9 @@ class PostulantesController extends Controller
         $postulaciones = Postulacion::where('id_oferta',$ofertaId)->get();
 
         $estudiante = Estudiante::all();
-        return view('postulantes.index',compact('postulaciones','estudiante',));  
+        $carrera = Carrera::all();
+
+        return view('postulantes.index',compact('postulaciones','estudiante','carrera'));  
     }
 
 }

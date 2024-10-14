@@ -18,4 +18,9 @@ class Carrera extends Model
     {
         return $this->hasMany(Oferta::class);
     }
+
+    public function estudiantes()
+    {
+        return $this->hasMany(Estudiante::class, 'id_carrera');
+    }
 }

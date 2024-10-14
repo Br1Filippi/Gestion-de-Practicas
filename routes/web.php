@@ -113,7 +113,7 @@ Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->na
 
     //Postulantes
     Route::middleware(['auth'])->group(function(){
-        Route::get('/postulantes',[PostulantesController::class,'index'])->name('postulantes.index');
+        Route::get('/postulantes/{oferta}',[PostulantesController::class,'index'])->name('postulantes.index');
     });
     //Postulantes
 

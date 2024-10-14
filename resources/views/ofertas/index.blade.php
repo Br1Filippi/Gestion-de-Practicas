@@ -165,7 +165,7 @@
                         @if (Gate::allows('empresa-gestion') or Gate::allows('admin-gestion'))
 
                         {{-- Postulantes --}}
-                        <a href="{{route('postulantes.index',$oferta->id)}}" class="btn text-white btn-primary">
+                        <a id="postulantes" href="{{route('postulantes.index',$oferta->id)}}" class="btn text-white btn-primary">
                             <i class="material-icons text-white" style="font-size: 1em">pending_actions</i>
                             <strong>Postulantes</strong>
                         </a>
@@ -347,6 +347,8 @@
                 //Actualizar modificar
                 document.querySelector('.btn-warning').href = `/ofertas/edit/${oferta.id}`;
                 
+                //Actualizar Postulantes
+                document.getElementById('postulantes').href = `/postulantes/${oferta.id}`;
             }
         }
 

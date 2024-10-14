@@ -18,7 +18,7 @@ class Postulacion extends Model
     //Relaciones
     public function oferta()
     {
-        return $this->belongsTo(Oferta::class, 'if_oferta');
+        return $this->belongsTo(Oferta::class, 'id_oferta');
     }
 
     public function estudiante()

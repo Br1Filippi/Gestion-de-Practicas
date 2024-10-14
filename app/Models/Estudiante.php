@@ -18,4 +18,9 @@ class Estudiante extends Model
     {
         return $this->hasMany(Postulacion::class, 'id_estudiante');
     }
+
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'id_usuario');
+    }
 }

@@ -1,9 +1,15 @@
 @extends('templates.master')
 
 @section('contenido-principal')
+<div class="col d-flex justify-content-start align-items-center">
+    <a href="{{ route('ofertas.index') }}"
+        class="btn text-white btn-warning d-flex justify-content-center align-items-center">
+        <i class="material-icons text-white mx-1" style="font-size: 1em">arrow_back</i>
+        <strong>Volver</strong>
+    </a>
+</div>
 <div class="container mt-4">
     <div class="col-10">
-
         <form action="">
             <div class="row mb-3 me-5 ms-4">
                 {{-- Barra de Busqueda --}}
@@ -32,12 +38,21 @@
             <div class="row w-100 ps-3">
                 {{-- Card izquierda --}}
                 <div class="col-5 d-flex flex-column align-items-center">
-                    <div class="w-100 overflow-auto" style="max-height: 84vh;">
+                    <div class="w-100 overflow-auto" style="max-height: 79vh;">
                         @foreach($postulaciones as $postulante)
                         <div class="card mb-3 oferta-card shadow-sm ">
                             <div class="card-body">
-                                <h5 class="card-title"><strong>Postulante 1</strong></h5>
-                                <p class="card-text"> Datos del estudiante </p>
+                                <h5 class="card-title"><strong>{{$postulante->estudiante->usuario->nombre}} {{$postulante->estudiante->usuario->apellido}}</strong></h5>
+                                <p class="card-text mb-0"> {{$postulante->estudiante->rut_estudiante}}</p>
+                                <p class="card-text mb-0"> {{$postulante->estudiante->direccion_estudiante}}</p>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="card-text mb-0"> {{$postulante->estudiante->usuario->correo_usuario}}</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="card-text mb-0"> {{$postulante->estudiante->fono_estudiante}}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         @endforeach
@@ -68,7 +83,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body overflow-auto" style="max-height: 59vh;">
+                        <div class="card-body overflow-auto" style="max-height: 53vh;">
                             <h5><strong>Acerca de mí:</strong></h5>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in risus venenatis, varius
                             odio

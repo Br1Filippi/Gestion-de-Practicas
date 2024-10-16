@@ -70,6 +70,7 @@
                                     <h5 id="nombre-apellido"><strong></strong></h5>
                                     <p id="rut-estudiante" class="mb-0"></p>
                                     <p id="direccion-estudiante" class="mb-0"></p>
+                                    <p id="edad-estudiante" class="mb-0"></p>
                                     <p id="nombre-carrera" class="mb-0"></p>
                                     <div class="row mt-0">
                                         <div class="col mt-0">
@@ -129,7 +130,8 @@
         document.getElementById('nombre-apellido').innerHTML = `<strong>${postulante.estudiante.usuario.nombre} ${postulante.estudiante.usuario.apellido}</strong>`;
         document.getElementById('rut-estudiante').textContent = postulante.estudiante.rut_estudiante;
         document.getElementById('direccion-estudiante').textContent = postulante.estudiante.direccion_estudiante;
-        document.getElementById('nombre-carrera').textContent = postulante.estudiante.carrera.nombre;
+        document.getElementById('direccion-estudiante').textContent = `${postulante.estudiante.edad_estudiante} años`;
+        // document.getElementById('nombre-carrera').textContent = postulante.estudiante.carrera.nombre;
         document.getElementById('correo-usuario').textContent = postulante.estudiante.usuario.correo_usuario ;
         document.getElementById('fono-estudiante').textContent = postulante.estudiante.fono_estudiante;
 

@@ -7,60 +7,74 @@
             <div class="card custom-card shadow-sm" style="width: 70%;">
                 <div class="card-header bg-white">
                     <div class="row">
-
-                        <div class="col-3">
-                            <!-- Imagen de perfil -->
-                            <img src="https://via.placeholder.com/800" class="card-img" alt="Imagen de Perfil">
-                        </div>
-                        <div class="col">
-                            <div class="row ">
-                                <div class="col-9 ">
-                                    <h3><strong>Dagoberto Cabrera</strong></h3>
-                                </div>
-                                <div class="col-3 d-flex justify-content-end aling-items-end">
-                                    <a href="" class="btn text-white btn-warning ">
-                                        <i class="material-icons text-white" style="font-size: 1em">edit</i>
-                                        <strong>Editar</strong>
-                                    </a>
-                                </div>
+                        @if ($usuario->imagen == null)
+                            <div class="col-3">
+                                <!-- Imagen de perfil por defecto -->
+                                <img src="https://via.placeholder.com/800" class="card-img" alt="Imagen de Perfil">
                             </div>
-                            <p>27 años</p>
-                            <div class="row ">
-                                <div class="col-4 ">
-                                    <p>dagobertocabrera@usm.cl</p>
-                                </div>
-                                <div class="col-4">
-                                    <p>+569 77893712 </p>
-                                </div>
+                        @else
+                            <div class="col-3">
+                                <!-- Imagen almacenada del usuario -->
+                                <img src="{{ Storage::url($usuario->imagen) }}" class="card-img img-fluid" alt="Imagen de Perfil">
                             </div>
-                            <p>Ingeniero Civil Electronico</p>
-                        </div>
-                            
+                        @endif
+                        {{-- Estudiante --}}
+                        @if(Gate::allows('estudiante-gestion'))
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <h3><strong>{{$usuario->nombre}} {{$usuario->apellido}}</strong></h3>
+                                    </div>
+                                    <div class="col-3 d-flex justify-content-end align-items-end">
+                                        <a href="" class="btn text-white btn-warning">
+                                            <i class="material-icons text-white" style="font-size: 1em">edit</i>
+                                            <strong>Editar</strong>
+                                        </a>
+                                    </div>
+                                </div>
+                                <p>{{$estudiante->edad_estudiante}} años</p>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>{{$usuario->correo_usuario}}</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p>+56 {{$estudiante->fono_estudiante}}</p>
+                                    </div>
+                                </div>
+                                <p>{{$estudiante->carrera->nombre}}</p>
+                            </div>
+                        @endif
+                        {{-- Empresas --}}
+                        @if(Gate::allows('empresa-gestion'))
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <h3><strong>{{$usuario->nombre}} {{$usuario->apellido}}</strong></h3>
+                                    </div>
+                                    <div class="col-3 d-flex justify-content-end align-items-end">
+                                        <a href="" class="btn text-white btn-warning">
+                                            <i class="material-icons text-white" style="font-size: 1em">edit</i>
+                                            <strong>Editar</strong>
+                                        </a>
+                                    </div>
+                                </div>
+                                <a href='{{$empresa->url_web}}'>{{$empresa->url_web}}</a>
+                                <p>{{$empresa->rut_empresa}}</p>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>{{$empresa->direccion}}</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p>{{$empresa->email_contacto}}</p>
+                                    </div>
+                                </div>
+                                <p>{{$empresa->razon_social}}</p>
+                            </div>
+                        @endif
                     </div>
                 </div>
-                <div class="card-body overflow-auto" style="max-height: 80vh;">
-                    <h5><strong>Acerca de Mi: </strong></h5>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in risus venenatis, varius odio in, vehicula justo. Quisque eleifend
-                    hendrerit augue. Donec sollicitudin diam sit amet sapien rutrum luctus quis vel eros. Integer consequat nisi a lectus pharetra gravida.
-                    Donec orci lectus, faucibus efcitur sem nec, ullamcorper suscipit nibh. Integer a rhoncus lacus. Nullam consectetur tellus quis
-                    placerat eleifend. Donec sed tortor porta, fnibus nisi non, volutpat massa. Mauris feugiat rutrum ornare. Pellentesque habitant morbi
-                    tristique senectus et netus et malesuada fames ac turpis egestas. Sed vitae ligula leo. Duis mattis lectus venenatis, ullamcorper elit id,
-                    euismod augue. Aenean purus nulla, pharetra in felis eu, faucibus ornare ipsum. Mauris vitae lacus id dui vulputate bibendum placerat
-                    ut nunc. Nullam placerat vel nunc ac feugiat. Integer consequat tempus neque, non commodo lacus varius ut.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in risus venenatis, varius odio in, vehicula justo. Quisque eleifend
-                    hendrerit augue. Donec sollicitudin diam sit amet sapien rutrum luctus quis vel eros. Integer consequat nisi a lectus pharetra gravida.
-                    Donec orci lectus, faucibus efcitur sem nec, ullamcorper suscipit nibh. Integer a rhoncus lacus. Nullam consectetur tellus quis
-                    placerat eleifend. Donec sed tortor porta, fnibus nisi non, volutpat massa. Mauris feugiat rutrum ornare. Pellentesque habitant morbi
-                    tristique senectus et netus et malesuada fames ac turpis egestas. Sed vitae ligula leo. Duis mattis lectus venenatis, ullamcorper elit id,
-                    euismod augue. Aenean purus nulla, pharetra in felis eu, faucibus ornare ipsum. Mauris vitae lacus id dui vulputate bibendum placerat
-                    ut nunc. Nullam placerat vel nunc ac feugiat. Integer consequat tempus neque, non commodo lacus varius ut.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in risus venenatis, varius odio in, vehicula justo. Quisque eleifend
-                    hendrerit augue. Donec sollicitudin diam sit amet sapien rutrum luctus quis vel eros. Integer consequat nisi a lectus pharetra gravida.
-                    Donec orci lectus, faucibus efcitur sem nec, ullamcorper suscipit nibh. Integer a rhoncus lacus. Nullam consectetur tellus quis
-                    placerat eleifend. Donec sed tortor porta, fnibus nisi non, volutpat massa. Mauris feugiat rutrum ornare. Pellentesque habitant morbi
-                    tristique senectus et netus et malesuada fames ac turpis egestas. Sed vitae ligula leo. Duis mattis lectus venenatis, ullamcorper elit id,
-                    euismod augue. Aenean purus nulla, pharetra in felis eu, faucibus ornare ipsum. Mauris vitae lacus id dui vulputate bibendum placerat
-                    ut nunc. Nullam placerat vel nunc ac feugiat. Integer consequat tempus neque, non commodo lacus varius ut.
+                <div class="card-body overflow-auto" style="max-height: 70vh;">
+                    
                 </div>
             </div>
         </div>

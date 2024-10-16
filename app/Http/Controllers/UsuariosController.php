@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Usuario;
+use App\Models\Empresa;
+use App\Models\Estudiante;
 
 class UsuariosController extends Controller
 {
@@ -67,7 +69,21 @@ class UsuariosController extends Controller
 
     public function perfil()
     {
-        return view('usuarios.perfil');
+        $usuario = Auth::user();
+        $usuarioId = $usuario->correo_usuario;
+        $rol = $usuario->roles()->first()->nombre; 
+
+        if ($rol == 'Estudiante')
+        {
+            $estudiante = Estudiante::where('id_usuario',$usuarioId)->first();
+            return view('usuarios.perfil',compact('usuario','estudiante'));
+        }
+        if ($rol == 'Empresa')
+        {
+            $empresa = Empresa::where('id_usuario',$usuarioId)->first();
+            return view('usuarios.perfil',compact('usuario','empresa'));
+        }
+        return back();
     }
 
     public function store(Request $request)

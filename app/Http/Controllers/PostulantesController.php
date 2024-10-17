@@ -12,8 +12,10 @@ use App\Models\Carrera;
 
 class PostulantesController extends Controller
 {
-    public function index(Oferta $oferta)
+    public function index(Oferta $oferta, Request $request)
     {
+
+
         $ofertaId = $oferta->id;
         $postulaciones = Postulacion::where('id_oferta',$ofertaId)->get();
 

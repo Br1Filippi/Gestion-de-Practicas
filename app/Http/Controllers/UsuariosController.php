@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Usuario;
 use App\Models\Empresa;
 use App\Models\Estudiante;
+use App\Models\Supervisor;
 
 class UsuariosController extends Controller
 {
@@ -82,6 +83,11 @@ class UsuariosController extends Controller
         {
             $empresa = Empresa::where('id_usuario',$usuarioId)->first();
             return view('usuarios.perfil',compact('usuario','empresa'));
+        }
+        if ($rol == 'Supervisor')
+        {
+            $supervisor = Supervisor::where('id_usuario',$usuarioId)->first();
+            return view('usuarios.perfil',compact('usuario','supervisor'));
         }
         return back();
     }

@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
             CarrerasSeeder::class,
             OfertasSeeder::class,
             EstudiantesSeeder::class,
+            JefesdecarreraSeeder::class,
+            SecretariaSeeder::class,
         ]);
     }
 }

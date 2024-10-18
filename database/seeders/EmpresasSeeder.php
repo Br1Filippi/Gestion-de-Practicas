@@ -17,7 +17,6 @@ class EmpresasSeeder extends Seeder
             [
                 'rut_empresa' => '12345678-9',
                 'direccion' => 'Camino Troncal 2091',
-                'firma_empresa' => 'Firma S.A.G.R',
                 'razon_social' => 'Smile S.A.G.R',
                 'email_contacto' => 'Smile@empresa.com',
                 'url_web' => 'https://www.globant.com/es/',
@@ -26,7 +25,6 @@ class EmpresasSeeder extends Seeder
             [
                 'rut_empresa' => '98765432-1',
                 'direccion' => 'Camino del Sol 800',
-                'firma_empresa' => 'Firma/MercadoLibre',
                 'razon_social' => 'TRANSPORTE, ALMACENAMIENTO Y COMUNICACIONES',
                 'email_contacto' => 'Support@mercadolibre.com',
                 'url_web' => 'https://www.mercadolibre.cl/',

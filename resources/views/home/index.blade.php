@@ -15,47 +15,49 @@
         <div class="container vh-100 d-flex align-items-center justify-content-center">
             <div class="container-fluid">
                 <div class="row bg-light rounded shadow p-4">
-                    
+
                     {{-- Logotipo --}}
                     <div class="col-lg-8 col-md-7 text-white d-flex flex-column justify-content-center mb-4 mb-md-0">
                         <div class="row">
                             <div class="col-1">
-                                <img src="{{ asset('images/Logo_UTFSM.png') }}" alt="Logo UTFSM" style="max-width: 80px; height: auto;">
+                                <img src="{{ asset('images/Logo_UTFSM.png') }}" alt="Logo UTFSM"
+                                    style="max-width: 80px; height: auto;">
                             </div>
                             <div class="col ms-3">
                                 <h1 class="display-4 fw-bold text-black"><strong>USM</strong></h1>
                             </div>
                         </div>
                         <h3 class="fw-light text-black">Gestión de Prácticas</h3>
-                        <p class="fs-5 mt-3 text-black">En esta plataforma podrás inscribir y buscar tus prácticas, ya sean profesionales o industriales.</p>
+                        <p class="fs-5 mt-3 text-black">En esta plataforma podrás inscribir y buscar tus prácticas, ya
+                            sean profesionales o industriales.</p>
                     </div>
                     {{-- /* Logotipo --}}
-    
+
                     {{-- Menú --}}
                     <div class="col-lg-4 col-md-5">
                         <div class="card shadow-sm border-0">
                             <div class="card-body">
                                 <h5 class="card-title text-center mb-3"><strong>Acceder a la Plataforma</strong></h5>
-    
+
                                 <p class="card-text text-center">Ingreso Portal Laboral</p>
                                 <div class="mb-3 d-grid">
                                     <a href="{{ route('usuarios.login') }}" class="btn btn-primary "
                                         style="background-color: #005E90; border-color: #005E90; ">Iniciar Sesión</a>
                                 </div>
-    
+
                                 <hr>
-    
+
                                 <p class="card-text text-center">Cuentas Empresas</p>
                                 <div class="d-grid">
-                                    <a type="button" class="btn btn-outline-ligth"
-                                        style="border-color: #005E90; color: #005E90;">Crear Cuenta</a> 
+                                    <a href="{{route('usuarios.crearEmpresa')}}" class="btn btn-outline-ligth"
+                                        style="border-color: #005E90; color: #005E90;">Crear Cuenta</a>
                                 </div>
-                                    
+
                             </div>
                         </div>
                     </div>
                     {{-- /* Menú --}}
-    
+
                 </div>
             </div>
         </div>

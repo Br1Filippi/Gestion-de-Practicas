@@ -8,9 +8,13 @@ use App\Models\Usuario;
 use App\Models\Empresa;
 use App\Models\Estudiante;
 use App\Models\Supervisor;
+use App\Models\JefeDeCarrera;
+use Illuminate\Support\Facades\Hash;
+
 
 class UsuariosController extends Controller
 {
+    
     public function index()
     {
         return view('usuarios.index');

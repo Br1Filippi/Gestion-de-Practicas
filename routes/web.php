@@ -22,6 +22,8 @@ Route::get('/',[HomeController::class,'index'])->name('home.index');
 Route::get('/inicio',[HomeController::class,'inicio'])->name('home.fond');
 Route::get('/usuarios/login',[UsuariosController::class,'login'])->name('usuarios.login');
 Route::post('/usuarios/autenticar',[UsuariosController::class,'autenticar'])->name('usuarios.autenticar');
+Route::get('/usuarios/crear',[EmpresasController::class,'crearEmpresa'])->name('usuarios.crearEmpresa');
+Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa'])->name('usuarios.storeEmpresa');
 //Rutas Publicas sin AUTH
 
 //Rutas Privadas

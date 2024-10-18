@@ -14,15 +14,22 @@ class PostulantesController extends Controller
 {
     public function index(Oferta $oferta, Request $request)
     {
+        // Iniciar una consulta para Postulacion
+        $query = Postulacion::where('id_oferta', $oferta->id); // Filtrar por id_oferta desde el inicio
 
+        // Si el término de búsqueda está presente, aplicar filtro sobre la relación con Estudiante
+        if ($request->filled('termino')) {
+            $query->whereHas('estudiante', function($q) use ($request) {
+                $q->where('rut_estudiante', 'LIKE', '%' . $request->input('termino') . '%');
+            });
+        }
 
-        $ofertaId = $oferta->id;
-        $postulaciones = Postulacion::where('id_oferta',$ofertaId)->get();
+        // Obtener las postulaciones filtradas
+        $postulaciones = $query->get();
 
-        $estudiante = Estudiante::all();
-        $carrera = Carrera::all();
-
-        return view('postulantes.index',compact('postulaciones','estudiante','carrera'));  
+        return view('postulantes.index', compact('postulaciones'));
     }
+
+
 
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\EmpresaUsuarioRequest;
 use App\Models\Usuario;
 use App\Models\Empresa;
 use Illuminate\Support\Facades\Hash;
@@ -15,7 +16,7 @@ class EmpresasController extends Controller
         return view('usuarios.crearEmpresa');
     }
 
-    public function storeEmpresa(Request $request)
+    public function storeEmpresa(EmpresaUsuarioRequest $request)
     {
         $password = Hash::make($request->password);
         $path = $request->file('imagen')->store('public/usuarios');

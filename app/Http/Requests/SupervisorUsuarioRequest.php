@@ -14,11 +14,11 @@ class SupervisorUsuarioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'rut_supervisor' => 'required|string|regex:/^\d{1,8}-[0-9kK]$/|max:10|min:9',
+            'rut_supervisor' => 'required|string|unique:supervisor,supervisor|regex:/^\d{1,8}-[0-9kK]$/|max:10|min:9',
             'titulo_supervisor' => 'required|string|max:50',
             'fono_supervisor' => 'required|string|max:15',
             'cargo_supervisor' => 'required|string|max:50',
-            'correo_usuario' => 'required|email|',
+            'correo_usuario' => 'required|email|unique:usuarios,correo_usuario',
             'nombre' => 'required|string|max:50',
             'apellido' => 'required|string|max:50',
             'imagen' => 'nullable|image|max:2048', 
@@ -32,6 +32,7 @@ class SupervisorUsuarioRequest extends FormRequest
             'rut_supervisor.required' => 'El RUT del supervisor es obligatorio.',
             'rut_supervisor.max' => 'El RUT no puede exceder los 10 caracteres.',
             'rut_supervisor.min' => 'El RUT debe tener al menos 9 caracteres.',
+            'rut_supervisor.unique' => 'Este RUT ya está registrado.',
             'rut_supervisor.regex' => 'El formato del RUT es inválido. Ej: 12345678-9',
             'titulo_supervisor.required' => 'El título del supervisor es obligatorio.',
             'titulo_supervisor.max' => 'El título no puede exceder los 50 caracteres.',
@@ -41,6 +42,7 @@ class SupervisorUsuarioRequest extends FormRequest
             'cargo_supervisor.max' => 'El cargo no puede exceder los 50 caracteres.',
             'correo_usuario.required' => 'El correo del usuario es obligatorio.',
             'correo_usuario.email' => 'El correo debe ser una dirección de correo válida.',
+            'correo_usuario.unique' => 'Este correo ya está registrado.',
             'correo_usuario.exists' => 'El correo seleccionado no está registrado.',
             'nombre.required' => 'El nombre es obligatorio.',
             'nombre.max' => 'El nombre no puede exceder los 50 caracteres.',

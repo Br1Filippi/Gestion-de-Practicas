@@ -46,6 +46,8 @@ class SupervisorController extends Controller
         $password = Hash::make($request->password);
         $path = $request->file('imagen')->store('public/usuarios');
 
+
+
         $usuario = Usuario::create([
             'correo_usuario' => $request->correo_usuario,
             'password' => $password, 

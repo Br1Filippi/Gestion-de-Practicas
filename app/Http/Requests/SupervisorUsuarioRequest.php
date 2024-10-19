@@ -14,11 +14,11 @@ class SupervisorUsuarioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'rut_supervisor' => 'required|string|unique:supervisor,supervisor|regex:/^\d{1,8}-[0-9kK]$/|max:10|min:9',
+            'rut_supervisor' => 'required|string|regex:/^\d{1,8}-[0-9kK]$/|max:10|min:9',
             'titulo_supervisor' => 'required|string|max:50',
             'fono_supervisor' => 'required|string|max:15',
             'cargo_supervisor' => 'required|string|max:50',
-            'correo_usuario' => 'required|email|unique:usuarios,correo_usuario',
+            'correo_usuario' => 'required|email',
             'nombre' => 'required|string|max:50',
             'apellido' => 'required|string|max:50',
             'imagen' => 'nullable|image|max:2048', 

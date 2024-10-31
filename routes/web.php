@@ -45,6 +45,8 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
     //Empresa
     Route::middleware(['auth'])->group(function(){
         Route::get('/empresas',[EmpresasController::class,'index'])->name('empresas.index');
+        Route::get('/empresas/edit/{empresa}',[EmpresasController::class,'edit'])->name('empresas.edit');
+        Route::put('/empresas/edit/{empresa}',[EmpresasController::class,'update'])->name('empresas.update');
     });
     //Empresa
 

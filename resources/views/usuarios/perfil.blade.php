@@ -56,7 +56,7 @@
                                 <h3><strong>{{$usuario->nombre}} {{$usuario->apellido}}</strong></h3>
                             </div>
                             <div class="col-3 d-flex justify-content-end align-items-end">
-                                <a href="" class="btn text-white btn-warning">
+                                <a href="{{route('empresas.edit',$empresa->id)}}" class="btn text-white btn-warning">
                                     <i class="material-icons text-white" style="font-size: 1em">edit</i>
                                     <strong>Editar</strong>
                                 </a>
@@ -101,6 +101,38 @@
                             </div>
                         </div>
                         <p></p>
+                    </div>
+                    @endif
+                    {{-- JefeDeCarrera --}}
+                    @if(Gate::allows('jefe-gestion'))
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-9">
+                                <h3><strong>{{$usuario->nombre}} {{$usuario->apellido}}</strong></h3>
+                            </div>
+                            <div class="col-3 d-flex justify-content-end align-items-end">
+                                <a href="" class="btn text-white btn-warning">
+                                    <i class="material-icons text-white" style="font-size: 1em">edit</i>
+                                    <strong>Editar</strong>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                    {{-- Secretaria --}}
+                    @if(Gate::allows('secretaria-gestion'))
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-9">
+                                <h3><strong>{{$usuario->nombre}} {{$usuario->apellido}}</strong></h3>
+                            </div>
+                            <div class="col-3 d-flex justify-content-end align-items-end">
+                                <a href="" class="btn text-white btn-warning">
+                                    <i class="material-icons text-white" style="font-size: 1em">edit</i>
+                                    <strong>Editar</strong>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     @endif
                 </div>

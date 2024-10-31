@@ -19,9 +19,9 @@ class Empresa extends Model
     //Relaciones
     
     // Relación usuario
-    public function usuarios():HasOne
+    public function usuario()
     {
-        return $this->hasOne(Usuario::class);
+        return $this->belongsTo(Usuario::class, 'id_usuario', 'correo_usuario');
     }
 
     // Relación supervisores

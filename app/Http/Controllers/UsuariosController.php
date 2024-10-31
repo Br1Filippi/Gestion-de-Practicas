@@ -9,6 +9,7 @@ use App\Models\Empresa;
 use App\Models\Estudiante;
 use App\Models\Supervisor;
 use App\Models\JefeDeCarrera;
+use App\Models\Secretaria;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -92,6 +93,16 @@ class UsuariosController extends Controller
         {
             $supervisor = Supervisor::where('id_usuario',$usuarioId)->first();
             return view('usuarios.perfil',compact('usuario','supervisor'));
+        }
+        if ($rol == 'JefeDeCarrera')
+        {
+            $jefeDeCarrera = JefeDeCarrera::where('id_usuario',$usuarioId)->first();
+            return view('usuarios.perfil',compact('usuario','jefeDeCarrera'));
+        }
+        if ($rol == 'Secretaria')
+        {
+            $secretaria = Secretaria::where('id_usuario',$usuarioId)->first();
+            return view('usuarios.perfil',compact('usuario','secretaria'));
         }
         return back();
     }

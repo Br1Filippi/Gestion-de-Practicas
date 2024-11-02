@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\EmpresaUsuarioRequest;
+use App\Http\Requests\EmpresaUsuarioUpdate;
 use App\Models\Usuario;
 use App\Models\Empresa;
 use Illuminate\Support\Facades\Hash;
@@ -42,7 +43,7 @@ class EmpresasController extends Controller
         $empresa->id_usuario = $usuario->correo_usuario;
 
         $empresa->save();
-        return view('usuarios.crearEmpresa');
+        return view('home.index');
     }
 
     public function index()
@@ -56,7 +57,7 @@ class EmpresasController extends Controller
         return view('empresas.edit', compact('empresa'));
     }
 
-    public function update(Request $request, Empresa $empresa)
+    public function update(EmpresaUsuarioUpdate $request, Empresa $empresa)
     {
         $usuario = Usuario::where('correo_usuario', $empresa->id_usuario)->first();
 
@@ -70,14 +71,16 @@ class EmpresasController extends Controller
             $usuarioData['imagen'] = $request->file('imagen')->store('public/usuarios');
         }
 
-        $empresa->update([
-            'rut_empresa' => $request->rut_empresa,
-            'url_web' => $request->url_web,
-            'email_contacto' => $request->email_contacto,
-            'direccion' => $request->direccion_empresa,
-            'razon_social' => $request->razon_social,
-        ]);
+        $usuario->update($usuarioData);
 
+        $empresa->rut_empresa = $request->rut_empresa;
+        $empresa->url_web = $request->url_web;
+        $empresa->email_contacto = $request->email_contacto;
+        $empresa->direccion = $request->direccion_empresa;
+        $empresa->razon_social = $request->razon_social;
+        
+        $empresa->save();
+        
         return redirect()->route('usuarios.perfil');
     }
 }

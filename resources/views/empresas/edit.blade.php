@@ -52,12 +52,8 @@
 
                     {{-- Rut --}}
                     <div class="mb-3">
-                        <label for="rut_empresa" class="form-label">Rut:</label>
-                        <input type="text" class="form-control @error('rut_empresa') is-invalid @enderror"
-                            id="rut_empresa" name="rut_empresa" value="{{ old('rut_empresa', $empresa->rut_empresa) }}">
-                        @error('rut_empresa')
-                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
-                        @enderror
+                        <input type="hidden" class="form-control" id="rut_empresa" name="rut_empresa"
+                            value="{{$empresa->rut_empresa}}">
                     </div>
 
                     {{-- Url Web --}}

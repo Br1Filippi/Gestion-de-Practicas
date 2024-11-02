@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SupervisorUsuarioRequest extends FormRequest
+class SupervisorUsuarioUpdate extends FormRequest
 {
     public function authorize()
     {
@@ -13,12 +13,13 @@ class SupervisorUsuarioRequest extends FormRequest
 
     public function rules(): array
     {
+        
         return [
-            'rut_supervisor' => 'required|string|regex:/^\d{1,8}-[0-9kK]$/|max:10|min:9|unique:supervisores,rut_supervisor',
+            'rut_supervisor' => 'string|regex:/^\d{1,8}-[0-9kK]$/|max:10|min:9',
             'titulo_supervisor' => 'required|string|max:50',
             'fono_supervisor' => 'required|string|max:15',
             'cargo_supervisor' => 'required|string|max:50',
-            'correo_usuario' => 'required|email|unique:usuarios,correo_usuario',
+            'correo_usuario' => 'required|email',
             'nombre' => 'required|string|max:50',
             'apellido' => 'required|string|max:50',
             'imagen' => 'nullable|image|max:2048', 
@@ -45,15 +46,12 @@ class SupervisorUsuarioRequest extends FormRequest
             'correo_usuario.unique' => 'Este correo ya está registrado.',
             'correo_usuario.exists' => 'El correo seleccionado no está registrado.',
             'nombre.required' => 'El nombre es obligatorio.',
-            'nombre.string' => 'El nombre debe ser una cadena de texto.',
-            'nombre.max' => 'El nombre no puede tener más de 50 caracteres.',
+            'nombre.max' => 'El nombre no puede exceder los 50 caracteres.',
             'apellido.required' => 'El apellido es obligatorio.',
-            'apellido.string' => 'El apellido debe ser una cadena de texto.',
-            'apellido.max' => 'El apellido no puede tener más de 50 caracteres.',
-            'imagen.image' => 'El archivo debe ser una imagen.',
-            'imagen.max' => 'La imagen no puede superar los 2MB.',
+            'apellido.max' => 'El apellido no puede exceder los 50 caracteres.',
+            'imagen.image' => 'La imagen debe ser un archivo de tipo imagen.',
+            'imagen.max' => 'La imagen no puede ser mayor de 2MB.',
             'password.required' => 'La contraseña es obligatoria.',
-            'password.string' => 'La contraseña debe ser una cadena de texto.',
             'password.min' => 'La contraseña debe tener al menos 3 caracteres.',
         ];
     }

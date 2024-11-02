@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CambiarContraRequest;
 use App\Models\Usuario;
 use App\Models\Empresa;
 use App\Models\Estudiante;
@@ -118,5 +119,27 @@ class UsuariosController extends Controller
         $usuario->imagen - $request->file('imagen')->store('public/usuarios');
 
         $usuario->save();
+    }
+
+    public function cambiarContra(Usuario $usuario)
+    {
+        return view('usuarios.cambiarContra',compact('usuario'));
+    }
+
+    public function updateContra(CambiarContraRequest $request, Usuario $usuario)
+    {
+        if (!Hash::check($request->current_password, $usuario->password)) {
+            return back()->withErrors('La contraseña antigua no es correcta.');
+        }
+        if ($request->new_password != $request->new_password_confirmation) {
+            return back()->withErrors('Las contraseñas no coinciden.');
+        }
+        $usuario->password = Hash::make($request->new_password);
+
+        $usuario->save();
+
+        
+
+        return redirect()->route('usuarios.perfil');
     }
 }

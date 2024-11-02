@@ -3,6 +3,13 @@
 @section('contenido-principal')
 
 <div class="col-10 ">
+    <div class="col d-flex justify-content-end align-items-center">
+        <a href="{{route('usuarios.cambiarContra',$usuario->correo_usuario)}}"
+            class="btn text-white btn-info d-flex justify-content-center align-items-center">
+            <i class="material-icons text-white mx-1" style="font-size: 1em">settings</i>
+            <strong>Cambiar Contraseña</strong>
+        </a>
+    </div>
     <div class="container vh-95 d-flex justify-content-center align-items-center ">
         <div class="card custom-card shadow-sm" style="width: 70%;">
             <div class="card-header bg-white">
@@ -27,7 +34,8 @@
                                 <h3><strong>{{$usuario->nombre}} {{$usuario->apellido}}</strong></h3>
                             </div>
                             <div class="col-3 d-flex justify-content-end align-items-end">
-                                <a href="" class="btn text-white btn-warning">
+                                <a href="{{route('estudiantes.edit',$estudiante->id)}}"
+                                    class="btn text-white btn-warning">
                                     <i class="material-icons text-white" style="font-size: 1em">edit</i>
                                     <strong>Editar</strong>
                                 </a>
@@ -83,7 +91,8 @@
                                 <h3><strong>{{$usuario->nombre}} {{$usuario->apellido}}</strong></h3>
                             </div>
                             <div class="col-3 d-flex justify-content-end align-items-end">
-                                <a href="" class="btn text-white btn-warning">
+                                <a href="{{route('supervisores.edit', $supervisor->id)}}"
+                                    class="btn text-white btn-warning">
                                     <i class="material-icons text-white" style="font-size: 1em">edit</i>
                                     <strong>Editar</strong>
                                 </a>
@@ -138,7 +147,7 @@
                 </div>
             </div>
             @if (Gate::allows('estudiante-gestion'))
-            <div class="card-body overflow-auto" style="max-height: 70vh;">
+            <div class="card-body overflow-auto" style="max-height: 65vh;">
                 <h5><strong>Acerca de Mi:</strong></h5>
                 <div id="descripcion">
                     {!! $estudiante->desc_estudiante !!}

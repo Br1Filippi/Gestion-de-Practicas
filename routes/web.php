@@ -33,12 +33,16 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
         Route::get('/usuarios/logout',[UsuariosController::class,'logout'])->name('usuarios.logout');
         Route::get('/usuarios/perfil',[UsuariosController::class,'perfil'])->name('usuarios.perfil');
         Route::get('/usuarios/index',[UsuariosController::class,'index'])->name('usuarios.index');
+        Route::get('/usuarios/cambiarContra/{usuario}',[UsuariosController::class,'cambiarContra'])->name('usuarios.cambiarContra');
+        Route::put('/usuarios/updateContra/{usuario}',[UsuariosController::class,'updateContra'])->name('usuarios.updateContra');
     });
     //Usuarios
 
     //Estudiante
     Route::middleware(['auth'])->group(function(){
         Route::get('/estudiante',[EstudiantesController::class,'index'])->name('estudiantes.index');
+        Route::get('/estudiante/edit/{estudiante}',[EstudiantesController::class,'edit'])->name('estudiantes.edit');
+        Route::put('/estudiante/edit/{estudiante}',[EstudiantesController::class,'update'])->name('estudiantes.update');
     });
     //Estudiante
 

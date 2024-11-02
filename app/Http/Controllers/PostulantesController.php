@@ -30,6 +30,4 @@ class PostulantesController extends Controller
         return view('postulantes.index', compact('postulaciones'));
     }
 
-
-
 }

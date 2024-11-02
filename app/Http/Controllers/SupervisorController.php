@@ -8,6 +8,7 @@ use App\Models\Usuario;
 use App\Models\Supervisor;
 use App\Models\Empresa;
 use App\Http\Requests\SupervisorUsuarioRequest;
+use App\Http\Requests\SupervisorUsuarioUpdate;
 use Illuminate\Support\Facades\Hash;
 
 class SupervisorController extends Controller
@@ -92,7 +93,7 @@ class SupervisorController extends Controller
         return view('supervisores.edit',compact('supervisor'));
     }
 
-    public function update(Supervisor $supervisor,SupervisorUsuarioRequest $request)
+    public function update(Supervisor $supervisor,SupervisorUsuarioUpdate $request)
     {
         $usuario = Usuario::where('correo_usuario', $supervisor->id_usuario)->first();
 
@@ -116,6 +117,14 @@ class SupervisorController extends Controller
 
         $supervisor->save();
 
-        return redirect()->route('supervisores.index');
+        $usuarioLogeado = auth()->user();
+        $rol = $usuarioLogeado->roles()->first()->nombre;
+
+        if ($rol == 'Empresa') {
+            return redirect()->route('supervisores.index');
+        }
+        if ($rol == 'Supervisor') {
+            return redirect()->route('usuarios.perfil');
+        }
     }
 }

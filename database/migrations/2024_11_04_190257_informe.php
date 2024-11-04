@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('secretaria', function (Blueprint $table) {
+        Schema::create('informes', function (Blueprint $table) {
             $table->id();
-
-            $table->string('id_usuario');
-            $table->foreign('id_usuario')->references('correo_usuario')->on('usuarios');
+            $table->text('actividades_estudiante');
+            $table->text('debilidades');
+            $table->text('fortalezas');
+            $table->text('consideraciones');
+            $table->text('sugerencias');
         });
     }
 

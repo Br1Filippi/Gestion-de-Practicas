@@ -122,6 +122,7 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
     //Postulantes
     Route::middleware(['auth'])->group(function(){
         Route::get('/postulantes/{oferta}',[PostulantesController::class,'index'])->name('postulantes.index');
+        Route::delete('/postulantes/{postulante}', [PostulantesController::class, 'destroy'])->name('postulantes.destroy');
     });
     //Postulantes
 

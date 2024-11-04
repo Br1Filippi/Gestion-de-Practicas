@@ -39,14 +39,17 @@
                 <div class="col-5 d-flex flex-column align-items-center">
                     <div class="w-100 overflow-auto" style="max-height: 79vh;">
                         @foreach($postulaciones as $postulante)
-                        <div class="card mb-3 oferta-card" data-id="{{ $postulante->id }}" onclick="showPostulanteDetails({{ $postulante->id }})">
+                        <div class="card mb-3 oferta-card" data-id="{{ $postulante->id }}"
+                            onclick="showPostulanteDetails({{ $postulante->id }})">
                             <div class="card-body">
-                                <h5 class="card-title"><strong>{{$postulante->estudiante->usuario->nombre}} {{$postulante->estudiante->usuario->apellido}}</strong></h5>
+                                <h5 class="card-title"><strong>{{$postulante->estudiante->usuario->nombre}}
+                                        {{$postulante->estudiante->usuario->apellido}}</strong></h5>
                                 <p class="card-text mb-0"> {{$postulante->estudiante->rut_estudiante}}</p>
                                 <p class="card-text mb-0"> {{$postulante->estudiante->direccion_estudiante}}</p>
                                 <div class="row">
                                     <div class="col">
-                                        <p class="card-text mb-0"> {{$postulante->estudiante->usuario->correo_usuario}}</p>
+                                        <p class="card-text mb-0"> {{$postulante->estudiante->usuario->correo_usuario}}
+                                        </p>
                                     </div>
                                     <div class="col">
                                         <p class="card-text mb-0"> {{$postulante->estudiante->fono_estudiante}}</p>
@@ -64,8 +67,9 @@
                         <div class="card-header bg-white">
                             <div class="row">
                                 <div class="col-4">
-                                    <img id="imagen" src="https://via.placeholder.com/800" class="card-img" alt="Imagen de Perfil">
+                                    <img src="" id="profile-image" class="card-img img-fluid" alt="Imagen de Perfil">
                                 </div>
+
                                 <div class="col">
                                     <h5 id="nombre-apellido"><strong></strong></h5>
                                     <p id="rut-estudiante" class="mb-0"></p>
@@ -90,16 +94,54 @@
                         <div class="card-footer d-flex justify-content-end align-items-end">
                             {{-- Botones --}}
                             @if (Gate::allows('empresa-gestion'))
-                            <a href="" class="btn text-white btn-danger mx-2 d-flex justify-content-center align-items-center">
-                                <i class="material-icons text-white mx-1" style="font-size: 1em">cancel</i>
+                            {{-- Eliminar --}}
+                            <a href="" class="btn text-white btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#modalEliminar">
+                                <i class="material-icons text-white" style="font-size: 1em">delete</i>
                                 <strong>Rechazar</strong>
                             </a>
-                            <a href="" class="btn text-white btn-success mx-2 d-flex justify-content-center align-items-center">
+                            <a href=""
+                                class="btn text-white btn-success mx-2 d-flex justify-content-center align-items-center">
                                 <i class="material-icons text-white mx-1" style="font-size: 1em">check</i>
                                 <strong>Aceptar</strong>
                             </a>
                             @endif
                         </div>
+                        {{-- Modal Eliminar --}}
+                        <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4><strong>¡Esta acción no se puede deshacer!</strong></h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5 class="modal-title" id="modalEliminarLabel">
+                                            ¿Está seguro?
+                                        </h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button"
+                                            class="btn btn-secondary d-flex justify-content-center aling-items-center mx-2"
+                                            data-bs-dismiss="modal">
+                                            <i class="material-icons text-white">close</i>
+                                            Cancelar
+                                        </button>
+                                        <form id="delete-form" action="" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="btn btn-danger d-flex justify-content-center aling-items-center mx-2">
+                                                <i class="material-icons text-white">delete</i><strong>Rechazar</strong>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- /*Modal Eliminar --}}
                     </div>
                 </div>
             </div>
@@ -124,6 +166,7 @@
             console.error(`No se encontró el postulante con id: ${id}`);
             return; // Salir de la función si no se encuentra
         }
+        const storageUrl = "{{ Storage::url('') }}"; 
 
         // Actualizar el contenido del detalle
         document.getElementById('details-description').innerHTML = postulante.estudiante.desc_estudiante;
@@ -134,6 +177,16 @@
         // document.getElementById('nombre-carrera').textContent = postulante.estudiante.carrera.nombre;
         document.getElementById('correo-usuario').textContent = postulante.estudiante.usuario.correo_usuario ;
         document.getElementById('fono-estudiante').textContent = postulante.estudiante.fono_estudiante;
+        
+        // Actualizar el modal de eliminación
+        document.getElementById('delete-form').action = `/postulantes/${postulante.id}`;
+
+        const path = postulante.estudiante.usuario.imagen
+        ? `${storageUrl}${postulante.estudiante.usuario.imagen}`
+        : 'https://via.placeholder.com/800';
+    
+        document.getElementById('profile-image').src = path;
+
 
         // Resaltar la tarjeta seleccionada
         const ofertaCards = document.getElementsByClassName('oferta-card');
@@ -157,4 +210,5 @@
         }
     };
 </script>
+
 @endsection

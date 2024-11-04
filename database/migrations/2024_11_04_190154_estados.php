@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('secretaria', function (Blueprint $table) {
+        Schema::create('estados', function (Blueprint $table) {
             $table->id();
-
-            $table->string('id_usuario');
-            $table->foreign('id_usuario')->references('correo_usuario')->on('usuarios');
+            $table->string('nombre_estado');
         });
     }
 

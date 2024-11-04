@@ -30,4 +30,10 @@ class PostulantesController extends Controller
         return view('postulantes.index', compact('postulaciones'));
     }
 
+    public function destroy(Postulacion $postulante)
+    {   
+        $postulante->delete();
+        return redirect()->back();
+    }
+
 }

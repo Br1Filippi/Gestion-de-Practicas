@@ -29,6 +29,8 @@ class DatabaseSeeder extends Seeder
             EstudiantesSeeder::class,
             JefesdecarreraSeeder::class,
             SecretariaSeeder::class,
+            TiposPracticaSeeder::class,
+            EstadosSeeder::class,
         ]);
     }
 }

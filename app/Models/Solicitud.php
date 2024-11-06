@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Solicitud extends Model
+{
+    use HasFactory;
+
+    protected $table = 'solicitudes';
+
+    public $timestamps = false;
+
+    public function estado(): BelongsTo
+    {
+        return $this->belongsTo(Estado::class, 'id_estado');
+    }
+
+    public function empresa(): BelongsTo
+    {
+        return $this->belongsTo(Empresa::class, 'id_empresa');
+    }
+
+    public function oferta(): BelongsTo
+    {
+        return $this->belongsTo(Oferta::class, 'id_oferta');
+    }
+
+    public function estudiante(): BelongsTo
+    {
+        return $this->belongsTo(Estudiante::class, 'id_estudiante');
+    }
+
+    public function supervisor(): BelongsTo
+    {
+        return $this->belongsTo(Supervisor::class, 'id_supervisor');
+    }
+}

@@ -70,6 +70,7 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
     Route::middleware(['auth'])->group(function(){
         Route::get('/solicitudes',[SolicitudesController::class,'index'])->name('solicitudes.index');
         Route::get('/solicitudes/detalles',[SolicitudesController::class,'detalles'])->name('solicitudes.detalles');
+        Route::post('/solicitudes/store/{postulante}',[SolicitudesController::class,'store'])->name('solicitudes.store');
     });
     //Solicitudes
 
@@ -123,6 +124,7 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
     Route::middleware(['auth'])->group(function(){
         Route::get('/postulantes/{oferta}',[PostulantesController::class,'index'])->name('postulantes.index');
         Route::delete('/postulantes/{postulante}', [PostulantesController::class, 'destroy'])->name('postulantes.destroy');
+        Route::get('/postulantes/aceptar/{postulante}',[PostulantesController::class,'aceptar'])->name('postulantes.aceptar');
     });
     //Postulantes
 

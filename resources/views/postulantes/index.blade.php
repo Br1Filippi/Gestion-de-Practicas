@@ -97,10 +97,10 @@
                             {{-- Eliminar --}}
                             <a href="" class="btn text-white btn-danger" data-bs-toggle="modal"
                                 data-bs-target="#modalEliminar">
-                                <i class="material-icons text-white" style="font-size: 1em">delete</i>
+                                <i class="material-icons text-white" style="font-size: 1em">backspace</i>
                                 <strong>Rechazar</strong>
                             </a>
-                            <a href=""
+                            <a href="{{ route('postulantes.aceptar', $postulante->id)}}" id="aceptar"
                                 class="btn text-white btn-success mx-2 d-flex justify-content-center align-items-center">
                                 <i class="material-icons text-white mx-1" style="font-size: 1em">check</i>
                                 <strong>Aceptar</strong>
@@ -134,7 +134,8 @@
                                             @method('DELETE')
                                             <button type="submit"
                                                 class="btn btn-danger d-flex justify-content-center aling-items-center mx-2">
-                                                <i class="material-icons text-white">delete</i><strong>Rechazar</strong>
+                                                <i
+                                                    class="material-icons text-white">backspace</i><strong>Rechazar</strong>
                                             </button>
                                         </form>
                                     </div>
@@ -177,6 +178,7 @@
         // document.getElementById('nombre-carrera').textContent = postulante.estudiante.carrera.nombre;
         document.getElementById('correo-usuario').textContent = postulante.estudiante.usuario.correo_usuario ;
         document.getElementById('fono-estudiante').textContent = postulante.estudiante.fono_estudiante;
+        document.getElementById('aceptar').href = `/postulantes/aceptar/${postulante.id}`;
         
         // Actualizar el modal de eliminación
         document.getElementById('delete-form').action = `/postulantes/${postulante.id}`;

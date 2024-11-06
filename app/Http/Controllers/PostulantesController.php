@@ -9,6 +9,7 @@ use App\Models\Oferta;
 use App\Models\Estudiante;
 use App\Models\Usuario;
 use App\Models\Carrera;
+use App\Models\Supervisor;
 
 class PostulantesController extends Controller
 {
@@ -34,6 +35,15 @@ class PostulantesController extends Controller
     {   
         $postulante->delete();
         return redirect()->back();
+    }
+
+    public function aceptar(Postulacion $postulante)
+    {
+        $emailUsuario = auth()->user()->correo_usuario; 
+        $empresaId = Empresa::where('id_usuario', $emailUsuario)->first()->id;
+
+        $supervisores = Supervisor::where('id_empresa', $empresaId)->get();
+        return view('postulantes.aceptar', compact('postulante','supervisores'));
     }
 
 }

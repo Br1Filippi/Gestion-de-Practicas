@@ -16,6 +16,7 @@ return new class extends Migration
 
             $table->date('fecha_inicio');
             $table->date('fecha_termino');
+            $table->boolean('pass')->default(false);
 
             $table->unsignedBigInteger('id_estado');
             $table->foreign('id_estado')->references('id')->on('estados');

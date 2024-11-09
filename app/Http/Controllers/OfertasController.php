@@ -187,7 +187,7 @@ class OfertasController extends Controller
         return view('ofertas.edit', compact('oferta','empresa','regiones','carreras','tipos'));
     }
 
-    public function update(Request $request, OfertaRequest $oferta)
+    public function update(OfertaRequest $request, Oferta $oferta)
     {
 
         $oferta -> titulo = $request->titulo;

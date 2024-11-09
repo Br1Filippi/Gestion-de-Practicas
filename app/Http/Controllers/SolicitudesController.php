@@ -11,6 +11,7 @@ use App\Models\Estudiante;
 use App\Models\Usuario;
 use App\Models\Carrera;
 use App\Models\Supervisor;
+use App\Http\Requests\SolicitudesRequest;
 
 class SolicitudesController extends Controller
 {
@@ -24,7 +25,7 @@ class SolicitudesController extends Controller
         return view('solicitudes.detalles');
     }
 
-    public function store(Postulacion $postulante,Request $request)
+    public function store(Postulacion $postulante,SolicitudesRequest $request)
     {
         $solicitud = new Solicitud();
         $solicitud->fecha_inicio = $request->fecha_inicio;
@@ -36,6 +37,9 @@ class SolicitudesController extends Controller
         $solicitud->id_estudiante = $postulante->id_estudiante;
 
         $solicitud->save();
-        return ;
+
+        $oferta = Oferta::find($postulante->id_oferta);
+        $postulante->delete();
+        return redirect()->route('postulantes.index',compact('oferta')); 
     }
 }

@@ -14,7 +14,7 @@ use App\Models\Supervisor;
 class PostulantesController extends Controller
 {
     public function index(Oferta $oferta, Request $request)
-    {
+    {   
         // Iniciar una consulta para Postulacion
         $query = Postulacion::where('id_oferta', $oferta->id); // Filtrar por id_oferta desde el inicio
 

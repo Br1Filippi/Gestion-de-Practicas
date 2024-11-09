@@ -16,11 +16,17 @@
                 <div class="card-body">
                     <div class="form-group ">
                         <label for="fecha_inicio">Fecha de Inicio</label>
-                        <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
+                        <input type="date" class="form-control @error('fecha_inicio') is-invalid @enderror" id="fecha_inicio" name="fecha_inicio" value="{{ old('fecha_inicio') }}">
+                        @error('fecha_inicio')
+                            <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group mt-3">
                         <label for="fecha_termino">Fecha de Término</label>
-                        <input type="date" class="form-control" id="fecha_termino" name="fecha_termino" required>
+                        <input type="date" class="form-control @error('fecha_termino') is-invalid @enderror" id="fecha_termino" name="fecha_termino" value="{{ old('fecha_termino') }}">
+                        @error('fecha_termino')
+                            <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group mt-3">
                         <label for="supervisor">Supervisor a cargo del estudiante:</label>

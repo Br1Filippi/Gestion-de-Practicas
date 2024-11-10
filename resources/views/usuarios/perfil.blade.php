@@ -61,7 +61,7 @@
                     <div class="col">
                         <div class="row">
                             <div class="col-9">
-                                <h3><strong>{{$usuario->nombre}} {{$usuario->apellido}}</strong></h3>
+                                <h3><strong>{{$usuario->nombre}} </strong></h3>
                             </div>
                             <div class="col-3 d-flex justify-content-end align-items-end">
                                 <a href="{{route('empresas.edit',$empresa->id)}}" class="btn text-white btn-warning">

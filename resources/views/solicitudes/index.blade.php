@@ -64,7 +64,7 @@
 
         {{-- Listado de Solicitudes --}}
         <div class="row row-cols-1 row-cols-md-2 g-4 overflow-auto" style="max-height: 80vh;">
-
+            @foreach($solicitudes as $solicitud)
             <div class="col">
                 <div class="card h-100 shadow-sm ">
                     <div class="card-body d-flex flex-column justify-content-between">
@@ -73,34 +73,52 @@
                         <div class="row">
                             <div class="col">
                                 <h5 class="card-title d-flex ">
-                                    <strong>Solicitud 1-Nombre de la oferta</strong>
+                                    <strong>{{ $solicitud->oferta->titulo }}</strong>
                                 </h5>
                             </div>
                             <div class="col-2 me-2">
                                 @if(Gate::allows('estudiante-gestion'))
-                                <span class="badge bg-danger">Rechazada</span>
+                                    @if($solicitud->id_estado == 2)
+                                        <span class="badge bg-success">
+                                            <strong>{{ $solicitud->estado->nombre_estado }}</strong>
+                                        </span>
+                                    @elseif($solicitud->id_estado == 3)
+                                        <span class="badge bg-danger">
+                                            <strong>{{ $solicitud->estado->nombre_estado }}</strong>
+                                        </span>
+                                    @elseif($solicitud->id_estado == 1)
+                                        <span class="badge bg-warning">
+                                            <strong>{{ $solicitud->estado->nombre_estado }}</strong>
+                                        </span>
+                                    @endif
                                 @endif
                             </div>
                         </div>
 
                         {{-- Información de la Empresa y Fechas --}}
+                        @if(Gate::allows('jefe-gestion'))
+                            <p class="mb-1"><Strong> Alumno: </Strong></p>
+                            <p class="mb-1">{{ $solicitud->estudiante->rut_estudiante }} {{ $solicitud->estudiante->usuario->nombre }} {{ $solicitud->estudiante->usuario->apellido }} </p>
+                        @endif
+                        <p class="mb-1"><Strong> Empresa: </Strong></p>
+                        <p class="mb-1">{{ $solicitud->empresa->usuario->nombre }}</p>
+                        <p class="mb-1">{{ $solicitud->empresa->razon_social }}</p>
                         <div class="d-flex justify-content-between">
-                            <p class="mb-0"><i class="material-icons">event</i> Inicio: </p>
-                            <p class="mb-0"><i class="material-icons">event_busy</i> Término: </p>
+                            <p class="mb-0"><i class="material-icons">event</i> Inicio: {{ $solicitud->fecha_inicio }}</p>
+                            <p class="mb-0"><i class="material-icons">event_busy</i> Término: {{ $solicitud->fecha_termino }}</p>
                         </div>
-                        <p class="mb-1">Nombre Empresa</p>
-                        <p class="mb-1">Razon Social</p>
+                        
 
                         {{-- Botón de Detalles --}}
                         <div class="d-flex justify-content-end mt-3">
                             @if(Gate::allows('estudiante-gestion'))
-                                <a href="{{route('solicitudes.detalles')}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
+                                <a href="{{route('solicitudes.detalles',$solicitud->id)}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
                                     <i class="material-icons text-white">info</i>
                                     <strong>Detalles</strong>
                                 </a>
                             @endif
                             @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
-                                <a href="{{route('solicitudes.detalles')}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
+                                <a href="{{route('solicitudes.detalles',$solicitud->id)}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
                                     <i class="material-icons text-white">document_scanner</i>
                                     <strong>Revisar</strong>
                                 </a>
@@ -109,97 +127,7 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col">
-                <div class="card h-100 shadow-sm ">
-                    <div class="card-body d-flex flex-column justify-content-between">
-
-                        {{-- Título y Estado de Solicitud --}}
-                        <div class="row">
-                            <div class="col">
-                                <h5 class="card-title d-flex ">
-                                    <strong>Solicitud 2-Nombre de la oferta</strong>
-                                </h5>
-                            </div>
-                            <div class="col-2 me-2">
-                                @if(Gate::allows('estudiante-gestion'))
-                                <span class="badge bg-warning">En Revision</span>
-                                @endif
-                            </div>
-                        </div>
-
-                        {{-- Información de la Empresa y Fechas --}}
-                        <div class="d-flex justify-content-between">
-                            <p class="mb-0"><i class="material-icons">event</i> Inicio: </p>
-                            <p class="mb-0"><i class="material-icons">event_busy</i> Término: </p>
-                        </div>
-                        <p class="mb-1">Nombre Empresa</p>
-                        <p class="mb-1">Razon Social</p>
-
-                        {{-- Botón de Detalles --}}
-                        <div class="d-flex justify-content-end mt-3">
-                            @if(Gate::allows('estudiante-gestion'))
-                                <a href="{{route('solicitudes.detalles')}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
-                                    <i class="material-icons text-white">info</i>
-                                    <strong>Detalles</strong>
-                                </a>
-                            @endif
-                            @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
-                                <a href="{{route('solicitudes.detalles')}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
-                                    <i class="material-icons text-white">document_scanner</i>
-                                    <strong>Revisar</strong>
-                                </a>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card h-100 shadow-sm ">
-                    <div class="card-body d-flex flex-column justify-content-between">
-
-                        {{-- Título y Estado de Solicitud --}}
-                        <div class="row">
-                            <div class="col">
-                                <h5 class="card-title d-flex ">
-                                    <strong>Solicitud 2-Nombre de la oferta</strong>
-                                </h5>
-                            </div>
-                            <div class="col-2 me-2">
-                                @if(Gate::allows('estudiante-gestion'))
-                                <span class="badge bg-success">Aceptada</span>
-                                @endif
-                            </div>
-                        </div>
-
-                        {{-- Información de la Empresa y Fechas --}}
-                        <div class="d-flex justify-content-between">
-                            <p class="mb-0"><i class="material-icons">event</i> Inicio: </p>
-                            <p class="mb-0"><i class="material-icons">event_busy</i> Término: </p>
-                        </div>
-                        <p class="mb-1">Nombre Empresa</p>
-                        <p class="mb-1">Razon Social</p>
-
-                        {{-- Botón de Detalles --}}
-                        <div class="d-flex justify-content-end mt-3">
-                            @if(Gate::allows('estudiante-gestion'))
-                                <a href="{{route('solicitudes.detalles')}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
-                                    <i class="material-icons text-white">info</i>
-                                    <strong>Detalles</strong>
-                                </a>
-                            @endif
-                            @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
-                                <a href="{{route('solicitudes.detalles')}}" class="btn text-white btn-primary d-flex jusitfy-content-center aling-items-center">
-                                    <i class="material-icons text-white">document_scanner</i>
-                                    <strong>Revisar</strong>
-                                </a>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            @endforeach
         </div>
     </div>
 </div>

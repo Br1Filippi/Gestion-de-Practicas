@@ -49,9 +49,8 @@
 
                         {{-- Apellido --}}
                         <div class="mb-3">
-                            <label for="apellido" class="form-label">Apellido:</label>
-                            <input type="text" class="form-control @error('apellido') is-invalid @enderror"
-                                id="apellido" name="apellido" value="{{ old('apellido') }}">
+                            <input type="hidden" class="form-control @error('apellido') is-invalid @enderror"
+                                id="apellido" name="apellido" value="Corp">
                             @error('apellido')
                             <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
                             @enderror

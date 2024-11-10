@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 class Solicitud extends Model
 {
@@ -21,6 +23,11 @@ class Solicitud extends Model
     public function empresa(): BelongsTo
     {
         return $this->belongsTo(Empresa::class, 'id_empresa');
+    }
+
+    public function carrera(): BelongsTo
+    {
+        return $this->belongsTo(Carrera::class, 'id_carrera');
     }
 
     public function oferta(): BelongsTo

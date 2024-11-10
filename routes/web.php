@@ -69,9 +69,12 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
     //Solicitudes
     Route::middleware(['auth'])->group(function(){
         Route::get('/solicitudes',[SolicitudesController::class,'index'])->name('solicitudes.index');
-        Route::get('/solicitudes/detalles',[SolicitudesController::class,'detalles'])->name('solicitudes.detalles');
+        Route::get('/solicitudes/detalles/{solicitud}',[SolicitudesController::class,'detalles'])->name('solicitudes.detalles');
         Route::post('/solicitudes/store/{postulante}',[SolicitudesController::class,'store'])->name('solicitudes.store');
+        Route::put('/solicitudes/passar/{solicitud}',[SolicitudesController::class,'passar'])->name('solicitudes.passar');
+        Route::put('/solicitudes/rechazar/{solicitud}',[SolicitudesController::class,'rechazar'])->name('solicitudes.rechazar');
     });
+
     //Solicitudes
 
     //Supervisores

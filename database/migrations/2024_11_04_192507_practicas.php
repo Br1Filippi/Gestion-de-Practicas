@@ -14,14 +14,15 @@ return new class extends Migration
         Schema::create('practicas', function (Blueprint $table) {
             $table->id();
 
-            $table->date('fecha_informes');
+            $table->date('fecha_informes')->nullable();
             $table->date('fecha_inicio');
             $table->date('fecha_termino');
+            $table->boolean('pass')->default(false);
 
-            $table->unsignedBigInteger('id_informe');
+            $table->unsignedBigInteger('id_informe')->nullable();
             $table->foreign('id_informe')->references('id')->on('informes');
 
-            $table->unsignedBigInteger('id_evaluacion');
+            $table->unsignedBigInteger('id_evaluacion')->nullable();
             $table->foreign('id_evaluacion')->references('id')->on('evaluacion');
 
             $table->unsignedBigInteger('id_estado');

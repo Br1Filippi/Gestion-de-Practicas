@@ -44,4 +44,9 @@ class Solicitud extends Model
     {
         return $this->belongsTo(Supervisor::class, 'id_supervisor');
     }
+
+    public function tipo_practica(): BelongsTo
+    {
+        return $this->belongsTo(TipoPractica::class, 'id_tipo_practica');
+    }
 }

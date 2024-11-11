@@ -35,6 +35,9 @@ return new class extends Migration
 
             $table->unsignedBigInteger('id_supervisor');
             $table->foreign('id_supervisor')->references('id')->on('supervisores');
+
+            $table->unsignedBigInteger('id_tipo_practica');
+            $table->foreign('id_tipo_practica')->references('id')->on('tipo_practica');
         });
     }
 

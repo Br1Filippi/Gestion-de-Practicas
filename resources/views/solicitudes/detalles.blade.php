@@ -87,7 +87,7 @@
                         </p>
                     @endif
                 </div>
-                @if (Gate::allows('jefe-gestion'))
+                @if (Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))	
                 <div class="card-footer d-flex justify-content-end align-items-end">
                     {{-- Botones --}}
                     <form action="{{route('solicitudes.rechazar',$solicitud->id)}}" method="POST">
@@ -99,6 +99,7 @@
                         </button>
                     </form>
                     
+                    @if(Gate::allows('jefe-gestion'))
                     <form action="{{route('solicitudes.passar',$solicitud->id)}}" method="POST">
                         @csrf
                         @method('PUT')
@@ -107,6 +108,18 @@
                             <strong>Aceptar</strong>
                         </button>
                     </form>
+                    @endif
+
+                    @if(Gate::allows('secretaria-gestion'))
+                    <form action="" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="btn text-white btn-success mx-2 d-flex justify-content-center align-items-center">
+                            <i class="material-icons text-white mx-1" style="font-size: 1em">check</i>
+                            <strong>Aceptar</strong>
+                        </button>
+                    </form>
+                    @endif
                 </div>
                 @endif
             </div>

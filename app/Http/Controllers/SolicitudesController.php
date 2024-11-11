@@ -9,6 +9,7 @@ use App\Models\Solicitud;
 use App\Models\Empresa;
 use App\Models\Oferta;
 use App\Models\Estudiante;
+use App\Models\Secretaria;
 use App\Models\Usuario;
 use App\Models\Carrera;
 use App\Models\Estado;
@@ -30,6 +31,10 @@ class SolicitudesController extends Controller
         if(Gate::allows('estudiante-gestion')){
             $estudiante = Estudiante::where('id_usuario', $emailUsuario)->first();
             $solicitudes = Solicitud::where('id_estudiante',$estudiante->id)->get();
+            return view('solicitudes.index',compact('solicitudes'));
+        }
+        if (Gate::allows('secretaria-gestion')){
+            $solicitudes = Solicitud::where('pass',1)->where('id_estado',1)->get();
             return view('solicitudes.index',compact('solicitudes'));
         }
         return view('solicitudes.index');

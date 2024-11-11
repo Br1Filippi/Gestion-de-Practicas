@@ -63,6 +63,11 @@
         @endif
 
         {{-- Listado de Solicitudes --}}
+        @if ($solicitudes->isEmpty())
+            <div class="alert alert-warning  ms-4">
+                No se encontraron solicitudes.
+            </div>
+        @else
         <div class="row row-cols-1 row-cols-md-2 g-4 overflow-auto" style="max-height: 80vh;">
             @foreach($solicitudes as $solicitud)
             <div class="col">
@@ -129,6 +134,7 @@
             </div>
             @endforeach
         </div>
+        @endif
     </div>
 </div>
 @endsection

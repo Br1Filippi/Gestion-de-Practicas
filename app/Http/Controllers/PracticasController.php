@@ -22,6 +22,12 @@ class PracticasController extends Controller
     public function practicantes()
     {
         $emailUsuario = auth()->user()->correo_usuario; 
+        if(Gate::allows('supervisor-gestion')){
+            $supervisor = Supervisor::where('id_usuario', $emailUsuario)->first();
+            $practicantes = Practica::where('id_supervisor',$supervisor->id)->where('pass',null)->get();
+            dd($practicantes);
+            return view('practicas.practicantes',compact('practicantes'));
+        }
         if (Gate::allows('jefe-gestion')){
             $jefe = JefeDeCarrera::where('id_usuario', $emailUsuario)->first();
             $carreraJefe = Carrera::where('id', $jefe->id_carrera)->first();

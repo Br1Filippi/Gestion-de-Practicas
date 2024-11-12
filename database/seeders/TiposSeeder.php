@@ -15,10 +15,10 @@ class TiposSeeder extends Seeder
     {
         DB::table('tipos')->insert([
             [
-                'nombre' => 'Medio Tiempo',
+                'nombre' => 'Industrial',
             ],
             [
-                'nombre' => 'Tiempo Completo',
+                'nombre' => 'Profesional',
             ],
         ]);
     }

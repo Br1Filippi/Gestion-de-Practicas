@@ -72,6 +72,7 @@ class SolicitudesController extends Controller
         $solicitud->id_oferta = $postulante->id_oferta;
         $solicitud->id_empresa = $postulante->oferta->id_empresa;
         $solicitud->id_estudiante = $postulante->id_estudiante;
+        $solicitud->id_tipo = $postulante->oferta->id_tipo;
 
         $solicitud->save();
 

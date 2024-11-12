@@ -100,6 +100,7 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
         Route::get('/practicas/practicantes',[PracticasController::class,'practicantes'])->name('practicas.practicantes');
         Route::get('/practicas',[PracticasController::class,'index'])->name('practicas.index');
         Route::get('/practicas/detalles',[PracticasController::class,'detalles'])->name('practicas.detalles');
+        Route::post('/practicas/store/{solicitud}',[PracticasController::class,'store'])->name('practicas.store');
     });
     //Practicas
 

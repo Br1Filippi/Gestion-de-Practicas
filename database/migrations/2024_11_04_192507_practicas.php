@@ -17,7 +17,10 @@ return new class extends Migration
             $table->date('fecha_informes')->nullable();
             $table->date('fecha_inicio');
             $table->date('fecha_termino');
-            $table->boolean('pass')->default(false);
+            $table->boolean('pass')->default(null)->nullable();
+
+            $table->unsignedBigInteger('id_carrera')->nullable();
+            $table->foreign('id_carrera')->references('id')->on('carreras');
 
             $table->unsignedBigInteger('id_informe')->nullable();
             $table->foreign('id_informe')->references('id')->on('informes');
@@ -40,8 +43,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_supervisor');
             $table->foreign('id_supervisor')->references('id')->on('supervisores');
 
-            $table->unsignedBigInteger('id_tipo_practica');
-            $table->foreign('id_tipo_practica')->references('id')->on('tipo_practica');
+            $table->unsignedBigInteger('id_tipo');
+            $table->foreign('id_tipo')->references('id')->on('tipos');
         });
     }
     

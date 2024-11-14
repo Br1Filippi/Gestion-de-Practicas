@@ -53,4 +53,5 @@ class Practica extends Model
     {
         return $this->belongsTo(Tipo::class, 'id_tipo');
     }
+    
 }

@@ -90,8 +90,10 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
 
     //Evaluaciones
     Route::middleware(['auth'])->group(function(){
-        Route::get('/evaluaciones/informe',[EvaluacionesController::class,'informe'])->name('evaluaciones.informe');
-        Route::get('/evaluaciones/desempeño',[EvaluacionesController::class,'desempeño'])->name('evaluaciones.desempeño');
+        Route::get('/evaluaciones/informe/{practica}',[EvaluacionesController::class,'informe'])->name('evaluaciones.informe');
+        Route::get('/evaluaciones/desempeño/{practica}',[EvaluacionesController::class,'desempeño'])->name('evaluaciones.desempeño');
+        Route::post('/evaluaciones/informe/store/{practica}',[EvaluacionesController::class,'informeStore'])->name('evaluaciones.informeStore');
+        Route::post('/evaluaciones/desempeño/store/{practica}',[EvaluacionesController::class,'evaluarInforme'])->name('evaluaciones.evaluarInforme');
     });
     //Evaluaciones
 
@@ -101,6 +103,7 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
         Route::get('/practicas',[PracticasController::class,'index'])->name('practicas.index');
         Route::get('/practicas/detalles',[PracticasController::class,'detalles'])->name('practicas.detalles');
         Route::post('/practicas/store/{solicitud}',[PracticasController::class,'store'])->name('practicas.store');
+        Route::put('/practicas/passar/{practica}',[PracticasController::class,'passar'])->name('practicas.passar');
     });
     //Practicas
 

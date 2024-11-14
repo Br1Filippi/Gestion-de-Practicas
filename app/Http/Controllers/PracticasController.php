@@ -25,7 +25,6 @@ class PracticasController extends Controller
         if(Gate::allows('supervisor-gestion')){
             $supervisor = Supervisor::where('id_usuario', $emailUsuario)->first();
             $practicantes = Practica::where('id_supervisor',$supervisor->id)->where('pass',null)->get();
-            dd($practicantes);
             return view('practicas.practicantes',compact('practicantes'));
         }
         if (Gate::allows('jefe-gestion')){
@@ -46,6 +45,16 @@ class PracticasController extends Controller
         return view('practicas.practicantes');
     }
 
+    public function passar(Practica $practica)
+    {
+        if($practica->id_informe == null || $practica->id_evaluacion == null){
+            return back()->withErrors(['errors' => 'No se puede enviar la practica si no se ha evaluado']);
+        }
+        $practica->pass = 1;
+        $practica->save();
+        return redirect()->route('practicas.practicantes');
+    }
+
     public function index()
     {
         return view('practicas.index');
@@ -58,6 +67,7 @@ class PracticasController extends Controller
 
     public function store(Solicitud $solicitud)
     {
+
         $practica = new Practica();
         $practica->fecha_inicio = $solicitud->fecha_inicio;
         $practica->fecha_termino = $solicitud->fecha_termino;
@@ -72,8 +82,7 @@ class PracticasController extends Controller
         $solicitud->id_estado = 2;
         $practica->save();
         $solicitud->save();
- 
 
-        return view('practicas.index');
+        return redirect()->route('solicitudes.index');
     }
 }

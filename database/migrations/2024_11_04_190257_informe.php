@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('informes', function (Blueprint $table) {
             $table->id();
-            $table->text('actividades_estudiante');
+            $table->text('actividades');
             $table->text('debilidades');
             $table->text('fortalezas');
             $table->text('consideraciones');

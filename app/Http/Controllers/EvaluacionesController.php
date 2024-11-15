@@ -22,6 +22,18 @@ use App\Models\JefeDeCarrera;
 
 class EvaluacionesController extends Controller
 {
+    public function verDesempeño(Practica $practica)
+    {   
+        return view('evaluaciones.verDesempeño', compact('practica'));
+    }
+
+    public function verInforme(Practica $practica)
+    {
+        return view('evaluaciones.verInforme', compact('practica'));
+    }
+
+
+
     public function informeStore(Practica $practica,Request $request)
     {
         $informe = new Informe();

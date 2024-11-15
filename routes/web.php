@@ -74,7 +74,6 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
         Route::put('/solicitudes/passar/{solicitud}',[SolicitudesController::class,'passar'])->name('solicitudes.passar');
         Route::put('/solicitudes/rechazar/{solicitud}',[SolicitudesController::class,'rechazar'])->name('solicitudes.rechazar');
     });
-
     //Solicitudes
 
     //Supervisores
@@ -94,6 +93,8 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
         Route::get('/evaluaciones/desempeño/{practica}',[EvaluacionesController::class,'desempeño'])->name('evaluaciones.desempeño');
         Route::post('/evaluaciones/informe/store/{practica}',[EvaluacionesController::class,'informeStore'])->name('evaluaciones.informeStore');
         Route::post('/evaluaciones/desempeño/store/{practica}',[EvaluacionesController::class,'evaluarInforme'])->name('evaluaciones.evaluarInforme');
+        Route::get('/evaluaciones/verDesempeño/{practica}',[EvaluacionesController::class,'verDesempeño'])->name('evaluaciones.verDesempeño');
+        Route::get('/evaluaciones/verInforme/{practica}',[EvaluacionesController::class,'verInforme'])->name('evaluaciones.verInforme');
     });
     //Evaluaciones
 
@@ -101,9 +102,10 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
     Route::middleware(['auth'])->group(function(){
         Route::get('/practicas/practicantes',[PracticasController::class,'practicantes'])->name('practicas.practicantes');
         Route::get('/practicas',[PracticasController::class,'index'])->name('practicas.index');
-        Route::get('/practicas/detalles',[PracticasController::class,'detalles'])->name('practicas.detalles');
+        Route::get('/practicas/detalles/{practica}',[PracticasController::class,'detalles'])->name('practicas.detalles');
         Route::post('/practicas/store/{solicitud}',[PracticasController::class,'store'])->name('practicas.store');
         Route::put('/practicas/passar/{practica}',[PracticasController::class,'passar'])->name('practicas.passar');
+        Route::put('/practicas/rechazar/{practica}',[PracticasController::class,'rechazar'])->name('practicas.rechazar');
     });
     //Practicas
 

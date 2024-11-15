@@ -47,22 +47,54 @@ class PracticasController extends Controller
 
     public function passar(Practica $practica)
     {
-        if($practica->id_informe == null || $practica->id_evaluacion == null){
-            return back()->withErrors(['errors' => 'No se puede enviar la practica si no se ha evaluado']);
+        if(gate::allows('jefe-gestion')){
+            $practica->pass = 1;
+            $practica->save();
+            return redirect()->route('practicas.index');
         }
-        $practica->pass = 1;
-        $practica->save();
-        return redirect()->route('practicas.practicantes');
+        if(Gate::allows('secretaria-gestion')){
+            $practica->id_estado = 2;
+            $practica->save();
+            return redirect()->route('practicas.index');
+        }
+
+        if(Gate::allows('supervisor-gestion')){
+            if($practica->id_informe == null || $practica->id_evaluacion == null){
+                return back()->withErrors(['errors' => 'No se puede enviar la practica si no se ha evaluado']);
+            }
+            $practica->pass = 0;
+            $practica->fecha_informes = now();
+            
+            $practica->save();
+            return redirect()->route('practicas.practicantes');
+        }
     }
 
     public function index()
     {
+        $emailUsuario = auth()->user()->correo_usuario; 
+        if (Gate::allows('jefe-gestion')){
+            
+            $jefe = JefeDeCarrera::where('id_usuario', $emailUsuario)->first();
+            $carreraJefe = Carrera::where('id', $jefe->id_carrera)->first();
+            $practicas = Practica::where('pass',0)->where('id_estado',1)->where('id_carrera',$carreraJefe->id)->get();
+            return view('practicas.index',compact('practicas'));
+        }
+        if(Gate::allows('estudiante-gestion')){
+            $estudiante = Estudiante::where('id_usuario', $emailUsuario)->first();
+            $practicas = Practica::where('id_estudiante',$estudiante->id)->get();
+            return view('practicas.index',compact('practicas'));
+        }
+        if (Gate::allows('secretaria-gestion')){
+            $practicas = Practica::where('pass',1)->where('id_estado',1)->get();
+            return view('practicas.index',compact('practicas'));
+        }
         return view('practicas.index');
     }
 
-    public function detalles()
+    public function detalles(Practica $practica)
     {
-        return view('practicas.detalles');
+        return view('practicas.detalles',compact('practica'));
     }
 
     public function store(Solicitud $solicitud)
@@ -84,5 +116,12 @@ class PracticasController extends Controller
         $solicitud->save();
 
         return redirect()->route('solicitudes.index');
+    }
+
+    public function rechazar(Practica $practica)
+    {
+        $practica->id_estado = 3;
+        $practica->save();
+        return redirect()->route('practicas.index');
     }
 }

@@ -53,5 +53,10 @@ class Practica extends Model
     {
         return $this->belongsTo(Tipo::class, 'id_tipo');
     }
+
+    public function carrera()
+    {
+        return $this->belongsTo(Carrera::class, 'id_carrera');
+    }
     
 }

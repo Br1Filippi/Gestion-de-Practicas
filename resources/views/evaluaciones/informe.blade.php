@@ -28,7 +28,11 @@
 
                         <h5><strong>1. ACTIVIDADES ENCOMENDADAS AL ALUMNO</strong></h5>
                         <p class="mb-0">Resumen de las principales actividades o tareas encomendadas al alumno.</p>
+                        @error('actividades')
+                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                        @enderror
                         <textarea id="actividades" name="actividades" class="w-100" rows="5"></textarea>
+
 
                         <h5><strong>2. DEBILIDADES Y FORTALEZAS</strong></h5>
                         <p class="mb-1">Debilidades y fortalezas que presentó el alumno en la realización de las labores
@@ -39,11 +43,17 @@
                         <p>Describir en forma breve, clara y precisa lo que considera han sido las materias que a su
                             juicio
                             faltó ahondar, no se entregó, se entregó pero con poca profundidad.</p>
+                        @error('debilidades')
+                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                        @enderror
                         <textarea id="debilidades" name="debilidades" class="w-100" rows="10"></textarea>
                         <p class="mb-0"><strong>Fortalezas: </strong></p>
                         <p>Describir en forma breve, clara y precisa lo que considera han sido las materias, que a su
                             juicio
                             ayudaron al alumno a enfrenar adecuadamente las labores encomendadas. </p>
+                        @error('fortalezas')
+                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                        @enderror
                         <textarea id="fortalezas" name="fortalezas" class="w-100" rows="10"></textarea>
 
 
@@ -54,6 +64,9 @@
                             formación
                             técnica, como en la formación personal (humana).</p>
                         <p>¿Qué cree que faltó?</p>
+                        @error('consideraciones')
+                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                        @enderror
                         <textarea id="consideraciones" name="consideraciones" class="w-100" rows="5"></textarea>
 
                         <h5><strong>4. SUGERENCIAS</strong></h5>
@@ -62,6 +75,9 @@
                             podría incluir temas sobre Trabajos de Titulación, que estén
                             vinculados a la Empresa.
                         </p>
+                        @error('sugerencias')
+                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                        @enderror
                         <textarea id="sugerencias" name="sugerencias" class="w-100" rows="5"></textarea>
 
                     </div>

@@ -20,48 +20,44 @@
 
                 {{-- Barra de búsqueda y filtros (jefes) --}}
                 @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
-                <div class="col me-3">
-                    <input type="text" name="termino" class="form-control" placeholder="Buscar por tus preferencias">
-                </div>
+                <form class="d-flex w-100" action="{{ route('solicitudes.index') }}" method="GET">
+                    <div class="col me-3">
+                        <input type="text" name="termino" class="form-control"
+                            placeholder="Buscar por tus preferencias">
+                    </div>
 
-                {{-- Busqueda --}}
-                <div class="col-1 ">
-                    <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center">
-                        <i class="material-icons">search</i><strong>Buscar</strong></button>
-                </div>
-                @endif
+                    {{-- Filtros adicionales (solo jefes) --}}
+                    @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
+                    <div class="col-2 me-2">
+                        <select name="tipo" class="form-select">
+                            <option value="">Tipo</option>
+                            @foreach ($tipos as $tipo)
+                            <option value="{{$tipo->id}}">{{$tipo->nombre}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @if(Gate::allows('secretaria-gestion'))
+                    <div class="col-2 me-2">
+                        <select name="carrera" class="form-select">
+                            <option value="">Carrera</option>
+                            @foreach ($carreras as $carrera)
+                            <option value="{{$carrera->id}}">{{$carrera->nombre}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @endif
+                    @endif
+
+                    {{-- Busqueda --}}
+                    <div class="col-1 ">
+                        <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center">
+                            <i class="material-icons">search</i><strong>Buscar</strong></button>
+                    </div>
+                    @endif
+                </form>
+
             </div>
         </div>
-
-        {{-- Filtros adicionales (solo jefes) --}}
-        @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
-        <div class="row mb-4">
-            <div class="col-md-3">
-                <select name="comuna" class="form-select">
-                    <option value="">Filtro 1</option>
-                    {{-- Opciones dinámicas --}}
-                </select>
-            </div>
-            <div class="col-md-3">
-                <select name="region" class="form-select">
-                    <option value="">Filtro 2 </option>
-                    {{-- Opciones dinámicas --}}
-                </select>
-            </div>
-            <div class="col-md-3">
-                <select name="tipo" class="form-select">
-                    <option value="">Filtro 3</option>
-                    {{-- Opciones dinámicas --}}
-                </select>
-            </div>
-            <div class="col-md-3">
-                <select name="estado" class="form-select">
-                    <option value="">Filtro 4</option>
-                    {{-- Opciones dinámicas --}}
-                </select>
-            </div>
-        </div>
-        @endif
 
         {{-- Listado de Solicitudes --}}
         @if ($solicitudes->isEmpty())

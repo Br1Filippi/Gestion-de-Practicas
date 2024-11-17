@@ -17,6 +17,8 @@ use App\Models\Estado;
 use App\Models\Evaluacion;
 use App\Models\Supervisor;
 use App\Models\JefeDeCarrera;
+use App\Http\Requests\InformRequest;
+use App\Http\Requests\EvaluacionRequest;
 
 
 
@@ -33,8 +35,7 @@ class EvaluacionesController extends Controller
     }
 
 
-
-    public function informeStore(Practica $practica,Request $request)
+    public function informeStore(Practica $practica,InformRequest $request)
     {
         $informe = new Informe();
         $informe -> actividades = $request -> actividades;
@@ -50,9 +51,7 @@ class EvaluacionesController extends Controller
         return redirect()->route('practicas.practicantes');
     }
 
-    
-
-    public function evaluarInforme(Practica $practica,Request $request)
+    public function evaluarInforme(Practica $practica,EvaluacionRequest $request)
     {
         $evaluacion = new Evaluacion();
         $evaluacion -> capacidad = $request -> capacidad;

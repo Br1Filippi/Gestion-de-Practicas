@@ -24,7 +24,7 @@
             <div class="card custom-card shadow-sm" style="width: 85%;">
                 <form action="{{route('evaluaciones.evaluarInforme',$practica->id)}}" method="POST">
                     @csrf
-                    <div class="card-body overflow-auto" style="max-height: 80vh;">
+                    <div class="card-body overflow-auto" style="max-height: 79vh;">
                         {{-- Tabla de evaluación --}}
                         <table class="table table-bordered table-hover" style="font-size: 1.2em;">
                             <thead class="thead-light text-center">
@@ -45,6 +45,13 @@
                                     <td><input type="radio" name="capacidad" value="2" class="form-check-input mx-auto">
                                     </td>
                                 </tr>
+                                @error('capacidad')
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                    </td>
+                                </tr>
+                                @enderror
                                 <tr class="text-center">
                                     <th scope="row" class="text-start">2.Confianza</th>
                                     <td><input type="radio" name="confianza" value="0"
@@ -54,6 +61,13 @@
                                     <td><input type="radio" name="confianza" value="2" class="form-check-input mx-auto">
                                     </td>
                                 </tr>
+                                @error('confianza')
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                    </td>
+                                </tr>
+                                @enderror
                                 <tr class="text-center">
                                     <th scope="row" class="text-start">3.Aplicacion o empeño</th>
                                     <td><input type="radio" name="aplicacion" value="0"
@@ -63,6 +77,13 @@
                                     <td><input type="radio" name="aplicacion" value="2"
                                             class="form-check-input mx-auto"></td>
                                 </tr>
+                                @error('aplicacion')
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                    </td>
+                                </tr>
+                                @enderror
                                 <tr class="text-center">
                                     <th scope="row" class="text-start">4.Adaptabilidad</th>
                                     <td><input type="radio" name="adaptabilidad" value="0"
@@ -72,6 +93,13 @@
                                     <td><input type="radio" name="adaptabilidad" value="2"
                                             class="form-check-input mx-auto"></td>
                                 </tr>
+                                @error('adaptabilidad')
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                    </td>
+                                </tr>
+                                @enderror
                                 <tr class="text-center">
                                     <th scope="row" class="text-start">5.Iniciativa</th>
                                     <td><input type="radio" name="iniciativa" value="0"
@@ -81,6 +109,13 @@
                                     <td><input type="radio" name="iniciativa" value="2"
                                             class="form-check-input mx-auto"></td>
                                 </tr>
+                                @error('iniciativa')
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                    </td>
+                                </tr>
+                                @enderror
                                 <tr class="text-center">
                                     <th scope="row" class="text-start">6.Aptitud para trabajar</th>
                                     <td><input type="radio" name="aptitud" value="0" class="form-check-input mx-auto">
@@ -90,6 +125,13 @@
                                     <td><input type="radio" name="aptitud" value="2" class="form-check-input mx-auto">
                                     </td>
                                 </tr>
+                                @error('aptitud')
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                    </td>
+                                </tr>
+                                @enderror
                                 <tr class="text-center">
                                     <th scope="row" class="text-start">7.Conocimiento</th>
                                     <td><input type="radio" name="conocimiento" value="0"
@@ -99,6 +141,13 @@
                                     <td><input type="radio" name="conocimiento" value="2"
                                             class="form-check-input mx-auto"></td>
                                 </tr>
+                                @error('conocimiento')
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                    </td>
+                                </tr>
+                                @enderror
                                 <tr class="text-center">
                                     <th scope="row" class="text-start">8.Asistencia</th>
                                     <td><input type="radio" name="asistencia" value="0"
@@ -108,6 +157,13 @@
                                     <td><input type="radio" name="asistencia" value="2"
                                             class="form-check-input mx-auto"></td>
                                 </tr>
+                                @error('asistencia')
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                    </td>
+                                </tr>
+                                @enderror
                             </tbody>
                         </table>
                     </div>

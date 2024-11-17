@@ -15,38 +15,65 @@ use App\Models\Usuario;
 use App\Models\Carrera;
 use App\Models\Estado;
 use App\Models\Supervisor;
+use App\Models\Tipo;
 use App\Models\JefeDeCarrera;
 
 class PracticasController extends Controller
 {
     public function practicantes()
     {
+
         $emailUsuario = auth()->user()->correo_usuario; 
-        if(Gate::allows('supervisor-gestion')){
+
+        if (request()->has('termino')) {
+            $termino = request()->input('termino');
+            $query = Practica::query();
+
+            if (Gate::allows('supervisor-gestion')) {
             $supervisor = Supervisor::where('id_usuario', $emailUsuario)->first();
-            $practicantes = Practica::where('id_supervisor',$supervisor->id)->where('pass',null)->get();
-            return view('practicas.practicantes',compact('practicantes'));
-        }
-        if (Gate::allows('jefe-gestion')){
+            $query->where('id_supervisor', $supervisor->id)->where('pass', null);
+            } elseif (Gate::allows('jefe-gestion')) {
             $jefe = JefeDeCarrera::where('id_usuario', $emailUsuario)->first();
             $carreraJefe = Carrera::where('id', $jefe->id_carrera)->first();
-            $practicas = Practica::where('pass',0)->where('id_estado',1)->where('id_carrera',$carreraJefe->id)->get();
-            return view('practicas.index',compact('practicas'));
-        }
-        if(Gate::allows('estudiante-gestion')){
+            $query->where('pass', 0)->where('id_estado', 1)->where('id_carrera', $carreraJefe->id);
+            } elseif (Gate::allows('estudiante-gestion')) {
             $estudiante = Estudiante::where('id_usuario', $emailUsuario)->first();
-            $practicas = Practica::where('id_estudiante',$estudiante->id)->get();
-            return view('practicas.index',compact('practicas'));
+            $query->where('id_estudiante', $estudiante->id);
+            } elseif (Gate::allows('secretaria-gestion')) {
+            $query->where('pass', 1)->where('id_estado', 1);
+            }
+
+            $practicantes = $query->whereHas('estudiante.usuario', function ($query) use ($termino) {
+            $query->where('nombre', 'like', '%' . $termino . '%')
+                  ->orWhere('apellido', 'like', '%' . $termino . '%')
+                  ->orWhere('rut_estudiante', 'like', '%' . $termino . '%');
+            })->get();
+
+            return view('practicas.practicantes', compact('practicantes'));
         }
-        if (Gate::allows('secretaria-gestion')){
-            $practicas = Practica::where('pass',1)->where('id_estado',1)->get();
-            return view('practicas.index',compact('practicas'));
+
+        if (Gate::allows('supervisor-gestion')) {
+            $supervisor = Supervisor::where('id_usuario', $emailUsuario)->first();
+            $practicantes = Practica::where('id_supervisor', $supervisor->id)->where('pass', null)->get();
+        } elseif (Gate::allows('jefe-gestion')) {
+            $jefe = JefeDeCarrera::where('id_usuario', $emailUsuario)->first();
+            $carreraJefe = Carrera::where('id', $jefe->id_carrera)->first();
+            $practicas = Practica::where('pass', 0)->where('id_estado', 1)->where('id_carrera', $carreraJefe->id)->get();
+        } elseif (Gate::allows('estudiante-gestion')) {
+            $estudiante = Estudiante::where('id_usuario', $emailUsuario)->first();
+            $practicas = Practica::where('id_estudiante', $estudiante->id)->get();
+        } elseif (Gate::allows('secretaria-gestion')) {
+            $practicas = Practica::where('pass', 1)->where('id_estado', 1)->get();
         }
+
+        return view('practicas.practicantes', compact('practicantes'));
         return view('practicas.practicantes');
+    
     }
 
     public function passar(Practica $practica)
-    {
+    {   
+
         if(gate::allows('jefe-gestion')){
             $practica->pass = 1;
             $practica->save();
@@ -73,23 +100,43 @@ class PracticasController extends Controller
     public function index()
     {
         $emailUsuario = auth()->user()->correo_usuario; 
+        $tipos = Tipo::all();
+        $carreras = Carrera::all();
+
+        $query = Practica::query();
+        if (request()->filled('termino')) {
+            $termino = request()->input('termino');
+            $query->whereHas('estudiante.usuario', function ($q) use ($termino) {
+            $q->where('nombre', 'like', '%' . $termino . '%')
+              ->orWhere('apellido', 'like', '%' . $termino . '%');
+            })->orWhereHas('estudiante', function ($q) use ($termino) {
+            $q->where('rut_estudiante', 'like', '%' . $termino . '%');
+            })->where('id_estado', 1);
+        }
+        if (request()->filled('tipo')) {
+            $query->where('id_tipo', request()->input('tipo'));
+        }
+        if (request()->filled('carrera')) {
+            $query->where('id_carrera', request()->input('carrera'));
+        }
+
         if (Gate::allows('jefe-gestion')){
-            
             $jefe = JefeDeCarrera::where('id_usuario', $emailUsuario)->first();
             $carreraJefe = Carrera::where('id', $jefe->id_carrera)->first();
-            $practicas = Practica::where('pass',0)->where('id_estado',1)->where('id_carrera',$carreraJefe->id)->get();
-            return view('practicas.index',compact('practicas'));
+            $practicas = $query->where('pass', 0)->where('id_estado', 1)->where('id_carrera', $carreraJefe->id)->get();
+            return view('practicas.index', compact('practicas', 'tipos', 'carreras'));
         }
-        if(Gate::allows('estudiante-gestion')){
+        if (Gate::allows('estudiante-gestion')){
             $estudiante = Estudiante::where('id_usuario', $emailUsuario)->first();
-            $practicas = Practica::where('id_estudiante',$estudiante->id)->get();
-            return view('practicas.index',compact('practicas'));
+            $practicas = $query->where('id_estudiante', $estudiante->id)->get();
+            return view('practicas.index', compact('practicas', 'tipos', 'carreras'));
         }
         if (Gate::allows('secretaria-gestion')){
-            $practicas = Practica::where('pass',1)->where('id_estado',1)->get();
-            return view('practicas.index',compact('practicas'));
+            $practicas = $query->where('pass', 1)->where('id_estado', 1)->get();
+            return view('practicas.index', compact('practicas', 'tipos', 'carreras'));
         }
-        return view('practicas.index');
+
+        return view('practicas.index', compact('tipos', 'carreras'));
     }
 
     public function detalles(Practica $practica)

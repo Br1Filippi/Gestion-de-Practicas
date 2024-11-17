@@ -15,21 +15,6 @@
                             <i class="material-icons">search</i><strong>Buscar</strong></button>
                     </div>
                 </div>
-                <div class="col-3 ms-5">
-                    <select name="estado" class="form-control fs-6">
-                        <option value="">Seleccione un Estado</option>
-                    </select>
-                </div>
-                <div class="col-3">
-                    <select name="tipo" class="form-control fs-6">
-                        <option value="">Seleccione un Tipo</option>
-                    </select>
-                </div>
-                <div class="col-3">
-                    <select name="tipo" class="form-control fs-6">
-                        <option value="">Seleccione Estado de Evaluacion</option>
-                    </select>
-                </div>
             </div>
         </form>
     </div>

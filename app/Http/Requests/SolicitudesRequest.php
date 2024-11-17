@@ -24,6 +24,8 @@ class SolicitudesRequest extends FormRequest
         return [
             'fecha_inicio' => ['required', 'date'],
             'fecha_termino' => ['required', 'date', 'after:fecha_inicio'],
+            'supervisor' => ['exists:supervisores,id','required', ],
+        
         ];
     }
     public function messages(): array
@@ -34,6 +36,8 @@ class SolicitudesRequest extends FormRequest
             'fecha_termino.required' => 'La fecha de término es obligatoria.',
             'fecha_termino.date' => 'La fecha de término debe ser una fecha válida.',
             'fecha_termino.after' => 'La fecha de término debe ser una fecha posterior a la fecha de inicio.',
+            'supervisor.exists' => 'El supervisor seleccionado no existe.',
+            'supervisor.required' => 'El campo de supervisor es obligatorio.',   
         ];
     }
 }

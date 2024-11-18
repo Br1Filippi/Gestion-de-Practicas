@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->string('imagen')->nullable();
+            $table->softDeletes();
+
 
             //$table->timestamps();
         });
@@ -27,6 +29,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        
+        Schema::create('usuarios', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

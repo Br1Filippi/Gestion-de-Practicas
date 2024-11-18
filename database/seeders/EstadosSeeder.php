@@ -16,13 +16,13 @@ class EstadosSeeder extends Seeder
     {
         DB::table('estados')->insert([
         [
-            'nombre_estado' => 'en revision'
+            'nombre_estado' => 'En revision'
         ],
         [
-            'nombre_estado' => 'aceptada'
+            'nombre_estado' => 'Aceptada'
         ],
         [
-            'nombre_estado' => 'rechazada'
+            'nombre_estado' => 'Rechazada'
         ]
         ]);
     }

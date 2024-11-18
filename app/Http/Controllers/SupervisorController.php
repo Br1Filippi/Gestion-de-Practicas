@@ -82,7 +82,7 @@ class SupervisorController extends Controller
         $usuarioId = $supervisor->id_usuario;
         $usuario = Usuario::where('correo_usuario',$usuarioId);
         $supervisor->delete();
-
+        $usuario->delete();
         // $usuario->delete();
         
         return redirect()->route('supervisores.index');

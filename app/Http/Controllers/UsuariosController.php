@@ -10,6 +10,8 @@ use App\Models\Empresa;
 use App\Models\Estudiante;
 use App\Models\Supervisor;
 use App\Models\JefeDeCarrera;
+use App\Models\Rol;
+use App\Models\Rol_Usuario;
 use App\Models\Secretaria;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,9 +19,29 @@ use Illuminate\Support\Facades\Hash;
 class UsuariosController extends Controller
 {
     
-    public function index()
+    public function index(Request $request)
     {
-        return view('usuarios.index');
+        $query = Usuario::query();
+
+
+        if ($request->filled('termino')) {
+            $query->where(function($q) use ($request) {
+                $q->where('nombre', 'like', '%' . $request->termino . '%')
+                  ->orWhere('apellido', 'like', '%' . $request->termino . '%')
+                  ->orWhere('correo_usuario', 'like', '%' . $request->termino . '%');
+            });
+        }
+
+        if ($request->filled('rol')) {
+            $query->whereHas('roles', function($q) use ($request) {
+                $q->where('roles.id', $request->rol); // Especificar la tabla 'roles'
+            });
+        }
+
+        $usuarios = $query->get();
+        $roles = Rol::all();
+
+        return view('usuarios.index', compact('usuarios', 'roles'));
     }
 
     public function login()
@@ -137,8 +159,6 @@ class UsuariosController extends Controller
         $usuario->password = Hash::make($request->new_password);
 
         $usuario->save();
-
-        
 
         return redirect()->route('usuarios.perfil');
     }

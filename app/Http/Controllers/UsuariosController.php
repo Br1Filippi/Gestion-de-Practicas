@@ -162,4 +162,20 @@ class UsuariosController extends Controller
 
         return redirect()->route('usuarios.perfil');
     }
+
+    public function elegirRol(){
+        $roles = Rol::all();
+        return view('usuarios.elegirRol',compact('roles'));
+    }
+
+    public function create(Request $request)
+    {
+        $rol = $request->rol;
+        if($rol == 1){
+            return view('usuarios.crearEmpresaD');
+        }
+        return view('usuarios.crear',compact('rol'));
+    }
+
+    
 }

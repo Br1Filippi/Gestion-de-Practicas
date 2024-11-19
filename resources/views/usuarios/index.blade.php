@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="col-2">
-                        <a href=""
+                        <a href="{{route('usuarios.elegirRol')}}"
                             class="btn bg-success text-white fw-bold d-flex justify-content-center align-items-center">
                             <i class="material-icons text-white">add</i> <strong>Agregar</strong>
                         </a>

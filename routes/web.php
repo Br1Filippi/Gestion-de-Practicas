@@ -35,6 +35,10 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
         Route::get('/usuarios/index',[UsuariosController::class,'index'])->name('usuarios.index');
         Route::get('/usuarios/cambiarContra/{usuario}',[UsuariosController::class,'cambiarContra'])->name('usuarios.cambiarContra');
         Route::put('/usuarios/updateContra/{usuario}',[UsuariosController::class,'updateContra'])->name('usuarios.updateContra');
+        Route::get('/usuarios/elegirRol',[UsuariosController::class,'elegirRol'])->name('usuarios.elegirRol');
+        Route::get('/usuarios/create',[UsuariosController::class,'create'])->name('usuarios.create');
+        Route::get('/usuarios/crearEmpresaD',[UsuariosController::class,'crearEmpresaD'])->name('usuarios.crearEmpresaD');
+
     });
     //Usuarios
 

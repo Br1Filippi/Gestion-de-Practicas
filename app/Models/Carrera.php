@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Carrera extends Model
 {
@@ -24,6 +25,15 @@ class Carrera extends Model
         return $this->hasMany(Estudiante::class, 'id_carrera');
     }
 
+    public function solicitudes()
+    {
+        return $this->hasMany(Solicitud::class, 'id_carrera');
+    }
+
+    public function practicas()
+    {
+        return $this->hasMany(Practica::class, 'id_carrera');
+    }
     // public function jefedecarrera()
     // {
     //     return $this->hasMany(JefeDeCarrera::class, 'id_');

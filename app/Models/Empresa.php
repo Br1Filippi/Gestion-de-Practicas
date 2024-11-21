@@ -35,4 +35,13 @@ class Empresa extends Model
     {
         return $this->hasMany(Oferta::class);
     }
+    public function solicitudes()
+    {
+        return $this->hasMany(Solicitud::class, 'id_empresa');
+    }
+
+    public function practicas()
+    {
+        return $this->hasMany(Practica::class, 'id_empresa');
+    }
 }

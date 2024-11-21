@@ -20,7 +20,7 @@ class EmpresasController extends Controller
     public function storeEmpresa(EmpresaUsuarioRequest $request)
     {
         $password = Hash::make($request->password);
-        $path = $request->file('imagen')->store('public/usuarios');
+        $path = $request->hasFile('imagen') ? $request->file('imagen')->store('public/usuarios') : null;
 
         $usuario = Usuario::create([
             'correo_usuario' => $request->correo_usuario,

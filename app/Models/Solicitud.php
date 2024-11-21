@@ -49,4 +49,9 @@ class Solicitud extends Model
     {
         return $this->belongsTo(Tipo::class, 'id_tipo');
     }
+
+    public function practicas()
+    {
+        return $this->hasMany(Practica::class, 'id_solicitud');
+    }
 }

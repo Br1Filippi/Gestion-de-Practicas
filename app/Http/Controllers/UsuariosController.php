@@ -12,6 +12,7 @@ use App\Models\Supervisor;
 use App\Models\JefeDeCarrera;
 use App\Models\Rol;
 use App\Models\Rol_Usuario;
+use App\Models\Carrera;
 use App\Models\Secretaria;
 use Illuminate\Support\Facades\Hash;
 
@@ -173,6 +174,14 @@ class UsuariosController extends Controller
         $rol = $request->rol;
         if($rol == 1){
             return view('usuarios.crearEmpresaD');
+        }
+        if($rol == 2){
+            $carreras = Carrera::all();
+            return view('estudiante.create',compact('carreras'));
+        }
+        if($rol == 5){
+            $empresas = Empresa::all();
+            return view('supervisores.create',compact('empresas'));
         }
         return view('usuarios.crear',compact('rol'));
     }

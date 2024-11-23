@@ -35,8 +35,8 @@
                             {{-- Nombre --}}
                             <div class="mb-3">
                                 <label for="nombre" class="form-label">Nombre:</label>
-                                <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre"
-                                    name="nombre" value="{{ old('nombre') }}">
+                                <input type="text" class="form-control @error('nombre') is-invalid @enderror"
+                                    id="nombre" name="nombre" value="{{ old('nombre') }}">
                                 @error('nombre')
                                 <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
                                 @enderror
@@ -54,8 +54,8 @@
                             {{-- Imagen --}}
                             <div class="mb-3">
                                 <label for="imagen" class="form-label">Foto de Perfil:</label>
-                                <input type="file" class="form-control @error('imagen') is-invalid @enderror" id="imagen"
-                                    name="imagen">
+                                <input type="file" class="form-control @error('imagen') is-invalid @enderror"
+                                    id="imagen" name="imagen">
                                 @error('imagen')
                                 <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
                                 @enderror
@@ -74,8 +74,8 @@
                             {{-- Url Web --}}
                             <div class="mb-3">
                                 <label for="url_web" class="form-label">Url Web:</label>
-                                <input type="url" class="form-control @error('url_web') is-invalid @enderror" id="url_web"
-                                    name="url_web" value="{{ old('url_web') }}">
+                                <input type="url" class="form-control @error('url_web') is-invalid @enderror"
+                                    id="url_web" name="url_web" value="{{ old('url_web') }}">
                                 @error('url_web')
                                 <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
                                 @enderror
@@ -96,7 +96,8 @@
                             <div class="mb-3">
                                 <label for="direccion_empresa" class="form-label">Direccion:</label>
                                 <input type="text" class="form-control @error('direccion_empresa') is-invalid @enderror"
-                                    id="direccion_empresa" name="direccion_empresa" value="{{ old('direccion_empresa') }}">
+                                    id="direccion_empresa" name="direccion_empresa"
+                                    value="{{ old('direccion_empresa') }}">
                                 @error('direccion_empresa')
                                 <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
                                 @enderror
@@ -112,7 +113,7 @@
                                 @enderror
                             </div>
                         </div>
-                    </div>
+                </div>
                 <div class="card-footer">
                     {{-- Botones --}}
                     <div class="d-flex justify-content-end">
@@ -120,10 +121,10 @@
                         <button type="submit" class="btn btn-success"><strong>Crear Cuenta</strong></button>
                     </div>
                 </div>
-                    </form>
-                </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection

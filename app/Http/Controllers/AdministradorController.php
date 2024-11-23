@@ -23,10 +23,12 @@ class AdministradorController extends Controller
         $totalSolicitudes = Solicitud::count();
         $totalEstudiantes = Estudiante::count();
         $totalEmpresas = Empresa::count();
-        $porcentajeAprobacionSolicitudes = Solicitud::where('id_estado', 2)->count() / $totalSolicitudes * 100;
-        $porcentajeRechazoSolicitudes = Solicitud::where('id_estado', 3)->count() / $totalSolicitudes * 100;
-        $porcentajeAprobacionPracticas = Practica::where('id_estado', 2)->count() / $totalPracticas * 100;
-        $porcentajeRechazoPracticas = Practica::where('id_estado', 3)->count() / $totalPracticas * 100;
+
+        $porcentajeAprobacionSolicitudes = $totalSolicitudes > 0 ? Solicitud::where('id_estado', 2)->count() / $totalSolicitudes * 100 : 0;
+        $porcentajeRechazoSolicitudes = $totalSolicitudes > 0 ? Solicitud::where('id_estado', 3)->count() / $totalSolicitudes * 100 : 0;
+        $porcentajeAprobacionPracticas = $totalPracticas > 0 ? Practica::where('id_estado', 2)->count() / $totalPracticas * 100 : 0;
+        $porcentajeRechazoPracticas = $totalPracticas > 0 ? Practica::where('id_estado', 3)->count() / $totalPracticas * 100 : 0;
+
         $practicasPorCarrera = Carrera::withCount('practicas')->get();
         $topEmpresas = Empresa::withCount('practicas')->orderBy('practicas_count', 'desc')->take(5)->get();
         $promedioDuracionPracticas = Practica::whereNotNull('fecha_termino')->avg(DB::raw('DATEDIFF(fecha_termino, fecha_inicio)'));

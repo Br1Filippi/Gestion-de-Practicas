@@ -68,6 +68,26 @@
                                 @enderror
                             </div>
 
+                            @if(Gate::allows('admin-gestion'))
+                            {{-- Empresa --}}
+                            <div class="mb-3">
+                                <label for="empresa" class="form-label">Empresa:</label>
+                                <select class="form-control @error('empresa_id') is-invalid @enderror" id="empresa"
+                                    name="empresa">
+                                    <option value="">Seleccione una empresa</option>
+                                    @foreach($empresas as $empresa)
+                                    <option value="{{ $empresa->id }}" {{ old('empresa')==$empresa->id ? 'selected' : ''
+                                        }}>
+                                        {{ $empresa->usuario->nombre }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                @error('empresa')
+                                <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            @endif
+
                             {{-- Rut --}}
                             <div class="mb-3">
                                 <label for="rut_supervisor" class="form-label">Rut:</label>

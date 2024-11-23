@@ -45,7 +45,7 @@ class SupervisorController extends Controller
     public function store(SupervisorUsuarioRequest $request)
     {
         $password = Hash::make($request->password);
-        $path = $request->file('imagen')->store('public/usuarios');
+        $path = $request->hasFile('imagen') ? $request->file('imagen')->store('public/usuarios') : null;
 
         $usuario = Usuario::create([
             'correo_usuario' => $request->correo_usuario,
@@ -56,8 +56,12 @@ class SupervisorController extends Controller
         ]);
 
         //sacar id empresa 
-        $emailUsuario = auth()->user()->correo_usuario; 
-        $empresaId = Empresa::where('id_usuario', $emailUsuario)->first()->id;
+        if (auth()->user()->roles()->first()->nombre == 'Empresa') {
+            $emailUsuario = auth()->user()->correo_usuario; 
+            $empresaId = Empresa::where('id_usuario', $emailUsuario)->first()->id;
+        } else {
+            $empresaId = $request->empresa;
+        }
 
         //Darle rol supervisor al usuario
         $rolSupervisorId = 5; 
@@ -72,8 +76,11 @@ class SupervisorController extends Controller
         $supervisor->id_empresa = $empresaId;
 
         $supervisor->save();
-
-        return redirect()->route('supervisores.index');
+        if (auth()->user()->roles()->first()->nombre == 'Empresa') {
+            return redirect()->route('supervisores.index');
+        } else {
+            return redirect()->route('usuarios.index');
+        }
     }
 
     public function destroy(Supervisor $supervisor)

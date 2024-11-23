@@ -47,6 +47,8 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
         Route::get('/estudiante',[EstudiantesController::class,'index'])->name('estudiantes.index');
         Route::get('/estudiante/edit/{estudiante}',[EstudiantesController::class,'edit'])->name('estudiantes.edit');
         Route::put('/estudiante/edit/{estudiante}',[EstudiantesController::class,'update'])->name('estudiantes.update');
+        Route::get('/estudiante/crear',[EstudiantesController::class,'create'])->name('estudiantes.create');
+        Route::post('/estudiante/store',[EstudiantesController::class,'store'])->name('estudiantes.store');
     });
     //Estudiante
 

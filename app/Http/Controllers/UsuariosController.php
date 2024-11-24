@@ -14,6 +14,7 @@ use App\Models\Rol;
 use App\Models\Rol_Usuario;
 use App\Models\Carrera;
 use App\Models\Secretaria;
+use App\Http\Requests\ElegirRolRequest;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -169,15 +170,23 @@ class UsuariosController extends Controller
         return view('usuarios.elegirRol',compact('roles'));
     }
 
-    public function create(Request $request)
+    public function create(ElegirRolRequest $request)
     {
         $rol = $request->rol;
+            
         if($rol == 1){
             return view('usuarios.crearEmpresaD');
         }
         if($rol == 2){
             $carreras = Carrera::all();
             return view('estudiante.create',compact('carreras'));
+        }
+        if($rol == 3){
+            return view('secretarias.create');
+        }
+        if($rol == 4){
+            $carreras = Carrera::all();
+            return view('jefes.create',compact('carreras'));
         }
         if($rol == 5){
             $empresas = Empresa::all();

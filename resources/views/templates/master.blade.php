@@ -4,138 +4,158 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gestion de Practicas</title>
+    <title>Gestión de Prácticas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/trumbowyg@2.27.3/dist/ui/trumbowyg.min.css">
+    <style>
+        .navbar-custom {
+            background-image: url('{{ asset('images/usm_login.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .navbar-overlay {
+            background-color: rgba(0, 94, 144, 0.75);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .navbar-content {
+            position: relative;
+            z-index: 2;
+            height: 85vh;
+        }
+    </style>
 </head>
 
 <body class="d-flex">
-    <nav class="navbar navbar-expand-lg navbar-dark flex-column vh-100 p-3"
-        style="width: 250px; background-color: #005E90;">
-        {{-- Logo USM  --}}
-        <a class="navbar-brand d-flex align-items-center mb-4" href="https://usm.cl/">
-            <img src="{{ asset('images/Logo_UTFSM.png') }}" alt="Logo UTFSM" style="max-width: 80px; height: auto;">
-            <h1 class="text-white fs-3 ms-2"><strong>USM</strong></h1>
-        </a>
-        {{-- /*Logo USM  --}}
+    <nav class="navbar navbar-expand-lg navbar-dark flex-column vh-100 p-3 navbar-custom">
+        <div class="navbar-overlay"></div>
+        <div class="navbar-content w-100 " >
+            {{-- Logo USM  --}}
+            <a class="navbar-brand d-flex justify-content-center align-items-center mb-0" href="https://usm.cl/">
+                <img src="{{ asset('images/Logo_UTFSM.png') }}" alt="Logo UTFSM" style="max-width: 80px; height: auto;">
+            </a>
+            <h5 class="text-white"><strong>Gestión de Prácticas</strong></h5>
+            {{-- /*Logo USM  --}}
 
+            {{-- Menú de Navegación --}}
+            <div class="collapse navbar-collapse flex-column d-flex justify-content-between h-100 w-100" id="navbarNav">
+                <ul class="navbar-nav flex-column w-100 mb-4">
+                    {{-- Opciones de empresas --}}
+                    @if (Gate::allows('empresa-gestion') or Gate::allows('estudiante-gestion'))
+                        <li class="nav-item mb-3 rounded"
+                            onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
+                            <a class="nav-link text-white d-flex align-items-center" href="{{ route('ofertas.index') }}">
+                                <span class="material-icons me-2 ">format_list_bulleted</span>
+                                Ofertas Laborales
+                            </a>
+                        </li>
+                    @endif
+                    
+                    {{-- Empresa --}}
+                    @if (Gate::allows('empresa-gestion'))
+                        <li class="nav-item mb-3 rounded"
+                            onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
+                            <a class="nav-link text-white d-flex align-items-center" href="{{route('supervisores.index')}}">
+                                <span class="material-icons me-2">supervisor_account</span>
+                                Supervisores
+                            </a>
+                        </li>
+                    @endif
+                    {{-- Empresa --}}
+                    
+                    {{-- Supervisor --}}
+                    @if(Gate::allows('supervisor-gestion')) 
+                        <li class="nav-item mb-3 rounded"
+                            onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
+                            <a class="nav-link text-white d-flex align-items-center" href="{{route('practicas.practicantes')}}">
+                                <span class="material-icons me-2">groups</span>
+                                Practicantes
+                            </a>
+                        </li>   
+                    @endif
+                    {{-- Supervisor --}}
 
-        {{-- Menú de Navegación --}}
-        <div class="collapse navbar-collapse flex-column d-flex justify-content-between h-100 w-100" id="navbarNav">
-            <ul class="navbar-nav flex-column w-100 mb-4">
+                    {{-- Estudiante --}}
+                    @if(Gate::allows('estudiante-gestion')) 
+                        <li class="nav-item mb-3 rounded"
+                            onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
+                            <a class="nav-link text-white d-flex align-items-center" href="{{route('solicitudes.index')}}">
+                                <span class="material-icons me-2">file_open</span>
+                                Mis Solicitudes
+                            </a>
+                        </li>   
 
-                {{-- Opciones de empresas --}}
-                @if (Gate::allows('empresa-gestion') or Gate::allows('estudiante-gestion'))
-                    <li class="nav-item mb-3 rounded"
-                        onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
-                        <a class="nav-link text-white d-flex align-items-center" href="{{ route('ofertas.index') }}">
-                            <span class="material-icons me-2 ">format_list_bulleted</span>
-                            Ofertas Laborales
-                        </a>
-                    </li>
-                @endif
-                
-                {{-- Empresa --}}
-                @if (Gate::allows('empresa-gestion'))
+                        <li class="nav-item mb-3 rounded"
+                            onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
+                            <a class="nav-link text-white d-flex align-items-center" href="{{route('practicas.index')}}">
+                                <span class="material-icons me-2">diversity_3</span>
+                                Mis Prácticas
+                            </a>
+                        </li>   
+                    @endif
+                    {{-- Estudiante --}}
 
-                    <li class="nav-item mb-3 rounded"
-                        onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
-                        <a class="nav-link text-white d-flex align-items-center" href="{{route('supervisores.index')}}">
-                            <span class="material-icons me-2">supervisor_account</span>
-                            Supervisores
-                        </a>
-                    </li>
-                @endif
-                {{-- Empresa --}}
-                
-                {{-- Supervisor --}}
-                @if(Gate::allows('supervisor-gestion')) 
-                    <li class="nav-item mb-3 rounded"
-                        onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
-                        <a class="nav-link text-white d-flex align-items-center" href="{{route('practicas.practicantes')}}">
-                            <span class="material-icons me-2">groups</span>
-                            Practicantes
-                        </a>
-                    </li>   
-                @endif
-                {{-- Supervisor --}}
-
-                {{-- Estudiante --}}
-                @if(Gate::allows('estudiante-gestion')) 
-                    <li class="nav-item mb-3 rounded"
+                    {{-- Jefe de Carrera --}}
+                    @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
+                        <li class="nav-item mb-3 rounded"
                         onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
                         <a class="nav-link text-white d-flex align-items-center" href="{{route('solicitudes.index')}}">
                             <span class="material-icons me-2">file_open</span>
-                            Mis Solicitudes
+                            Solicitudes de Practica
                         </a>
-                    </li>   
+                        </li>   
 
-                    <li class="nav-item mb-3 rounded"
-                        onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
-                        <a class="nav-link text-white d-flex align-items-center" href="{{route('practicas.index')}}">
-                            <span class="material-icons me-2">diversity_3</span>
-                            Mis Practicas
-                        </a>
-                    </li>   
-                @endif
-                {{-- Estudiante --}}
+                        <li class="nav-item mb-3 rounded"
+                            onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
+                            <a class="nav-link text-white d-flex align-items-center" href="{{route('practicas.index')}}">
+                                <span class="material-icons me-2">diversity_3</span>
+                                Practicas 
+                            </a>
+                        </li>   
+                    @endif
+                    {{-- /*Jefe de Carrera --}}
 
-                {{-- Jefe de Carrera --}}
-                @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
-                    <li class="nav-item mb-3 rounded"
-                    onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
-                    <a class="nav-link text-white d-flex align-items-center" href="{{route('solicitudes.index')}}">
-                        <span class="material-icons me-2">file_open</span>
-                        Solicitudes de Practica
-                    </a>
-                    </li>   
+                    {{-- Administrador --}}
+                    @if(Gate::allows('admin-gestion'))
+                        <li class="nav-item mb-3 rounded"
+                            onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
+                            <a class="nav-link text-white d-flex align-items-center" href="{{route('administrador.index')}}">
+                                <span class="material-icons me-2">tune</span>
+                                Panel de Control 
+                            </a>
+                        </li>
+                    @endif
+                    {{-- /*Administrador --}}
+                </ul>
 
-                    <li class="nav-item mb-3 rounded"
-                        onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
-                        <a class="nav-link text-white d-flex align-items-center" href="{{route('practicas.index')}}">
-                            <span class="material-icons me-2">diversity_3</span>
-                            Practicas 
-                        </a>
-                    </li>   
-                @endif
-                {{-- /*Jefe de Carrera --}}
-
-                {{-- Administrador --}}
-                @if(Gate::allows('admin-gestion'))
-                    <li class="nav-item mb-3 rounded"
-                        onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
-                        <a class="nav-link text-white d-flex align-items-center" href="{{route('administrador.index')}}">
-                            <span class="material-icons me-2">tune</span>
-                            Panel de Control 
-                        </a>
+                {{-- Perfil y Logout --}}
+                <ul class="navbar-nav flex-column w-100 mt-auto">
+                    <li class="nav-item py-0 bg-transparent border-0">
+                        <div class="d-flex align-items-center justify-content-between rounded"
+                            onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
+                            <a href="{{route('usuarios.perfil')}}" class="nav-link text-white d-flex fs-4 py-4">
+                                <span class="material-icons me-2 fs-3">person</span>
+                                Perfil
+                            </a>
+                            <a href="{{ route('usuarios.logout') }}"
+                                class="btn btn-sm btn-danger d-flex align-items-center">
+                                <span class="material-icons text-white">logout</span>
+                            </a>
+                        </div>
                     </li>
-                @endif
-                {{-- /*Administrador --}}
-
-
-            </ul>
-
-            {{-- Perfil y Logout --}}
-            <ul class="navbar-nav flex-column w-100 mt-auto ">
-                <li class="nav-item py-0 bg-transparent border-0">
-                    <div class="d-flex align-items-center justify-content-between rounded"
-                        onmouseover="this.classList.add('bg-secondary')"onmouseout="this.classList.remove('bg-secondary')">
-                        <a href="{{route('usuarios.perfil')}}" class="nav-link text-white d-flex fs-4 py-4" href="#">
-                            <span class="material-icons me-2 fs-3">person</span>
-                            Perfil
-                        </a>
-                        <a href="{{ route('usuarios.logout') }}"
-                            class="btn btn-sm btn-danger d-flex align-items-center">
-                            <span class="material-icons text-white">logout</span>
-                        </a>
-                    </div>
-                </li>
-            </ul>
-            {{-- /*Perfil y Logout --}}
-
+                </ul>
+                {{-- /*Perfil y Logout --}}
+            </div>
+            {{-- /*Menú de Navegación --}}
         </div>
-        {{-- /*Menú de Navegación --}}
     </nav>
 
     {{-- Contenido Principal --}}

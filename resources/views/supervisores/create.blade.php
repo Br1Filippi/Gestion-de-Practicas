@@ -130,12 +130,22 @@
                             </div>
                         </div>
                         <div class="card-footer">
+                            @if (Gate::allows('empresa-gestion'))
                             {{-- Botones --}}
                             <div class="d-flex justify-content-end">
                                 <a href="{{ route('supervisores.index') }}"
                                     class="btn btn-danger me-2"><strong>Cancelar</strong></a>
                                 <button type="submit" class="btn btn-success"><strong>Crear Supervisor</strong></button>
                             </div>
+                            @endif
+                            {{-- Botones --}}
+                            @if (Gate::allows('admin-gestion'))
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ route('usuarios.index') }}"
+                                    class="btn btn-danger me-2"><strong>Cancelar</strong></a>
+                                <button type="submit" class="btn btn-success"><strong>Crear Supervisor</strong></button>
+                            </div>
+                            @endif
                         </div>
                     </form>
                 </div>

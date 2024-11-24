@@ -63,12 +63,16 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
     //Secretaria
     Route::middleware(['auth'])->group(function(){
         Route::get('/secretarias',[SecretariasController::class,'index'])->name('secretarias.index');
+        Route::get('/secretarias/crear',[SecretariasController::class,'create'])->name('secretarias.create');
+        Route::post('/secretarias/store',[SecretariasController::class,'store'])->name('secretarias.store');
     });
     //Secretaria
 
     //Jefe de Carrera  
     Route::middleware(['auth'])->group(function(){
         Route::get('/jefe',[JefesController::class,'index'])->name('jefes.index');
+        Route::get('/jefe/crear',[JefesController::class,'create'])->name('jefes.create');
+        Route::post('/jefe/store',[JefesController::class,'store'])->name('jefes.store');
     });
     //Jefe de Carrera
 

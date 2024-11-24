@@ -23,6 +23,7 @@ class SupervisorUsuarioRequest extends FormRequest
             'apellido' => 'required|string|max:50',
             'imagen' => 'nullable|image|max:2048', 
             'password' => 'required|string|min:3', 
+            'empresa' => 'required|exists:empresas,id',
         ];
     }
 

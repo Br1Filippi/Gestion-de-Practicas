@@ -117,7 +117,7 @@
                 <div class="card-footer">
                     {{-- Botones --}}
                     <div class="d-flex justify-content-end">
-                        <a href="" class="btn btn-danger me-2"><strong>Cancelar</strong></a>
+                        <a href="{{route('usuarios.index')}}" class="btn btn-danger me-2"><strong>Cancelar</strong></a>
                         <button type="submit" class="btn btn-success"><strong>Crear Cuenta</strong></button>
                     </div>
                 </div>

@@ -38,6 +38,7 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
         Route::get('/usuarios/elegirRol',[UsuariosController::class,'elegirRol'])->name('usuarios.elegirRol');
         Route::get('/usuarios/create',[UsuariosController::class,'create'])->name('usuarios.create');
         Route::get('/usuarios/crearEmpresaD',[UsuariosController::class,'crearEmpresaD'])->name('usuarios.crearEmpresaD');
+        Route::get('/usuarios/edit/{usuario}',[UsuariosController::class,'edit'])->name('usuarios.edit');
 
     });
     //Usuarios

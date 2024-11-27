@@ -8,6 +8,8 @@ use App\Http\Requests\EmpresaUsuarioUpdate;
 use App\Models\Usuario;
 use App\Models\Empresa;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Gate;
+
 
 
 class EmpresasController extends Controller
@@ -29,7 +31,7 @@ class EmpresasController extends Controller
             'apellido' => $request->apellido,
             'imagen' => $path,
         ]);
-
+ 
         //Darle rol de empresa
         $rolEmpresaId = 1; 
         $usuario->roles()->attach($rolEmpresaId);
@@ -81,6 +83,12 @@ class EmpresasController extends Controller
         
         $empresa->save();
         
-        return redirect()->route('usuarios.perfil');
+        if (Gate::allows('empresa-gestion')) {
+            return redirect()->route('usuarios.perfil', ['usuario' => $usuario->id]);
+        } elseif (Gate::allows('admin-gestion')) {
+            return redirect()->route('usuarios.index');
+        } else {
+            return redirect()->route('home');
+        }
     }
 }

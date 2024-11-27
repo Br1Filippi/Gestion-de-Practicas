@@ -32,12 +32,8 @@
 
                     {{-- Apellido --}}
                     <div class="mb-3">
-                        <label for="apellido" class="form-label">Apellido:</label>
-                        <input type="text" class="form-control @error('apellido') is-invalid @enderror" id="apellido"
-                            name="apellido" value="{{ old('apellido', $empresa->usuario->apellido) }}">
-                        @error('apellido')
-                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
-                        @enderror
+                        <input type="hidden" class="form-control @error('apellido') is-invalid @enderror" id="apellido"
+                            name="apellido" value="corp">
                     </div>
 
                     {{-- Imagen --}}
@@ -101,11 +97,19 @@
                 </div>
                 <div class="card-footer">
                     {{-- Botones --}}
+                    @if(Gate::allows('empresas-gestion'))
                     <div class="d-flex justify-content-end">
                         <a href="{{ route('usuarios.perfil') }}"
                             class="btn btn-danger me-2"><strong>Cancelar</strong></a>
                         <button type="submit" class="btn btn-success"><strong>Actualizar</strong></button>
                     </div>
+                    @else
+                    <div class="d-flex justify-content-end">
+                        <a href="{{ route('usuarios.index') }}"
+                            class="btn btn-danger me-2"><strong>Cancelar</strong></a>
+                        <button type="submit" class="btn btn-success"><strong>Actualizar</strong></button>
+                    </div>
+                    @endif
                 </div>
             </form>
         </div>

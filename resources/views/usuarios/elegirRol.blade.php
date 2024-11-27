@@ -2,7 +2,7 @@
 
 @section('contenido-principal')
 <div class="col d-flex justify-content-start align-items-center">
-    <a href="{{ url()->previous() }}"
+    <a href="{{ route('usuarios.index') }}"
         class="btn text-white btn-warning d-flex justify-content-center align-items-center">
         <i class="material-icons text-white mx-1" style="font-size: 1em">arrow_back</i>
         <strong>Volver</strong>
@@ -19,7 +19,7 @@
                         <select class="form-control @error('rol') is-invalid @enderror" id="rol" name="rol">
                             <option value="">Roles</option>
                             @foreach ($roles as $rol)
-                                <option value="{{$rol->id}}">{{$rol->nombre}}</option>
+                            <option value="{{$rol->id}}">{{$rol->nombre}}</option>
                             @endforeach
                         </select>
                         @error('rol')

@@ -21,6 +21,36 @@ use Illuminate\Support\Facades\Hash;
 class UsuariosController extends Controller
 {
     
+    public function edit(Usuario $usuario)
+    {
+        $rol = $usuario->roles()->first()->id;
+
+        if ($rol == 1) {
+            $empresa = Empresa::where('id_usuario',$usuario->correo_usuario)->first();
+            return view('empresas.edit', compact('usuario','empresa'));
+        }
+        if ($rol == 2) {
+            $carreras = Carrera::all();
+            $estudiante = Estudiante::where('id_usuario',$usuario->correo_usuario)->first();
+            return view('estudiante.edit', compact('usuario', 'carreras','estudiante'));
+        }
+        if ($rol == 3) {
+            return view('secretarias.edit', compact('usuario'));
+        }
+        if ($rol == 4) {
+            $carreras = Carrera::all();
+            return view('jefes.edit', compact('usuario', 'carreras'));
+        }
+        if ($rol == 5) {
+            $empresas = Empresa::all();
+            return view('supervisores.edit', compact('usuario', 'empresas'));
+        }
+        if ($rol == 6) {
+            return back()->withErrors(['rol' => 'No puedes editar usuarios con este rol']);
+        }
+        return view('usuarios.edit', compact('usuario'));
+    }
+
     public function index(Request $request)
     {
         $query = Usuario::query();
@@ -191,6 +221,9 @@ class UsuariosController extends Controller
         if($rol == 5){
             $empresas = Empresa::all();
             return view('supervisores.create',compact('empresas'));
+        }
+        if($rol == 6){
+            return back()->withErrors(['rol' => 'No puedes Crear Usuarios con este rol']);
         }
         return view('usuarios.crear',compact('rol'));
     }

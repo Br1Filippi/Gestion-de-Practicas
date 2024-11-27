@@ -108,11 +108,19 @@
                 </div>
                 <div class="card-footer">
                     {{-- Botones --}}
+                    @if(Gate::allows('estudiante-gestion'))
                     <div class="d-flex justify-content-end">
                         <a href="{{ route('usuarios.perfil') }}"
                             class="btn btn-danger me-2"><strong>Cancelar</strong></a>
                         <button type="submit" class="btn btn-success"><strong>Actualizar</strong></button>
                     </div>
+                    @else
+                    <div class="d-flex justify-content-end">
+                        <a href="{{ route('usuarios.index') }}"
+                            class="btn btn-danger me-2"><strong>Cancelar</strong></a>
+                        <button type="submit" class="btn btn-success"><strong>Actualizar</strong></button>
+                    </div>
+                    @endif
                 </div>
             </form>
         </div>

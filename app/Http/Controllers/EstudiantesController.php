@@ -8,6 +8,7 @@ use App\Models\Usuario;
 use App\Models\Carrera;
 use App\Http\Requests\EstudianteUsuarioUpdate;
 use App\Http\Requests\EstudianteCrearRequest;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -51,7 +52,13 @@ class EstudiantesController extends Controller
         
         $estudiante->save();
         
-        return redirect()->route('usuarios.perfil');
+        if (Gate::allows('estudiante-gestion')) {
+            return redirect()->route('usuarios.perfil', ['usuario' => $usuario->id]);
+        } elseif (Gate::allows('admin-gestion')) {
+            return redirect()->route('usuarios.index');
+        } else {
+            return redirect()->route('home');
+        }
     }
 
     public function create()

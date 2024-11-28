@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-end align-items-end">
-                    <a href="{{ url()->previous() }}"
+                    <a href="{{ route('usuarios.index') }}"
                         class="btn text-white btn-danger d-flex justify-content-center align-items-center mx-2">
                         <i class="material-icons text-white">close</i>
                         <strong>Cancelar</strong>

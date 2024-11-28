@@ -71,10 +71,12 @@
                                 </div>
                                 <div class="col-1">
                                     <div class="row-4 mt-3">
+                                        @if($usuario->correo_usuario != auth()->user()->correo_usuario)
                                         <a href="{{route('usuarios.edit',$usuario->correo_usuario)}}"
                                             class="btn text-white btn-warning">
                                             <i class="material-icons text-white">edit</i>
                                         </a>
+                                        @endif
                                     </div>
                                     <div class="row-4 mt-3">
                                         @if($usuario->correo_usuario != auth()->user()->correo_usuario)

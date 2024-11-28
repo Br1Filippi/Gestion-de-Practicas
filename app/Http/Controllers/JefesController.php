@@ -47,4 +47,12 @@ class JefesController extends Controller
 
         return redirect()->route('usuarios.index');
     }
+
+    public function edit(JefeDeCarrera $jefe)
+    {
+        $usuario = Usuario::where('correo_usuario',$jefe->id_usuario)->first();
+        $carreras = Carrera::all();
+        return view('jefes.edit', compact('jefe','usuario','carreras'));
+    }
+    
 }

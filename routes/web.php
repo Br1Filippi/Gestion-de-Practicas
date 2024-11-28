@@ -74,6 +74,8 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
         Route::get('/jefe',[JefesController::class,'index'])->name('jefes.index');
         Route::get('/jefe/crear',[JefesController::class,'create'])->name('jefes.create');
         Route::post('/jefe/store',[JefesController::class,'store'])->name('jefes.store');
+        Route::get('/jefe/edit/{jefe}',[JefesController::class,'edit'])->name('jefes.edit');
+        Route::put('/jefe/update/{jefe}',[JefesController::class,'update'])->name('jefes.update');
     });
     //Jefe de Carrera
 

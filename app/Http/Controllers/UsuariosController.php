@@ -39,11 +39,13 @@ class UsuariosController extends Controller
         }
         if ($rol == 4) {
             $carreras = Carrera::all();
-            return view('jefes.edit', compact('usuario', 'carreras'));
+            $jefe = JefeDeCarrera::where('id_usuario',$usuario->correo_usuario)->first();
+            return view('jefes.edit', compact('usuario', 'carreras','jefe'));
         }
         if ($rol == 5) {
             $empresas = Empresa::all();
-            return view('supervisores.edit', compact('usuario', 'empresas'));
+            $supervisor = Supervisor::where('id_usuario',$usuario->correo_usuario)->first();
+            return view('supervisores.edit', compact('usuario', 'empresas','supervisor'));
         }
         if ($rol == 6) {
             return back()->withErrors(['rol' => 'No puedes editar usuarios con este rol']);

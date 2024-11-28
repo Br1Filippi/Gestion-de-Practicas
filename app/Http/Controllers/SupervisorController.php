@@ -109,6 +109,7 @@ class SupervisorController extends Controller
             'apellido' => $request->apellido,
         ];
 
+
         // Si hay una nueva imagen, se almacena
         if ($request->hasFile('imagen')) {
             $usuarioData['imagen'] = $request->file('imagen')->store('public/usuarios');
@@ -117,21 +118,36 @@ class SupervisorController extends Controller
         // Actualizar el usuario
         $usuario->update($usuarioData);
 
+        //sacar id empresa 
+        if (auth()->user()->roles()->first()->nombre == 'Empresa') {
+            $emailUsuario = auth()->user()->correo_usuario; 
+            $empresaId = Empresa::where('id_usuario', $emailUsuario)->first()->id;
+        } else {
+            $empresaId = $request->empresa;
+        }
+
         $supervisor->rut_supervisor = $request->rut_supervisor;
         $supervisor->titulo_supervisor = $request->titulo_supervisor;
         $supervisor->fono_supervisor = $request->fono_supervisor;
         $supervisor->cargo_supervisor = $request->cargo_supervisor;
+        $supervisor->id_empresa = $empresaId;
 
         $supervisor->save();
 
         $usuarioLogeado = auth()->user();
         $rol = $usuarioLogeado->roles()->first()->nombre;
 
-        if ($rol == 'Empresa') {
+        if(Gate::allows('empresa-gestion'))
+        {
             return redirect()->route('supervisores.index');
         }
-        if ($rol == 'Supervisor') {
-            return redirect()->route('usuarios.perfil');
+        if(Gate::allows('supervisor-gestion'))
+        {
+            return redirect()->route('supervisores.index');
+        }
+        if(Gate::allows('admin-gestion'))
+        {
+            return redirect()->route('usuarios.index');
         }
     }
 }

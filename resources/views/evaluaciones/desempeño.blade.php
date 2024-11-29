@@ -37,133 +37,77 @@
                             </thead>
                             <tbody>
                                 <tr class="text-center">
-                                    <th scope="row" class="text-start">1.Capacidad </th>
-                                    <td><input type="radio" name="capacidad" value="0"
-                                            class="form-check-input mx-auto my-auto"></td>
-                                    <td><input type="radio" name="capacidad" value="1" class="form-check-input mx-auto">
+                                    <th scope="row" class="text-start @error('capacidad') bg-danger @enderror">1.Capacidad </th>
+                                    <td class="@error('capacidad') bg-danger @enderror"><input type="radio" name="capacidad" value="0"
+                                            class="form-check-input mx-auto my-auto" {{ old('capacidad') == '0' ? 'checked' : '' }}></td>
+                                    <td class="@error('capacidad') bg-danger @enderror"><input type="radio" name="capacidad" value="1" class="form-check-input mx-auto" {{ old('capacidad') == '1' ? 'checked' : '' }}>
                                     </td>
-                                    <td><input type="radio" name="capacidad" value="2" class="form-check-input mx-auto">
-                                    </td>
-                                </tr>
-                                @error('capacidad')
-                                <tr>
-                                    <td colspan="4">
-                                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                    <td class="@error('capacidad') bg-danger @enderror"><input type="radio" name="capacidad" value="2" class="form-check-input mx-auto" {{ old('capacidad') == '2' ? 'checked' : '' }}>
                                     </td>
                                 </tr>
-                                @enderror
                                 <tr class="text-center">
-                                    <th scope="row" class="text-start">2.Confianza</th>
-                                    <td><input type="radio" name="confianza" value="0"
-                                            class="form-check-input mx-auto my-auto"></td>
-                                    <td><input type="radio" name="confianza" value="1" class="form-check-input mx-auto">
+                                    <th scope="row" class="text-start @error('confianza') bg-danger @enderror">2.Confianza</th>
+                                    <td class="@error('confianza') bg-danger @enderror"><input type="radio" name="confianza" value="0"
+                                            class="form-check-input mx-auto my-auto" {{ old('confianza') == '0' ? 'checked' : '' }}></td>
+                                    <td class="@error('confianza') bg-danger @enderror"><input type="radio" name="confianza" value="1" class="form-check-input mx-auto" {{ old('confianza') == '1' ? 'checked' : '' }}>
                                     </td>
-                                    <td><input type="radio" name="confianza" value="2" class="form-check-input mx-auto">
-                                    </td>
-                                </tr>
-                                @error('confianza')
-                                <tr>
-                                    <td colspan="4">
-                                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                    <td class="@error('confianza') bg-danger @enderror"><input type="radio" name="confianza" value="2" class="form-check-input mx-auto" {{ old('confianza') == '2' ? 'checked' : '' }}>
                                     </td>
                                 </tr>
-                                @enderror
                                 <tr class="text-center">
-                                    <th scope="row" class="text-start">3.Aplicacion o empeño</th>
-                                    <td><input type="radio" name="aplicacion" value="0"
-                                            class="form-check-input mx-auto"></td>
-                                    <td><input type="radio" name="aplicacion" value="1"
-                                            class="form-check-input mx-auto"></td>
-                                    <td><input type="radio" name="aplicacion" value="2"
-                                            class="form-check-input mx-auto"></td>
-                                </tr>
-                                @error('aplicacion')
-                                <tr>
-                                    <td colspan="4">
-                                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                    <th scope="row" class="text-start @error('aplicacion') bg-danger @enderror">3.Aplicacion o empeño</th>
+                                    <td class="@error('aplicacion') bg-danger @enderror"><input type="radio" name="aplicacion" value="0"
+                                            class="form-check-input mx-auto my-auto" {{ old('aplicacion') == '0' ? 'checked' : '' }}></td>
+                                    <td class="@error('aplicacion') bg-danger @enderror"><input type="radio" name="aplicacion" value="1" class="form-check-input mx-auto" {{ old('aplicacion') == '1' ? 'checked' : '' }}>
+                                    </td>
+                                    <td class="@error('aplicacion') bg-danger @enderror"><input type="radio" name="aplicacion" value="2" class="form-check-input mx-auto" {{ old('aplicacion') == '2' ? 'checked' : '' }}>
                                     </td>
                                 </tr>
-                                @enderror
                                 <tr class="text-center">
-                                    <th scope="row" class="text-start">4.Adaptabilidad</th>
-                                    <td><input type="radio" name="adaptabilidad" value="0"
-                                            class="form-check-input mx-auto"></td>
-                                    <td><input type="radio" name="adaptabilidad" value="1"
-                                            class="form-check-input mx-auto"></td>
-                                    <td><input type="radio" name="adaptabilidad" value="2"
-                                            class="form-check-input mx-auto"></td>
-                                </tr>
-                                @error('adaptabilidad')
-                                <tr>
-                                    <td colspan="4">
-                                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                    <th scope="row" class="text-start @error('adaptabilidad') bg-danger @enderror">4.Adaptabilidad</th>
+                                    <td class="@error('adaptabilidad') bg-danger @enderror"><input type="radio" name="adaptabilidad" value="0"
+                                            class="form-check-input mx-auto my-auto" {{ old('adaptabilidad') == '0' ? 'checked' : '' }}></td>
+                                    <td class="@error('adaptabilidad') bg-danger @enderror"><input type="radio" name="adaptabilidad" value="1" class="form-check-input mx-auto" {{ old('adaptabilidad') == '1' ? 'checked' : '' }}>
+                                    </td>
+                                    <td class="@error('adaptabilidad') bg-danger @enderror"><input type="radio" name="adaptabilidad" value="2" class="form-check-input mx-auto" {{ old('adaptabilidad') == '2' ? 'checked' : '' }}>
                                     </td>
                                 </tr>
-                                @enderror
                                 <tr class="text-center">
-                                    <th scope="row" class="text-start">5.Iniciativa</th>
-                                    <td><input type="radio" name="iniciativa" value="0"
-                                            class="form-check-input mx-auto"></td>
-                                    <td><input type="radio" name="iniciativa" value="1"
-                                            class="form-check-input mx-auto"></td>
-                                    <td><input type="radio" name="iniciativa" value="2"
-                                            class="form-check-input mx-auto"></td>
-                                </tr>
-                                @error('iniciativa')
-                                <tr>
-                                    <td colspan="4">
-                                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                    <th scope="row" class="text-start @error('iniciativa') bg-danger @enderror">5.Iniciativa</th>
+                                    <td class="@error('iniciativa') bg-danger @enderror"><input type="radio" name="iniciativa" value="0"
+                                            class="form-check-input mx-auto my-auto" {{ old('iniciativa') == '0' ? 'checked' : '' }}></td>
+                                    <td class="@error('iniciativa') bg-danger @enderror"><input type="radio" name="iniciativa" value="1" class="form-check-input mx-auto" {{ old('iniciativa') == '1' ? 'checked' : '' }}>
+                                    </td>
+                                    <td class="@error('iniciativa') bg-danger @enderror"><input type="radio" name="iniciativa" value="2" class="form-check-input mx-auto" {{ old('iniciativa') == '2' ? 'checked' : '' }}>
                                     </td>
                                 </tr>
-                                @enderror
                                 <tr class="text-center">
-                                    <th scope="row" class="text-start">6.Aptitud para trabajar</th>
-                                    <td><input type="radio" name="aptitud" value="0" class="form-check-input mx-auto">
+                                    <th scope="row" class="text-start @error('aptitud') bg-danger @enderror">6.Aptitud para trabajar</th>
+                                    <td class="@error('aptitud') bg-danger @enderror"><input type="radio" name="aptitud" value="0" class="form-check-input mx-auto my-auto" {{ old('aptitud') == '0' ? 'checked' : '' }}>
                                     </td>
-                                    <td><input type="radio" name="aptitud" value="1" class="form-check-input mx-auto">
+                                    <td class="@error('aptitud') bg-danger @enderror"><input type="radio" name="aptitud" value="1" class="form-check-input mx-auto" {{ old('aptitud') == '1' ? 'checked' : '' }}>
                                     </td>
-                                    <td><input type="radio" name="aptitud" value="2" class="form-check-input mx-auto">
-                                    </td>
-                                </tr>
-                                @error('aptitud')
-                                <tr>
-                                    <td colspan="4">
-                                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                    <td class="@error('aptitud') bg-danger @enderror"><input type="radio" name="aptitud" value="2" class="form-check-input mx-auto" {{ old('aptitud') == '2' ? 'checked' : '' }}>
                                     </td>
                                 </tr>
-                                @enderror
                                 <tr class="text-center">
-                                    <th scope="row" class="text-start">7.Conocimiento</th>
-                                    <td><input type="radio" name="conocimiento" value="0"
-                                            class="form-check-input mx-auto"></td>
-                                    <td><input type="radio" name="conocimiento" value="1"
-                                            class="form-check-input mx-auto"></td>
-                                    <td><input type="radio" name="conocimiento" value="2"
-                                            class="form-check-input mx-auto"></td>
-                                </tr>
-                                @error('conocimiento')
-                                <tr>
-                                    <td colspan="4">
-                                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                    <th scope="row" class="text-start @error('conocimiento') bg-danger @enderror">7.Conocimiento</th>
+                                    <td class="@error('conocimiento') bg-danger @enderror"><input type="radio" name="conocimiento" value="0"
+                                            class="form-check-input mx-auto my-auto" {{ old('conocimiento') == '0' ? 'checked' : '' }}></td>
+                                    <td class="@error('conocimiento') bg-danger @enderror"><input type="radio" name="conocimiento" value="1" class="form-check-input mx-auto" {{ old('conocimiento') == '1' ? 'checked' : '' }}>
+                                    </td>
+                                    <td class="@error('conocimiento') bg-danger @enderror"><input type="radio" name="conocimiento" value="2" class="form-check-input mx-auto" {{ old('conocimiento') == '2' ? 'checked' : '' }}>
                                     </td>
                                 </tr>
-                                @enderror
                                 <tr class="text-center">
-                                    <th scope="row" class="text-start">8.Asistencia</th>
-                                    <td><input type="radio" name="asistencia" value="0"
-                                            class="form-check-input mx-auto"></td>
-                                    <td><input type="radio" name="asistencia" value="1"
-                                            class="form-check-input mx-auto"></td>
-                                    <td><input type="radio" name="asistencia" value="2"
-                                            class="form-check-input mx-auto"></td>
-                                </tr>
-                                @error('asistencia')
-                                <tr>
-                                    <td colspan="4">
-                                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                    <th scope="row" class="text-start @error('asistencia') bg-danger @enderror">8.Asistencia</th>
+                                    <td class="@error('asistencia') bg-danger @enderror"><input type="radio" name="asistencia" value="0"
+                                            class="form-check-input mx-auto my-auto" {{ old('asistencia') == '0' ? 'checked' : '' }}></td>
+                                    <td class="@error('asistencia') bg-danger @enderror"><input type="radio" name="asistencia" value="1" class="form-check-input mx-auto" {{ old('asistencia') == '1' ? 'checked' : '' }}>
+                                    </td>
+                                    <td class="@error('asistencia') bg-danger @enderror"><input type="radio" name="asistencia" value="2" class="form-check-input mx-auto" {{ old('asistencia') == '2' ? 'checked' : '' }}>
                                     </td>
                                 </tr>
-                                @enderror
                             </tbody>
                         </table>
                     </div>

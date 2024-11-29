@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relation\HasMany;
-use Illuminate\Database\Eloquent\Relation\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Empresa extends Model
 {
@@ -27,13 +27,13 @@ class Empresa extends Model
     // Relación supervisores
     public function supervisores():HasMany
     {
-        return $this->hasMany(Supervisor::class);
+        return $this->hasMany(Supervisor::class, 'id_empresa');
     }
 
     // Relación ofertas
     public function ofertas(): HasMany
     {
-        return $this->hasMany(Oferta::class);
+        return $this->hasMany(Oferta::class, 'id_empresa');
     }
     public function solicitudes()
     {

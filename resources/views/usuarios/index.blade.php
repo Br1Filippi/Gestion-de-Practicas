@@ -24,8 +24,8 @@
                         <select name="rol" class="form-select">
                             <option value="">Roles</option>
                             @foreach ($roles as $rol)
-                            <option value="{{ $rol->id }}" {{ request('rol')==$rol->id ? 'selected' : '' }}>{{
-                                $rol->nombre }}</option>
+                            <option value="{{ $rol->id }}" {{ request('rol')==$rol->id ? 'selected' : '' }}>
+                                {{ $rol->nombre }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -81,10 +81,37 @@
                                     <div class="row-4 mt-3">
                                         @if($usuario->correo_usuario != auth()->user()->correo_usuario)
                                         <a href="" class="btn text-white btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#modalEliminar">
+                                            data-bs-target="#modalEliminar{{$usuario->correo_usuario}}" >
                                             <i class="material-icons text-white">delete</i>
                                         </a>
                                         @endif
+                                    </div>
+                                    <!-- Modal Eliminar -->
+                                    <div class="modal fade" id="modalEliminar{{$usuario->correo_usuario}}" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4><strong>¡Esta acción no se puede deshacer!</strong></h4>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h5 class="modal-title" id="modalEliminarLabel">¿Está seguro que quiere eliminar a {{$usuario->nombre}} {{$usuario->apellido}}?</h5>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary d-flex justify-content-center align-items-center mx-2"
+                                                        data-bs-dismiss="modal">
+                                                        <i class="material-icons text-white">close</i> Cancelar
+                                                    </button>
+                                                    <form id="delete-form" action="{{route('usuarios.destroy',$usuario->correo_usuario)}}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger d-flex justify-content-center align-items-center mx-2">
+                                                            <i class="material-icons text-white">delete</i> <strong>Eliminar</strong>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -95,33 +122,33 @@
             </div>
         </div>
     </div>
-</div>
+    @if ($errors->any())
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+            errorModal.show();
+        });
+    </script>
 
-<!-- Modal Eliminar -->
-<div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4><strong>¡Esta acción no se puede deshacer!</strong></h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h5 class="modal-title" id="modalEliminarLabel">¿Está seguro?</h5>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary d-flex justify-content-center align-items-center mx-2"
-                    data-bs-dismiss="modal">
-                    <i class="material-icons text-white">close</i> Cancelar
-                </button>
-                <form id="delete-form" action="" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger d-flex justify-content-center align-items-center mx-2">
-                        <i class="material-icons text-white">delete</i> <strong>Eliminar</strong>
-                    </button>
-                </form>
+    <!-- Modal Errores -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h4><strong>Error</strong></h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                    @endforeach
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    @endif
+
 @endsection

@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CambiarContraRequest;
 use App\Models\Usuario;
+use App\Models\Oferta;
+use App\Models\Solicitud;
+use App\Models\Practica;
 use App\Models\Empresa;
 use App\Models\Estudiante;
 use App\Models\Supervisor;
@@ -20,7 +23,90 @@ use Illuminate\Support\Facades\Hash;
 
 class UsuariosController extends Controller
 {
-    
+    public function destroy(Usuario $usuario)
+    {
+        $rol = $usuario->roles()->first()->id;
+
+        if ($rol == 1) {
+            $empresa = Empresa::where('id_usuario', $usuario->correo_usuario)->first();
+            if ($empresa) {
+                $cantOf = $empresa->ofertas()->count();
+                $cantSup = $empresa->supervisores()->count();
+                if ($cantOf > 0){
+                    return back()->withErrors(['errors' => 'No puedes eliminar una empresa con Ofertas activas']);
+                }elseif($cantSup > 0){
+                    return back()->withErrors(['errors' => 'No puedes eliminar una empresa con Supervisores activos']);
+                }else{
+                    $empresa->delete();
+                }
+            }
+        }
+        if ($rol == 2) {
+            $estudiante = Estudiante::where('id_usuario', $usuario->correo_usuario)->first();
+            if ($estudiante) {
+                $cantSol = Solicitud::where('id_estudiante', $estudiante->id)->where('id_estado', 1)->count();
+                $cantPrac = Practica::where('id_estudiante', $estudiante->id)->where('id_estado', 1)->count();
+                $cantPost = $estudiante->postulaciones()->count();
+                if ($cantSol > 0){
+                    return back()->withErrors(['errors' => 'No puedes eliminar un estudiante con Solicitudes activas']);
+                }elseif($cantPrac > 0){
+                    return back()->withErrors(['errors' => 'No puedes eliminar un estudiante con Practicas activas']);
+                }elseif($cantPost > 0){
+                    return back()->withErrors(['errors' => 'No puedes eliminar un estudiante con Postulaciones activas']);
+                }else{
+                $estudiante->delete();
+                }
+            }
+        }
+        if ($rol == 3) {
+            $secretaria = Secretaria::where('id_usuario', $usuario->correo_usuario)->first();
+            if ($secretaria) {
+                $cantSol = Solicitud::where('id_estado', 1)->where('pass',1)->count();
+                $cantPrac = Practica::where('id_estado', 1)->where('pass',1)->count();
+                if ($cantSol > 0){
+                    return back()->withErrors(['errors' => 'No puedes eliminar una secretaria con Solicitudes activas']);
+                }elseif($cantPrac > 0){
+                    return back()->withErrors(['errors' => 'No puedes eliminar una secretaria con Practicas activas']);
+                }else{
+                    $secretaria->delete();
+                }
+            }
+        }
+        if ($rol == 4) {
+            $jefe = JefeDeCarrera::where('id_usuario', $usuario->correo_usuario)->first();
+            if ($jefe) {
+                $cantSol = Solicitud::where('id_carrera',$jefe->id_carrera)->where('id_estado', 1)->where('pass',0)->count();
+                $cantPrac = Practica::where('id_carrera',$jefe->id_carrera)->where('id_estado', 1)->where('pass',0)->count();
+                if ($cantSol > 0){
+                    return back()->withErrors(['errors' => 'No puedes eliminar un Jefe de Carrera con Solicitudes activas']);
+                }elseif($cantPrac > 0){
+                    return back()->withErrors(['errors' => 'No puedes eliminar un Jefe de Carrera con Practicas activas']);
+                }else{
+                    $jefe->delete();
+                }
+            }
+        }
+        if ($rol == 5) {
+            $supervisor = Supervisor::where('id_usuario', $usuario->correo_usuario)->first();
+            if ($supervisor) {
+                $cantSup = Practica::where('id_supervisor', $supervisor->id)->where('pass',null)->where('id_estado', 1)->count();
+                if ($cantSup > 0){
+                    return back()->withErrors(['errors' => 'No puedes eliminar un Supervisor con Practicas activas']);
+                }else{  
+                    $supervisor->delete();
+                }
+            }
+        }
+        if ($rol == 6) {
+            return back()->withErrors(['errors' => 'No puedes eliminar usuarios con este rol']);
+        }
+
+        // Delete the roles associated with the user
+        $usuario->roles()->detach();
+        $usuario->delete();
+
+        return redirect()->route('usuarios.index');
+    }
     public function edit(Usuario $usuario)
     {
         $rol = $usuario->roles()->first()->id;
@@ -35,7 +121,8 @@ class UsuariosController extends Controller
             return view('estudiante.edit', compact('usuario', 'carreras','estudiante'));
         }
         if ($rol == 3) {
-            return view('secretarias.edit', compact('usuario'));
+            $secretaria = Secretaria::where('id_usuario',$usuario->correo_usuario)->first();
+            return view('secretarias.edit', compact('usuario','secretaria'));
         }
         if ($rol == 4) {
             $carreras = Carrera::all();

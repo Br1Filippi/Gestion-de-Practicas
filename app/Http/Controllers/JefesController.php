@@ -54,5 +54,24 @@ class JefesController extends Controller
         $carreras = Carrera::all();
         return view('jefes.edit', compact('jefe','usuario','carreras'));
     }
+
+    public function update(JefeDeCarrera $jefe, Request $request) {
+        $usuario = Usuario::where('correo_usuario', $jefe->id_usuario)->first();
+
+        $path = $request->hasFile('imagen') ? $request->file('imagen')->store('public/usuarios') : null;
+
+        $usuarioData = [
+            'nombre' => $request->nombre,
+            'apellido' => $request->apellido,
+            'imagen' => $path,
+        ];
+        $usuario->update($usuarioData);
+
+        $jefe->id_carrera = $request->carrera;
+        $jefe->id_usuario = $usuario->correo_usuario;
+        $jefe->save();
+
+        return redirect()->route('usuarios.index');
+    }
     
 }

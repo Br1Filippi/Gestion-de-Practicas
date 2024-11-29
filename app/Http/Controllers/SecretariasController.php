@@ -7,12 +7,37 @@ use App\Models\Usuario;
 use App\Models\Secretaria;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\SecretariaCrearRequest;
+use App\Http\Requests\SecretariaUpdateRequest;
 
 class SecretariasController extends Controller
 {
     public function index()
     {
         return view('secretarias.index');
+    }
+
+    public function edit(){
+        return view('secretarias.edit');
+    }
+
+    public function update(Secretaria $secretaria,SecretariaUpdateRequest $request){
+        $usuario = Usuario::where('correo_usuario', $secretaria->id_usuario)->first();
+
+        $path = $request->hasFile('imagen') ? $request->file('imagen')->store('public/usuarios') : null;
+
+        $usuarioData = [
+            'nombre' => $request->nombre,
+            'apellido' => $request->apellido,
+            'imagen' => $path,
+        ];
+
+        $usuario->update($usuarioData);
+
+        $secretaria->id_usuario = $usuario->correo_usuario;
+
+        $secretaria->save();
+
+        return redirect()->route('usuarios.index');
     }
 
     public function create()

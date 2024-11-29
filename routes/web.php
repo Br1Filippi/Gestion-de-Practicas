@@ -39,6 +39,7 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
         Route::get('/usuarios/create',[UsuariosController::class,'create'])->name('usuarios.create');
         Route::get('/usuarios/crearEmpresaD',[UsuariosController::class,'crearEmpresaD'])->name('usuarios.crearEmpresaD');
         Route::get('/usuarios/edit/{usuario}',[UsuariosController::class,'edit'])->name('usuarios.edit');
+        Route::delete('/usuarios/{usuario}',[UsuariosController::class,'destroy'])->name('usuarios.destroy');
 
     });
     //Usuarios
@@ -66,6 +67,8 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
         Route::get('/secretarias',[SecretariasController::class,'index'])->name('secretarias.index');
         Route::get('/secretarias/crear',[SecretariasController::class,'create'])->name('secretarias.create');
         Route::post('/secretarias/store',[SecretariasController::class,'store'])->name('secretarias.store');
+        Route::get('/secretarias/edit/{secretaria}',[SecretariasController::class,'edit'])->name('secretarias.edit');
+        Route::put('/secretarias/update/{secretaria}',[SecretariasController::class,'update'])->name('secretarias.update');
     });
     //Secretaria
 

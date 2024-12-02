@@ -142,6 +142,7 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
         Route::get('/comunas/{regionId}', [OfertasController::class, 'getComunas']);
         Route::delete('/ofertas/{oferta}',[OfertasController::class,'destroy'])->name('ofertas.destroy');
         Route::post('/ofertas/postular', [OfertasController::class, 'postular'])->name('ofertas.postular');
+        Route::get('/ofertas/index',[OfertasController::class,'index2'])->name('ofertas.index2');
     });
     //Ofertas
 

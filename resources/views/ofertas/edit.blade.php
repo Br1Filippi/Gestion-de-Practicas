@@ -17,7 +17,7 @@
                         @enderror
 
                         {{-- Url de la empresa --}}
-                        <a href="{{ $empresa->url_web }}" class="d-flex my-3">{{ $empresa->url_web }}</a>
+                        <a href="{{ $oferta->empresa->url_web }}" class="d-flex my-3">{{ $oferta->empresa->url_web }}</a>
 
                         {{-- Ubicacion de la Oferta --}}
                         <h5 class="d-flex"><strong>Ubicacion</strong></h5>
@@ -45,16 +45,35 @@
 
                         {{-- Carrera relacionada con la Oferta --}}
                         <h5 class="d-flex mb-2"><strong>Carrera</strong></h5>
-                        <div class="col-4 mb-3">
-                            <select name="carrera" class="form-control @error('carrera') is-invalid @enderror">
-                                <option value="{{ $oferta->carrera->id }}">{{ $oferta->carrera->nombre }}</option>
-                                @foreach ($carreras as $carrera)
-                                    <option value="{{ $carrera->id }}">{{ $carrera->nombre }}</option>
-                                @endforeach
-                            </select>
-                            @error('carrera')
-                                <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
-                            @enderror
+                        <div class="row mb-3">
+                            <div class="col-4 mb-3">
+                                <select name="carrera" class="form-control @error('carrera') is-invalid @enderror">
+                                    <option value="{{ $oferta->carrera->id }}">{{ $oferta->carrera->nombre }}</option>
+                                    @foreach ($carreras as $carrera)
+                                        <option value="{{ $carrera->id }}">{{ $carrera->nombre }}</option>
+                                    @endforeach
+                                </select>
+                                @error('carrera')
+                                    <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            @if(Gate::allows('admin-gestion'))
+                                <div class="col-4">
+                                    <select name="empresa" class="form-control @error('empresa') is-invalid @enderror">
+                                        <option value="{{$oferta->empresa->id}}">{{$oferta->empresa->usuario->nombre}}</option>
+                                        @foreach ($empresa as $empresa)
+                                            <option value="{{ $empresa->id }}" {{ old('empresa') == $empresa->id ? 'selected' : '' }}>
+                                                {{ $empresa->usuario->nombre }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('empresa')
+                                        <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            @else
+                                <input type="hidden" name="empresa" value="{{$empresa->id}}">
+                            @endif
                         </div>
 
                         {{-- Tipo de Oferta y Cupos --}}
@@ -91,10 +110,22 @@
 
                     {{-- Footer --}}
                     <div class="card-footer text-muted d-flex justify-content-end align-items-center">
-                        <a href="{{ route('ofertas.index') }}" class="btn text-white btn-danger d-flex justify-content-center align-items-center mx-2">
-                            <i class="material-icons text-white">close</i>
-                            <strong>Cancelar</strong>
-                        </a>
+                        @if(Gate::allows('admin-gestion'))
+                            <div class="col-md-2">
+                                <a href="{{ route('ofertas.index2') }}" class="btn btn-danger d-flex justify-content-center align-items-center">
+                                    <i class="material-icons">close</i>
+                                    <strong>Cancelar</strong>
+                                </a>
+                            </div>
+                        @endif
+                        @if(Gate::allows('empresa-gestion'))
+                            <div class="col-md-2">
+                                <a href="{{route('ofertas.index')}}" class="btn text-white btn-danger d-flex justify-content-center align-items-center mx-2">
+                                    <i class="material-icons text-white">close</i>
+                                    <strong>Cancelar</strong>
+                                </a>
+                            </div>
+                        @endif
                         <div class="col-md-2">
                             <button type="submit" class="btn btn-warning text-white d-flex justify-content-center align-items-center">
                                 <i class="material-icons">edit</i>

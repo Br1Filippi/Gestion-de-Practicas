@@ -30,12 +30,15 @@ class OfertaRequest extends FormRequest
             'comuna' => 'required|exists:comunas,id',
             'carrera' => 'required|exists:carreras,id',
             'tipo' => 'required|exists:tipos,id',
+            'empresa' => 'required|exists:empresas,id',
         ];
     }
 
     public function messages()
     {
         return [
+            'empresa.required' => 'La empresa es obligatoria.',
+            'empresa.exists' => 'La empresa seleccionada no es válida.',
             'titulo.required' => 'El título es obligatorio.',
             'titulo.max' => 'El título no puede exceder los 50 caracteres.',
             'cupos.required' => 'El número de cupos es obligatorio.',

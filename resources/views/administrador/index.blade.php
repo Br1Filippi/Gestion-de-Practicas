@@ -36,9 +36,18 @@
                 </div>
             </div>
 
-                                
-           
+            {{-- Gestion de Solicitudes --}}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="material-icons text-danger" style="font-size: 48px;">supervised_user_circle</i>
+                        <h5 class="card-title">Gestión de Ofertas</h5>
+                        <a href="{{route('ofertas.index2')}}" class="btn btn-danger">Gestionar Ofertas</a>
+                    </div>
+                </div>
+            </div>
 
+                                
         </div>
     
     </div>

@@ -260,6 +260,7 @@
                                 </div>
                                 <div class="modal-body">
                                     {{ session('error') }}
+                                    {{ $errors->first() }}
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
@@ -275,6 +276,33 @@
         </div>
     </div>
 </div>
+@if ($errors->any())
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+        errorModal.show();
+    });
+</script>
+
+<!-- Modal Errores -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h4><strong>Error</strong></h4>
+                
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{$errors->first()}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
 <script>

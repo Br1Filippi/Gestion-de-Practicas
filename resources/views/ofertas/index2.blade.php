@@ -91,81 +91,83 @@
     </form>
 
     {{-- Tabla de Ofertas --}}
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Título</th>
-                    <th>Empresa</th>
-                    <th>Región</th>
-                    <th>Comuna</th>
-                    <th>Carrera</th>
-                    <th>Tipo</th>
-                    <th>Cupos</th>
-                    <th>Fecha Publicación</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if ($ofertas->isEmpty())
-                <tr>
-                    <td colspan="9" class="text-center">No se encontraron ofertas que coincidan con los filtros seleccionados.</td>
-                </tr>
-                @else
-                @foreach ($ofertas as $oferta)
-                <tr>
-                    <td>{{ $oferta->titulo }}</td>
-                    <td>{{$oferta->empresa->usuario->nombre}}</td>
-                    <td>{{ $oferta->region->nombre }}</td>
-                    <td>{{ $oferta->comuna->nombre }}</td>
-                    <td>{{ $oferta->carrera->nombre }}</td>
-                    <td>{{ $oferta->tipo->nombre }}</td>
-                    <td>{{ $oferta->cupos }}</td>
-                    <td>{{ \Carbon\Carbon::parse($oferta->fecha_publicacion)->diffForHumans() }}</td>
-                    <td>
-
-                        @if (Gate::allows('empresa-gestion') or Gate::allows('admin-gestion'))
-                        <div class="d-flex">
-                            <a href="{{ route('ofertas.edit', $oferta->id) }}" class="btn btn-warning btn-sm text-white me-2">
-                                <i class="material-icons">edit</i>
-                            </a>
-                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalEliminar{{ $oferta->id }}">
-                                <i class="material-icons">delete</i>
-                            </button>
-                        </div>
-
-                        {{-- Modal Eliminar --}}
-                        <div class="modal fade" id="modalEliminar{{ $oferta->id }}" tabindex="-1" aria-labelledby="modalEliminarLabel{{ $oferta->id }}" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4><strong>¡Esta acción no se puede deshacer!</strong></h4>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h5 class="modal-title" id="modalEliminarLabel{{ $oferta->id }}">
-                                            ¿Está seguro de que desea eliminar la oferta <strong>{{ $oferta->titulo }}</strong>?
-                                        </h5>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <form action="{{ route('ofertas.destroy', $oferta->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                                        </form>
+    <div class="col-10">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Empresa</th>
+                        <th>Región</th>
+                        <th>Comuna</th>
+                        <th>Carrera</th>
+                        <th>Tipo</th>
+                        <th>Cupos</th>
+                        <th>Fecha Publicación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if ($ofertas->isEmpty())
+                    <tr>
+                        <td colspan="9" class="text-center">No se encontraron ofertas que coincidan con los filtros seleccionados.</td>
+                    </tr>
+                    @else
+                    @foreach ($ofertas as $oferta)
+                    <tr>
+                        <td>{{ $oferta->titulo }}</td>
+                        <td>{{$oferta->empresa->usuario->nombre}}</td>
+                        <td>{{ $oferta->region->nombre }}</td>
+                        <td>{{ $oferta->comuna->nombre }}</td>
+                        <td>{{ $oferta->carrera->nombre }}</td>
+                        <td>{{ $oferta->tipo->nombre }}</td>
+                        <td>{{ $oferta->cupos }}</td>
+                        <td>{{ \Carbon\Carbon::parse($oferta->fecha_publicacion)->diffForHumans() }}</td>
+                        <td>
+    
+                            @if (Gate::allows('empresa-gestion') or Gate::allows('admin-gestion'))
+                            <div class="d-flex">
+                                <a href="{{ route('ofertas.edit', $oferta->id) }}" class="btn btn-warning btn-sm text-white me-2">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalEliminar{{ $oferta->id }}">
+                                    <i class="material-icons">delete</i>
+                                </button>
+                            </div>
+    
+                            {{-- Modal Eliminar --}}
+                            <div class="modal fade" id="modalEliminar{{ $oferta->id }}" tabindex="-1" aria-labelledby="modalEliminarLabel{{ $oferta->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4><strong>¡Esta acción no se puede deshacer!</strong></h4>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h5 class="modal-title" id="modalEliminarLabel{{ $oferta->id }}">
+                                                ¿Está seguro de que desea eliminar la oferta <strong>{{ $oferta->titulo }}</strong>?
+                                            </h5>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <form action="{{ route('ofertas.destroy', $oferta->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        {{-- /*Modal Eliminar --}}
-                        @endif
-                    </td>
-                </tr>
-                @endforeach
-                @endif
-            </tbody>
-        </table>
+                            {{-- /*Modal Eliminar --}}
+                            @endif
+                        </td>
+                    </tr>
+                    @endforeach
+                    @endif
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 @if ($errors->any())

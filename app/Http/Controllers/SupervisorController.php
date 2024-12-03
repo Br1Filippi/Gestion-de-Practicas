@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Supervisor;
+use App\Models\Solicitud;
+use App\Models\Practica;
 use App\Models\Empresa;
 use App\Http\Requests\SupervisorUsuarioRequest;
 use App\Http\Requests\SupervisorUsuarioUpdate;
@@ -14,28 +16,34 @@ use Illuminate\Support\Facades\Hash;
 class SupervisorController extends Controller
 {
     public function index(Request $request)
+{
+    $query = Supervisor::query();
+
+    if(Gate::allows('empresa-gestion'))
     {
-        $query = Supervisor::query();
+        $emailUsuario = auth()->user()->correo_usuario; 
+        $empresaId = Empresa::where('id_usuario', $emailUsuario)->first()->id;
 
-        if(Gate::allows('empresa-gestion'))
-        {
-            $emailUsuario = auth()->user()->correo_usuario; 
-            $empresaId = Empresa::where('id_usuario', $emailUsuario)->first()->id;
-
-            $query->where('id_empresa',$empresaId);
-        }
-
-        if ($request->filled('termino')) 
-        {
-            $query->where('rut_supervisor', 'LIKE', '%' . $request->input('termino') . '%');
-        }
-    
-        $supervisores = $query->get();
-        $usuarios = Usuario::all();
-        $empresas = Empresa::all();
-
-        return view('supervisores.index', compact('supervisores','empresas','usuarios'));
+        $query->where('id_empresa', $empresaId);
     }
+
+    if ($request->filled('termino')) 
+    {
+        $query->where('rut_supervisor', 'LIKE', '%' . $request->input('termino') . '%');
+    }
+
+    $supervisores = $query->get();
+    $usuarios = Usuario::all();
+    $empresas = Empresa::all();
+
+    // Calcular la cantidad de practicantes asignados a cada supervisor
+    $cantidadPracticantes = [];
+    foreach ($supervisores as $supervisor) {
+        $cantidadPracticantes[$supervisor->id] = Practica::where('id_supervisor', $supervisor->id)->where('id_estado', 1)->count();
+    }
+
+    return view('supervisores.index', compact('supervisores', 'empresas', 'usuarios', 'cantidadPracticantes'));
+}
 
     public function create()
     {
@@ -85,13 +93,18 @@ class SupervisorController extends Controller
 
     public function destroy(Supervisor $supervisor)
     {
-
-        $usuarioId = $supervisor->id_usuario;
-        $usuario = Usuario::where('correo_usuario',$usuarioId);
-        $supervisor->delete();
-        $usuario->delete();
-        // $usuario->delete();
-        
+        $cantSol = Solicitud::where('id_supervisor',$supervisor->id)->count();
+        $cantPracticantes = Practica::where('id_supervisor',$supervisor->id)->count();
+        if ($cantPracticantes > 0) {
+            return back()->withErrors(['errors' => 'No se puede eliminar el supervisor, tiene practicantes asignados']);
+        }elseif ($cantSol > 0) {
+            return back()->withErrors(['errors' => 'No se puede eliminar el supervisor, tiene practicantes asignados']);
+        } else {
+            $usuarioId = $supervisor->id_usuario;
+            $usuario = Usuario::where('correo_usuario', $usuarioId)->first();
+            $supervisor->delete();
+            $usuario->delete();
+        }
         return redirect()->route('supervisores.index');
     }
 

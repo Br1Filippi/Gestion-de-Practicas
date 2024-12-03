@@ -4,11 +4,19 @@
 
 <div class="col-10">
     <div class="col-1 d-flex justify-content-center align-items-center mb-2 ms-3">
-        <a href="{{route('solicitudes.index')}}"
+        @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
+        <a href="{{ route('solicitudes.index') }}"
             class="btn text-white btn-warning d-flex justify-content-center align-items-center">
             <i class="material-icons text-white mx-1">arrow_back</i>
             <strong>Volver</strong>
         </a>
+        @elseif(Gate::allows('admin-gestion'))
+        <a href="{{ route('solicitudes.index2') }}"
+            class="btn text-white btn-warning d-flex justify-content-center align-items-center">
+            <i class="material-icons text-white mx-1">arrow_back</i>
+            <strong>Volver</strong>
+        </a>
+        @endif
     </div>
     <div class="container vh-95 d-flex justify-content-center align-items-center">
         <div class="card custom-card shadow-sm" style="width: 70%;">
@@ -80,7 +88,7 @@
                     <i class="material-icons" style="font-size: 1em">phone</i>
                     {{$solicitud->supervisor->fono_supervisor}}
                 </p>
-                @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
+                @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion') or Gate::allows('admin-gestion'))
                 <h4><strong>Datos del Estudiante</strong></h4>
                 <p>
                     <i class="material-icons" style="font-size: 1em">person</i>

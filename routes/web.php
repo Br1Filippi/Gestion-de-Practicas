@@ -89,6 +89,12 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
         Route::post('/solicitudes/store/{postulante}',[SolicitudesController::class,'store'])->name('solicitudes.store');
         Route::put('/solicitudes/passar/{solicitud}',[SolicitudesController::class,'passar'])->name('solicitudes.passar');
         Route::put('/solicitudes/rechazar/{solicitud}',[SolicitudesController::class,'rechazar'])->name('solicitudes.rechazar');
+        Route::get('/solicitudes/index',[SolicitudesController::class,'index2'])->name('solicitudes.index2');
+        Route::get('/solicitudes/crear',[SolicitudesController::class,'create'])->name('solicitudes.create');
+        Route::post('/solicitudes/crear',[SolicitudesController::class,'store2'])->name('solicitudes.store2');
+        Route::get('/solicitudes/edit/{solicitud}',[SolicitudesController::class,'edit'])->name('solicitudes.edit');
+        Route::put('/solicitudes/update/{solicitud}',[SolicitudesController::class,'update'])->name('solicitudes.update');
+        Route::delete('/solicitudes/{solicitud}',[SolicitudesController::class,'destroy'])->name('solicitudes.destroy');
     });
     //Solicitudes
 

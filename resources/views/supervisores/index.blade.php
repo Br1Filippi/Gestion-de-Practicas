@@ -71,7 +71,7 @@
                                             <p class="mb-1">{{$supervisor->titulo_supervisor}}</p>
                                         </div>
                                     </div>
-                                    <p class="card-text mb-0 mt-0"> cantidad de practicantes a su cargo: Working on it
+                                    <p class="card-text mb-0 mt-0"> cantidad de practicantes a su cargo: {{$cantidadPracticantes[$supervisor->id]}}
                                     </p>
                                 </div>
                                 <div class="col-1">
@@ -130,4 +130,30 @@
         </div>
     </div>
 </div>
+@if ($errors->any())
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+        errorModal.show();
+    });
+</script>
+
+<!-- Modal Errores -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h4><strong>Error</strong></h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{$errors->first()}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 @endsection

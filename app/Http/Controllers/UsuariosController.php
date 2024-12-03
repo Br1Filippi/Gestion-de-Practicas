@@ -44,8 +44,8 @@ class UsuariosController extends Controller
         if ($rol == 2) {
             $estudiante = Estudiante::where('id_usuario', $usuario->correo_usuario)->first();
             if ($estudiante) {
-                $cantSol = Solicitud::where('id_estudiante', $estudiante->id)->where('id_estado', 1)->count();
-                $cantPrac = Practica::where('id_estudiante', $estudiante->id)->where('id_estado', 1)->count();
+                $cantSol = Solicitud::where('id_estudiante', $estudiante->id)->count();
+                $cantPrac = Practica::where('id_estudiante', $estudiante->id)->count();
                 $cantPost = $estudiante->postulaciones()->count();
                 if ($cantSol > 0){
                     return back()->withErrors(['errors' => 'No puedes eliminar un estudiante con Solicitudes activas']);
@@ -89,7 +89,7 @@ class UsuariosController extends Controller
         if ($rol == 5) {
             $supervisor = Supervisor::where('id_usuario', $usuario->correo_usuario)->first();
             if ($supervisor) {
-                $cantSup = Practica::where('id_supervisor', $supervisor->id)->where('pass',null)->where('id_estado', 1)->count();
+                $cantSup = Practica::where('id_supervisor', $supervisor->id)->count();
                 if ($cantSup > 0){
                     return back()->withErrors(['errors' => 'No puedes eliminar un Supervisor con Practicas activas']);
                 }else{  

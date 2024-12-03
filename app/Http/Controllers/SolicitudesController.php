@@ -17,10 +17,113 @@ use App\Models\Tipo;
 use Carbon\Carbon;
 use App\Models\Supervisor;
 use App\Models\JefeDeCarrera;
-use App\Http\Requests\SolicitudesRequest;
+use App\Http\Requests\StoreSolicitudRequest;
+use App\Http\Requests\UpdateSolicitudRequest;
 
 class SolicitudesController extends Controller
 {
+
+    public function destroy(Solicitud $solicitud)
+    {
+        $solicitud->delete();
+        return redirect()->route('solicitudes.index2');
+    }
+
+    public function update(Solicitud $solicitud, UpdateSolicitudRequest $request)
+    {
+        $oferta = Oferta::find($request->oferta);
+        $estudiante = Estudiante::find($request->estudiante);
+
+        $solicitud->fecha_inicio = $request->fecha_inicio;
+        $solicitud->fecha_termino = $request->fecha_termino;
+        $solicitud->id_estado = $request->estado;
+        $solicitud->id_supervisor = $request->supervisor;
+        $solicitud->id_carrera = $estudiante->carrera->id;
+        $solicitud->id_oferta = $oferta->id;
+        $solicitud->id_empresa = $oferta->id_empresa;
+        $solicitud->id_estudiante = $estudiante->id;
+        $solicitud->id_tipo = $oferta->id_tipo;
+
+        $solicitud->save();
+
+        return redirect()->route('solicitudes.index2');
+    }
+
+    public function edit(Solicitud $solicitud)
+    {
+        $tipos = Tipo::all();
+        $carreras = Carrera::all();
+        $empresas = Empresa::all();
+        $estudiantes = Estudiante::all();
+        $supervisores = Supervisor::all();
+        $estados = Estado::all();
+        $ofertas = Oferta::all();
+        return view('solicitudes.edit', compact('solicitud', 'tipos', 'carreras', 'empresas', 'estudiantes', 'supervisores', 'ofertas','estados'));
+    }
+
+    public function store2(StoreSolicitudRequest $request)
+    {
+        $oferta = Oferta::find($request->oferta);
+        $estudiante = Estudiante::find($request->estudiante);
+
+        $solicitud = new Solicitud();
+        $solicitud->fecha_inicio = $request->fecha_inicio;
+        $solicitud->fecha_termino = $request->fecha_termino;
+        $solicitud->id_estado = 1; // Estado inicial
+        $solicitud->id_supervisor = $request->supervisor;
+        $solicitud->id_carrera = $estudiante->carrera->id;
+        $solicitud->id_oferta = $oferta->id;
+        $solicitud->id_empresa = $oferta->id_empresa;
+        $solicitud->id_estudiante = $estudiante->id;
+        $solicitud->id_tipo = $oferta->id_tipo;
+
+        $solicitud->save();
+
+        return redirect()->route('solicitudes.index2');
+    }
+
+    public function create()
+    {
+        $tipos = Tipo::all();
+        $carreras = Carrera::all();
+        $empresas = Empresa::all();
+        $estudiantes = Estudiante::all();
+        $supervisores = Supervisor::all();
+        $ofertas = Oferta::all();
+        return view('solicitudes.create', compact('tipos', 'carreras', 'empresas', 'estudiantes', 'supervisores', 'ofertas'));
+    }
+
+    public function index2(Request $request)
+    {
+        $query = Solicitud::query();
+        $tipos = Tipo::all();
+        $carreras = Carrera::all();
+        $estado = Estado::all();
+
+        // Filtros
+        if ($request->filled('termino')) {
+            $query->where('titulo', 'like', '%' . $request->input('termino') . '%');
+        }
+
+        if ($request->filled('tipo')) {
+            $query->where('id_tipo', $request->input('tipo'));
+        }
+
+        if ($request->filled('carrera')) {
+            $query->where('id_carrera', $request->input('carrera'));
+        }
+
+        if ($request->filled('estado')) {
+            $query->where('id_estado', $request->input('estado'));
+        }
+
+        $solicitudes = $query->get();
+        
+
+        return view('solicitudes.index2', compact('solicitudes', 'tipos', 'carreras', 'estado'));
+    }
+
+
     public function index(Request $request)
     {
         $emailUsuario = auth()->user()->correo_usuario;
@@ -89,26 +192,5 @@ class SolicitudesController extends Controller
         $solicitud->id_estado = 3;
         $solicitud->save();
         return redirect()->route('solicitudes.index');
-    }
-
-
-    public function store(Postulacion $postulante,SolicitudesRequest $request)
-    {
-        $solicitud = new Solicitud();
-        $solicitud->fecha_inicio = $request->fecha_inicio;
-        $solicitud->fecha_termino = $request->fecha_termino;
-        $solicitud->id_estado = 1;
-        $solicitud->id_supervisor = $request->supervisor;
-        $solicitud->id_carrera = $postulante->oferta->id_carrera;
-        $solicitud->id_oferta = $postulante->id_oferta;
-        $solicitud->id_empresa = $postulante->oferta->id_empresa;
-        $solicitud->id_estudiante = $postulante->id_estudiante;
-        $solicitud->id_tipo = $postulante->oferta->id_tipo;
-
-        $solicitud->save();
-
-        $oferta = Oferta::find($postulante->id_oferta);
-        $postulante->delete();
-        return redirect()->route('postulantes.index',compact('oferta')); 
     }
 }

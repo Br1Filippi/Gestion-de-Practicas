@@ -36,20 +36,41 @@
                 </div>
             </div>
 
-            {{-- Gestion de Solicitudes --}}
+            {{-- Gestion de Ofertas --}}
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card shadow-sm">
                     <div class="card-body text-center">
-                        <i class="material-icons text-danger" style="font-size: 48px;">supervised_user_circle</i>
+                        <i class="material-icons text-danger" style="font-size: 48px;">format_list_bulleted</i>
                         <h5 class="card-title">Gestión de Ofertas</h5>
                         <a href="{{route('ofertas.index2')}}" class="btn btn-danger">Gestionar Ofertas</a>
                     </div>
                 </div>
-            </div>
+            </div> 
+            
+            {{-- Gestion de Solicitudes --}}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="material-icons text-success" style="font-size: 48px;">file_open</i>
+                        <h5 class="card-title">Gestión de Solicidtudes</h5>
+                        <a href="{{route('solicitudes.index2')}}" class="btn btn-success">Gestionar Solicitudes</a>
+                    </div>
+                </div>
+            </div> 
 
-                                
+            {{-- Gestion de Practicas --}}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="material-icons text-info" style="font-size: 48px;">diversity_3</i>
+                        <h5 class="card-title">Gestión de Practicas</h5>
+                        <a href="{{route('solicitudes.index2')}}" class="btn btn-info text-white">Gestionar Practicas</a>
+                    </div>
+                </div>
+            </div> 
+
         </div>
-    
     </div>
 </div>
+
 @endsection

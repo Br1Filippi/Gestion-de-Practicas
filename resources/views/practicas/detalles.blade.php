@@ -50,7 +50,6 @@
                         @endif
                     </div>
                     <div class="col-3 d-flex justify-content-center aling-items-center">
-                        @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
                         <div class="row">
                             <div class="col mt-4 mb-0 pb-0">
                                 {{-- Botones para ver informe y evaluación --}}
@@ -68,7 +67,6 @@
                                 </a>
                             </div>
                         </div>
-                        @endif
                     </div>
                 </div>
             </div>

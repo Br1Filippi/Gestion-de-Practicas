@@ -8,6 +8,7 @@ use App\Models\Oferta;
 use App\Models\Tipo;
 use App\Models\Carrera;
 use App\Models\Region;
+use App\Models\Solicitud;
 use App\Models\Comuna;
 use App\Models\Empresa;
 use App\Models\Postulacion;
@@ -214,9 +215,12 @@ class OfertasController extends Controller
 
     public function destroy(Oferta $oferta)
     {
+        $cantSol = Solicitud::where('id_oferta', $oferta->id)->count();
         $cantPost = Postulacion::where('id_oferta', $oferta->id)->count();
         if ($cantPost > 0) {
             return back()->withErrors(['error'=>'No se puede eliminar la oferta porque tiene postulaciones']);
+        }elseif ($cantSol > 0) {
+            return back()->withErrors(['error'=>'No se puede eliminar la oferta porque tiene solicitudes']);
         }else{
             $oferta->delete();
             if (Gate::allows('empresa-gestion')) {

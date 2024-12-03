@@ -10,11 +10,19 @@
                     {{$practica->estudiante->usuario->apellido}}</strong></h3>
         </div>
         <div class="col-2 d-flex justify-content-end align-items-center">
-            <a href="{{route('practicas.practicantes')}}"
-                class="btn text-white btn-warning d-flex justify-content-center align-items-center">
-                <i class="material-icons text-white mx-1">arrow_back</i>
-                <strong>Volver</strong>
-            </a>
+            @if(Gate::allows('admin-gestion'))
+                <a href="{{route('practicas.detalles',$practica->id)}}"
+                    class="btn text-white btn-warning d-flex justify-content-center align-items-center">
+                    <i class="material-icons text-white mx-1">arrow_back</i>
+                    <strong>Volver</strong>
+                </a>
+            @else
+                <a href="{{route('practicas.practicantes')}}"
+                    class="btn text-white btn-warning d-flex justify-content-center align-items-center">
+                    <i class="material-icons text-white mx-1">arrow_back</i>
+                    <strong>Volver</strong>
+                </a>
+            @endif
         </div>
     </div>
 

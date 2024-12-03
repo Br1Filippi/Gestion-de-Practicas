@@ -117,6 +117,8 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
         Route::post('/evaluaciones/desempeño/store/{practica}',[EvaluacionesController::class,'evaluarInforme'])->name('evaluaciones.evaluarInforme');
         Route::get('/evaluaciones/verDesempeño/{practica}',[EvaluacionesController::class,'verDesempeño'])->name('evaluaciones.verDesempeño');
         Route::get('/evaluaciones/verInforme/{practica}',[EvaluacionesController::class,'verInforme'])->name('evaluaciones.verInforme');
+        Route::delete('/evaluaciones/desempeño/{practica}', [EvaluacionesController::class, 'destroyDesempeño'])->name('evaluaciones.destroyDesempeño');
+        Route::delete('/evaluaciones/informe/{practica}', [EvaluacionesController::class, 'destroyInforme'])->name('evaluaciones.destroyInforme');
     });
     //Evaluaciones
 
@@ -128,6 +130,13 @@ Route::post('/usuarios/crear/empresa',[EmpresasController::class,'storeEmpresa']
         Route::post('/practicas/store/{solicitud}',[PracticasController::class,'store'])->name('practicas.store');
         Route::put('/practicas/passar/{practica}',[PracticasController::class,'passar'])->name('practicas.passar');
         Route::put('/practicas/rechazar/{practica}',[PracticasController::class,'rechazar'])->name('practicas.rechazar');
+        Route::get('/practicas/index',[PracticasController::class,'index2'])->name('practicas.index2');
+        Route::get('/practicas/crear',[PracticasController::class,'create'])->name('practicas.create');
+        Route::get('/practicas/supervisores-ofertas/{empresaId}', [PracticasController::class, 'getSupervisoresOfertas']);
+        Route::post('/practicas/store2',[PracticasController::class,'store2'])->name('practicas.store2');
+        Route::get('/practicas/edit/{practica}',[PracticasController::class,'edit'])->name('practicas.edit');
+        Route::put('/practicas/update/{practica}',[PracticasController::class,'update'])->name('practicas.update');
+        Route::delete('/practicas/{practica}',[PracticasController::class,'destroy'])->name('practicas.destroy');
     });
     //Practicas
 

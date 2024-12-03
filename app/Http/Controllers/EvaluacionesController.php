@@ -19,6 +19,7 @@ use App\Models\Supervisor;
 use App\Models\JefeDeCarrera;
 use App\Http\Requests\InformRequest;
 use App\Http\Requests\EvaluacionRequest;
+use Illuminate\Support\Facades\Gate;
 
 
 
@@ -48,7 +49,11 @@ class EvaluacionesController extends Controller
         $practica -> id_informe = $informe -> id;
         $practica -> save();
 
-        return redirect()->route('practicas.practicantes');
+        if(Gate::allows('admin-gestion')){
+            return redirect()->route('practicas.detalles', $practica->id);
+        }else{
+            return redirect()->route('practicas.practicantes');
+        }
     }
 
     public function evaluarInforme(Practica $practica,EvaluacionRequest $request)
@@ -67,7 +72,11 @@ class EvaluacionesController extends Controller
         $practica -> id_evaluacion = $evaluacion -> id;
         $practica -> save();
 
-        return redirect()->route('practicas.practicantes');
+        if(Gate::allows('admin-gestion')){
+            return redirect()->route('practicas.detalles', $practica->id);
+        }else{
+            return redirect()->route('practicas.practicantes');
+        }
     }
 
 
@@ -89,4 +98,25 @@ class EvaluacionesController extends Controller
         }
         return view('evaluaciones.desempeño', compact('practica'));
     }
+
+    public function destroyInforme(Practica $practica)
+    {
+        $informe = Informe::find($practica->id_informe);
+        if ($informe) {
+            Practica::where('id_informe', $practica->id_informe)->update(['id_informe' => null]);
+            $informe->delete();
+        }
+        return redirect()->route('practicas.edit', $practica->id);
+    }
+
+    public function destroyDesempeño(Practica $practica)
+    {
+        $evaluacion = Evaluacion::find($practica->id_evaluacion);
+        if ($evaluacion) {
+            Practica::where('id_evaluacion', $practica->id_evaluacion)->update(['id_evaluacion' => null]);
+            $evaluacion->delete();
+        }
+        return redirect()->route('practicas.edit', $practica->id);
+    }
+
 }

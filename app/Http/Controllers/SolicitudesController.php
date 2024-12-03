@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use App\Models\Supervisor;
 use App\Models\JefeDeCarrera;
 use App\Http\Requests\StoreSolicitudRequest;
+use App\Http\Requests\SolicitudesRequest;
 use App\Http\Requests\UpdateSolicitudRequest;
 
 class SolicitudesController extends Controller
@@ -192,5 +193,25 @@ class SolicitudesController extends Controller
         $solicitud->id_estado = 3;
         $solicitud->save();
         return redirect()->route('solicitudes.index');
+    }
+
+    public function store(Postulacion $postulante,SolicitudesRequest $request)
+    {
+        $solicitud = new Solicitud();
+        $solicitud->fecha_inicio = $request->fecha_inicio;
+        $solicitud->fecha_termino = $request->fecha_termino;
+        $solicitud->id_estado = 1;
+        $solicitud->id_supervisor = $request->supervisor;
+        $solicitud->id_carrera = $postulante->oferta->id_carrera;
+        $solicitud->id_oferta = $postulante->id_oferta;
+        $solicitud->id_empresa = $postulante->oferta->id_empresa;
+        $solicitud->id_estudiante = $postulante->id_estudiante;
+        $solicitud->id_tipo = $postulante->oferta->id_tipo;
+
+        $solicitud->save();
+
+        $oferta = Oferta::find($postulante->id_oferta);
+        $postulante->delete();
+        return redirect()->route('postulantes.index',compact('oferta')); 
     }
 }

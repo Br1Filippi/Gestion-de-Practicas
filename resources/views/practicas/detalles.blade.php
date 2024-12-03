@@ -4,11 +4,20 @@
 
 <div class="col-10">
     <div class="col-1 d-flex justify-content-center align-items-center mb-2 ms-3">
+        @if (Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
         <a href="{{route('practicas.index')}}"
             class="btn text-white btn-warning d-flex justify-content-center align-items-center">
             <i class="material-icons text-white mx-1">arrow_back</i>
             <strong>Volver</strong>
         </a>
+        @endif
+        @if (Gate::allows('admin-gestion'))
+        <a href="{{route('practicas.index2')}}"
+            class="btn text-white btn-warning d-flex justify-content-center align-items-center">
+            <i class="material-icons text-white mx-1">arrow_back</i>
+            <strong>Volver</strong>
+        </a>
+        @endif
     </div>
     <div class="container vh-95 d-flex justify-content-center align-items-center">
         <div class="card custom-card shadow-sm" style="width: 70%;">
@@ -53,18 +62,33 @@
                         <div class="row">
                             <div class="col mt-4 mb-0 pb-0">
                                 {{-- Botones para ver informe y evaluación --}}
+                                @if($practica->id_informe == null)
+                                <a href="{{route('evaluaciones.informe', $practica->id)}}"
+                                    class="  btn text-white btn-primary mx-2 d-flex justify-content-center align-items-center ">
+                                    <i class="material-icons text-white mx-1" style="font-size: 1em">description</i>
+                                    <strong>Evaluar Informe</strong>
+                                </a>
+                                @else
                                 <a href="{{route('evaluaciones.verInforme', $practica->id)}}"
                                     class="  btn text-white btn-primary mx-2 d-flex justify-content-center align-items-center ">
                                     <i class="material-icons text-white mx-1" style="font-size: 1em">description</i>
                                     <strong>Ver Informe</strong>
                                 </a>
+                                @endif
                             </div>
                             <div class="col mt-0">
-                                <a href="{{route('evaluaciones.verDesempeño', $practica->id)}}"
+                                @if($practica->id_evaluacion == null)
+                                <a href="{{route('evaluaciones.desempeño', $practica->id)}}"
+                                    class="  btn text-white btn-warning mx-2 d-flex justify-content-center align-items-center">
+                                    <i class="material-icons text-white mx-1" style="font-size: 1em">assessment</i>
+                                    <strong>Evaluar</strong>
+                                </a>
+                                @else<a href="{{route('evaluaciones.verDesempeño', $practica->id)}}"
                                     class="  btn text-white btn-warning mx-2 d-flex justify-content-center align-items-center">
                                     <i class="material-icons text-white mx-1" style="font-size: 1em">assessment</i>
                                     <strong>Ver Evaluación</strong>
                                 </a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -102,7 +126,7 @@
                     <i class="material-icons" style="font-size: 1em">phone</i>
                     {{$practica->supervisor->fono_supervisor}}
                 </p>
-                @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion'))
+                @if(Gate::allows('jefe-gestion') or Gate::allows('secretaria-gestion') or Gate::allows('admin-gestion'))
                 <h4><strong>Datos del Estudiante</strong></h4>
                 <p>
                     <i class="material-icons" style="font-size: 1em">person</i>

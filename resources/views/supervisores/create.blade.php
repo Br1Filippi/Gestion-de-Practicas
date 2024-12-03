@@ -86,6 +86,8 @@
                                 <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
                                 @enderror
                             </div>
+                            @else
+                            <input type="hidden" name="empresa" value="1">
                             @endif
 
                             {{-- Rut --}}

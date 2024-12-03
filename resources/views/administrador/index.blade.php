@@ -52,7 +52,7 @@
                 <div class="card shadow-sm">
                     <div class="card-body text-center">
                         <i class="material-icons text-success" style="font-size: 48px;">file_open</i>
-                        <h5 class="card-title">Gestión de Solicidtudes</h5>
+                        <h5 class="card-title">Gestión de Solicitudes</h5>
                         <a href="{{route('solicitudes.index2')}}" class="btn btn-success">Gestionar Solicitudes</a>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                     <div class="card-body text-center">
                         <i class="material-icons text-info" style="font-size: 48px;">diversity_3</i>
                         <h5 class="card-title">Gestión de Practicas</h5>
-                        <a href="{{route('solicitudes.index2')}}" class="btn btn-info text-white">Gestionar Practicas</a>
+                        <a href="{{route('practicas.index2')}}" class="btn btn-info text-white">Gestionar Practicas</a>
                     </div>
                 </div>
             </div> 

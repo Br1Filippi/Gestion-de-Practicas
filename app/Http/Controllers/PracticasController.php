@@ -17,9 +17,117 @@ use App\Models\Estado;
 use App\Models\Supervisor;
 use App\Models\Tipo;
 use App\Models\JefeDeCarrera;
+use App\Http\Requests\StorePracticaRequest;
+use App\Http\Requests\UpdatePracticaRequest;
 
 class PracticasController extends Controller
 {
+
+    public function destroy(Practica $practica)
+    {
+        $practica->delete();
+        return redirect()->route('practicas.index2');
+    }
+
+    public function update(Practica $practica, UpdatePracticaRequest $request)
+    {
+        $estudiante = Estudiante::find($request->estudiante);
+        $oferta = Oferta::find($request->oferta);
+        $supervisor = Supervisor::find($request->supervisor);
+
+        $practica->fecha_inicio = $request->fecha_inicio;
+        $practica->fecha_termino = $request->fecha_termino;
+        $practica->id_carrera = $estudiante->carrera->id;
+        $practica->id_estado = $request->estado;
+        $practica->id_oferta = $oferta->id;
+        $practica->id_estudiante = $estudiante->id;
+        $practica->id_empresa = $request->empresa;
+        $practica->id_supervisor = $supervisor->id;
+        $practica->id_tipo = $oferta->tipo->id;
+        $practica->save();
+        return redirect()->route('practicas.index2');
+    }
+
+    public function edit(Practica $practica)
+    {
+        $supervisores = Supervisor::all();
+        $empresas = Empresa::all();
+        $estudiantes = Estudiante::all();
+        $ofertas = Oferta::all();
+        $estados = Estado::all();
+        return view('practicas.edit', compact('supervisores','empresas', 'estudiantes', 'ofertas', 'estados', 'practica'));
+    }
+
+    public function store2(StorePracticaRequest $request)
+    {
+        $estudiante = Estudiante::find($request->estudiante);
+        $oferta = Oferta::find($request->oferta);
+        $supervisor = Supervisor::find($request->supervisor);
+
+        $practica = new Practica();
+        $practica->fecha_inicio = $request->fecha_inicio;
+        $practica->fecha_termino = $request->fecha_termino;
+        $practica->id_carrera = $estudiante->carrera->id;
+        $practica->id_estado = 1;
+        $practica->id_oferta = $oferta->id;
+        $practica->id_estudiante = $estudiante->id;
+        $practica->id_empresa = $request->empresa;
+        $practica->id_supervisor = $supervisor->id;
+        $practica->id_tipo = $oferta->tipo->id;
+        $practica->save();
+        return redirect()->route('practicas.index2');
+    }
+
+    public function getSupervisoresOfertas($empresaId)
+    {
+        $supervisores = Supervisor::where('id_empresa', $empresaId)->with('usuario')->get();
+        $ofertas = Oferta::where('id_empresa', $empresaId)->with('empresa.usuario')->get();
+        return response()->json(['supervisores' => $supervisores, 'ofertas' => $ofertas]);
+    }
+
+    public function create()
+    {
+        $supervisores = Supervisor::all();
+        $empresas = Empresa::all();
+        $estudiantes = Estudiante::all();
+        $ofertas = Oferta::all();
+        return view('practicas.create', compact('supervisores','empresas', 'estudiantes', 'ofertas'));
+    }
+
+    public function index2(Request $request)
+    {
+        $query = Practica::query();
+        $tipos = Tipo::all();
+        $carreras = Carrera::all();
+        $estados = Estado::all();
+
+        // Filtros
+        if ($request->filled('termino')) {
+            $query->whereHas('estudiante.usuario', function ($q) use ($termino) {
+                $q->where('nombre', 'like', '%' . $termino . '%')
+                  ->orWhere('apellido', 'like', '%' . $termino . '%');
+            })->orWhereHas('estudiante', function ($q) use ($termino) {
+                $q->where('rut_estudiante', 'like', '%' . $termino . '%');
+            });
+        }
+
+        if ($request->filled('tipo')) {
+            $query->where('id_tipo', $request->input('tipo'));
+        }
+
+        if ($request->filled('carrera')) {
+            $query->where('id_carrera', $request->input('carrera'));
+        }
+
+        if ($request->filled('estado')) {
+            $query->where('id_estado', $request->input('estado'));
+        }
+
+        $practicas = $query->get();
+
+        return view('practicas.index2', compact('practicas', 'tipos', 'carreras', 'estados'));
+    }
+
     public function practicantes()
     {
 
@@ -66,7 +174,6 @@ class PracticasController extends Controller
             $practicas = Practica::where('pass', 1)->where('id_estado', 1)->get();
         }
 
-        return view('practicas.practicantes', compact('practicantes'));
         return view('practicas.practicantes');
     
     }

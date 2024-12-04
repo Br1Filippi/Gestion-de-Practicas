@@ -8,7 +8,6 @@
                 @csrf
                 @method('PUT')
                 <div class="card-body bg-white shadow-sm mt-2 pb-3">
-                    
                     {{-- Fecha de Inicio --}}
                     <h5 class="d-flex"><strong>Fecha de Inicio:</strong></h5>
                     <input 
@@ -33,6 +32,7 @@
                         <div class="text-danger d-flex" style="font-size: 0.8rem;">{{ $message }}</div>
                     @enderror
 
+                    {{-- Estado --}}
                     <h5 class="d-flex mt-3"><strong>Estado:</strong></h5>
                     <select name="estado" class="form-select @error('estado') is-invalid @enderror">
                         <option value="{{ $practica->estado->id }}">{{ $practica->estado->nombre_estado }}</option>
@@ -204,4 +204,49 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        const baseUrl = "{{ url('/practicas/supervisores-ofertas') }}";
+
+        $('#empresa-select').on('change', function () {
+            const empresaId = $(this).val();
+            
+            if (!empresaId) {
+                console.error('No se ha seleccionado ninguna empresa.');
+                return;
+            }
+
+            const requestUrl = `${baseUrl}/${empresaId}`;
+            console.log(`URL usada: ${requestUrl}`);
+
+            $.ajax({
+                url: requestUrl,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    console.log('Datos recibidos:', data);
+
+                    // Resto del código para actualizar selectores
+                    const supervisorSelect = $('#supervisor-select');
+                    const ofertaSelect = $('#oferta-select');
+
+                    supervisorSelect.empty().append('<option value="">Seleccione Supervisor</option>');
+                    $.each(data.supervisores, function (index, supervisor) {
+                        supervisorSelect.append(`<option value="${supervisor.id}">Rut: ${supervisor.rut_supervisor} / Nombre: ${supervisor.usuario.nombre} ${supervisor.usuario.apellido}</option>`);
+                    });
+
+                    ofertaSelect.empty().append('<option value="">Seleccione Oferta</option>');
+                    $.each(data.ofertas, function (index, oferta) {
+                        ofertaSelect.append(`<option value="${oferta.id}">Id: ${oferta.id} / ${oferta.titulo}</option>`);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error en la solicitud Ajax:', error);
+                }
+            });
+        });
+    });
+</script>
 @endsection

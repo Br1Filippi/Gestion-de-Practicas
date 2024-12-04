@@ -18,6 +18,10 @@ class JefesdecarreraSeeder extends Seeder
                 'id_usuario' => 'JefeDeCarrera1@usm.cl',
                 'id_carrera' => 1,
             ],
+            [
+                'id_usuario' => 'JefeDeCarrera2@usm.cl',
+                'id_carrera' => 2,
+            ],
         ]);
     }
 }

@@ -57,6 +57,10 @@ class Rol_UsuarioSeeder extends Seeder
                 'id_usuario' => 'Alumno4@usm.cl',
                 'id_rol' => 2, // ID del rol "estudiante"
             ],
+            [
+                'id_usuario' => 'JefeDeCarrera2@usm.cl',
+                'id_rol' => 4, // ID del rol "Jefe de Carrera"
+            ],
         ]);
     }
 }

@@ -174,7 +174,7 @@ class PracticasController extends Controller
             $practicas = Practica::where('pass', 1)->where('id_estado', 1)->get();
         }
 
-        return view('practicas.practicantes');
+        return view('practicas.practicantes',compact('practicantes'));
     
     }
 

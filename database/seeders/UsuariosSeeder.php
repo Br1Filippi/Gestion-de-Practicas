@@ -92,6 +92,13 @@ class UsuariosSeeder extends Seeder
                 'apellido' => 'Ruiz',
                 'imagen'=> null,
             ],
+            [
+                'correo_usuario' => 'JefeDeCarrera2@usm.cl',
+                'password' => Hash::make('123'),
+                'nombre' => 'Jefe',
+                'apellido' => 'Carrera',
+                'imagen'=> null,
+            ],
         ]);
     }
 }
